@@ -190,6 +190,55 @@
                                         <option value="tawakal">Tawakal & Berserah</option>
                                     </select>
                                 </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide">Pilih Karakter</label>
+                                    <select id="gen-actor" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm">
+                                        <option value="man">Pria (Default)</option>
+                                        <option value="woman">Wanita (Berhijab)</option>
+                                        <option value="boy">Anak Laki-laki</option>
+                                        <option value="girl">Anak Perempuan (Berhijab)</option>
+                                        <option value="custom">Lainnya (Isi Manual)...</option>
+                                    </select>
+                                    <input type="text" id="gen-actor-custom" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm mt-2 hidden" placeholder="Ketik karakter manual... (contoh: old wise grandfather)">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide">Gaya Pakaian (Opsional)</label>
+                                    <select id="gen-clothing" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm">
+                                        <option value="">Kasual (Sesuai Konsep)</option>
+                                        <option value="elegant modern clothes">Modern / Elegan</option>
+                                        <option value="traditional islamic clothing">Tradisional Islami</option>
+                                        <option value="formal office clothes">Formal Kantoran</option>
+                                        <option value="simple modest clothes">Sederhana / Merakyat</option>
+                                        <option value="custom">Lainnya (Isi Manual)...</option>
+                                    </select>
+                                    <input type="text" id="gen-clothing-custom" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm mt-2 hidden" placeholder="Ketik gaya pakaian manual di sini... (contoh: white kurta)">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide">Suasana / Kondisi</label>
+                                    <select id="gen-mood" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm">
+                                        <option value="">Bawaan Cerita (Default)</option>
+                                        <option value="raining heavy, melancholic">Hujan Lebat / Melankolis</option>
+                                        <option value="sunny morning, peaceful, bright">Pagi Cerah / Damai</option>
+                                        <option value="golden hour sunset, warm">Senja (Golden Hour) / Hangat</option>
+                                        <option value="dark night, dramatic lighting">Malam Hari / Dramatis</option>
+                                        <option value="foggy, mysterious, calm">Berkabut / Tenang</option>
+                                        <option value="custom">Lainnya (Isi Manual)...</option>
+                                    </select>
+                                    <input type="text" id="gen-mood-custom" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm mt-2 hidden" placeholder="Ketik suasana manual... (contoh: stormy and windy)">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-wide">Lokasi / Tempat</label>
+                                    <select id="gen-location" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm">
+                                        <option value="">Bawaan Cerita (Default)</option>
+                                        <option value="beautiful grand mosque interior">Dalam Masjid Besar</option>
+                                        <option value="busy urban city street">Jalanan Kota</option>
+                                        <option value="peaceful nature, mountain background">Alam Terbuka / Pegunungan</option>
+                                        <option value="dimly lit bedroom">Kamar Tidur</option>
+                                        <option value="beach side">Tepi Pantai</option>
+                                        <option value="custom">Lainnya (Isi Manual)...</option>
+                                    </select>
+                                    <input type="text" id="gen-location-custom" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-emerald-500 transition-colors text-sm mt-2 hidden" placeholder="Ketik lokasi manual... (contoh: ancient library)">
+                                </div>
                                 <button onclick="generateWisdom()" id="btn-generate" class="w-full btn-premium py-3 rounded-xl font-semibold text-white shadow-lg flex justify-center items-center gap-2 mt-4">
                                     <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Story
                                 </button>
@@ -571,18 +620,141 @@
         wisdomDB.jodoh = wisdomDB.rezeki;
         wisdomDB.tawakal = wisdomDB.sabar;
 
+        function toggleCustomInputs() {
+            const selects = ['gen-actor', 'gen-clothing', 'gen-mood', 'gen-location'];
+            selects.forEach(id => {
+                const selectEl = document.getElementById(id);
+                const customInput = document.getElementById(id + '-custom');
+                if (selectEl && customInput) {
+                    if (selectEl.value === 'custom') {
+                        customInput.classList.remove('hidden');
+                    } else {
+                        customInput.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
         function generateWisdom() {
             const btn = document.getElementById('btn-generate');
             const container = document.getElementById('gen-scenes-container');
             const theme = document.getElementById('gen-theme').value;
             
+            // Mengambil Nilai dari Dropdown & Kustom
+            let actorType = document.getElementById('gen-actor').value;
+            let clothingType = document.getElementById('gen-clothing').value;
+            let moodType = document.getElementById('gen-mood').value;
+            let locationType = document.getElementById('gen-location').value;
+            
+            // Mengganti nilai dengan teks manual jika memilih opsi custom
+            if (actorType === 'custom') actorType = document.getElementById('gen-actor-custom').value;
+            if (clothingType === 'custom') clothingType = document.getElementById('gen-clothing-custom').value;
+            if (moodType === 'custom') moodType = document.getElementById('gen-mood-custom').value;
+            if (locationType === 'custom') locationType = document.getElementById('gen-location-custom').value;
+            
+            // Merangkai deskripsi karakter dinamis
+            let promptActor = "young muslim man";
+            let isCustomActor = false;
+
+            if (actorType === 'woman') promptActor = "young muslim woman wearing hijab";
+            else if (actorType === 'boy') promptActor = "muslim boy";
+            else if (actorType === 'girl') promptActor = "muslim girl wearing hijab";
+            else if (actorType !== 'man' && actorType.trim() !== "") {
+                promptActor = actorType; // Menggunakan aktor manual
+                isCustomActor = true;
+            }
+
+            if (clothingType && clothingType.trim() !== "") {
+                if (isCustomActor) {
+                    promptActor += ` wearing ${clothingType}`;
+                } else {
+                    promptActor += (actorType === 'woman' || actorType === 'girl') 
+                        ? ` and ${clothingType}` 
+                        : ` wearing ${clothingType}`;
+                }
+            }
+
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyusun Storyboard...';
             btn.disabled = true; container.innerHTML = '';
 
             setTimeout(() => {
                 const db = wisdomDB[theme] || wisdomDB.sabar;
                 const randomIndex = Math.floor(Math.random() * db.length);
-                const selected = db[randomIndex];
+                
+                // DEEP COPY: Mengkopi data tanpa merusak / mengubah database asli yang tersimpan
+                const selected = JSON.parse(JSON.stringify(db[randomIndex]));
+                
+                // Penyesuaian kata kunci untuk UI Terjemahan
+                let actorId = 'Seorang pemuda';
+                let workerId = 'Seorang pekerja';
+                let traderId = 'Seorang pedagang';
+                if (actorType === 'woman') {
+                    actorId = 'Seorang muslimah'; workerId = 'Seorang pekerja wanita'; traderId = 'Seorang pedagang wanita';
+                } else if (actorType === 'boy') {
+                    actorId = 'Seorang anak laki-laki'; workerId = 'Seorang anak laki-laki yang bekerja'; traderId = 'Seorang pedagang cilik';
+                } else if (actorType === 'girl') {
+                    actorId = 'Seorang anak perempuan'; workerId = 'Seorang anak perempuan yang bekerja'; traderId = 'Seorang pedagang cilik perempuan';
+                } else if (isCustomActor) {
+                    actorId = `Seseorang (${promptActor})`; workerId = actorId; traderId = actorId;
+                }
+
+                // Modifikasi teks master konsep secara dinamis (Terjemahan UI)
+                selected.master_concept = selected.master_concept
+                    .replace(/Seorang pemuda/gi, actorId)
+                    .replace(/Seorang pekerja/gi, workerId)
+                    .replace(/Seorang pedagang/gi, traderId)
+                    .replace(/Seorang muslimah/gi, actorId);
+
+                // Setup Prefix Suasana & Lokasi
+                let environmentPrefix = "";
+                if (locationType && locationType.trim() !== "") environmentPrefix += `[Location: ${locationType}] `;
+                if (moodType && moodType.trim() !== "") environmentPrefix += `[Atmosphere: ${moodType}] `;
+
+                // Modifikasi Prompt Video (Inggris) secara dinamis
+                selected.scenes.forEach((sc) => {
+                    // 1. Timpa subjek karakter
+                    sc.prompt_video = sc.prompt_video
+                        .replace(/young muslim woman wearing hijab/gi, promptActor)
+                        .replace(/young muslim woman/gi, promptActor)
+                        .replace(/young muslim man/gi, promptActor)
+                        .replace(/same young man/gi, `same ${promptActor}`)
+                        .replace(/same young woman/gi, `same ${promptActor}`)
+                        .replace(/same woman/gi, `same ${promptActor}`);
+                        
+                    // 2. Timpa Pronoun (Kata Ganti he/she/his/her/man/woman/boy/girl) agar AI Generate Video tidak bingung
+                    if (!isCustomActor) {
+                        if (actorType === 'woman' || actorType === 'girl') {
+                            sc.prompt_video = sc.prompt_video
+                                .replace(/\bhe is\b/gi, "she is")
+                                .replace(/\bHe is\b/g, "She is")
+                                .replace(/\bhe\b/gi, "she")
+                                .replace(/\bHe\b/g, "She")
+                                .replace(/\bhis\b/gi, "her")
+                                .replace(/\bHis\b/g, "Her")
+                                .replace(/\bhim\b/gi, "her")
+                                .replace(/\bman\b/g, actorType === 'girl' ? "girl" : "woman");
+                        } else {
+                            sc.prompt_video = sc.prompt_video
+                                .replace(/\bshe is\b/gi, "he is")
+                                .replace(/\bShe is\b/g, "He is")
+                                .replace(/\bshe\b/gi, "he")
+                                .replace(/\bShe\b/g, "He")
+                                .replace(/\bher\b/gi, "his")
+                                .replace(/\bHer\b/g, "His")
+                                .replace(/\bwoman\b/g, actorType === 'boy' ? "boy" : "man")
+                                .replace(/\bman\b/g, actorType === 'boy' ? "boy" : "man");
+                        }
+                    }
+
+                    // 3. Inject Suasana & Lokasi di awal prompt secara aman
+                    if (environmentPrefix !== "") {
+                        // Menambahkan konteks ke prompt visual setelah teks "Scene X:"
+                        sc.prompt_video = sc.prompt_video.replace(/Scene \d+:/i, `$& ${environmentPrefix} - `);
+                    }
+                    
+                    sc.prompt_video = sc.prompt_video.replace(/  +/g, ' '); // Merapikan spasi dobel
+                });
+
                 currentGeneratedData = selected;
                 
                 selected.scenes.forEach((sc, index) => {
