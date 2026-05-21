@@ -136,12 +136,29 @@
 
     <main class="flex-1 flex flex-col h-screen relative z-10">
         <!-- Mobile Header -->
-        <header class="md:hidden flex items-center justify-between p-4 glass-panel m-2 rounded-xl">
+        <header class="md:hidden flex items-center justify-between p-4 glass-panel m-2 rounded-xl relative z-50">
             <h1 class="text-lg font-bold tracking-wider text-white">NURANI<span class="text-emerald-500">.AI</span></h1>
-            <button class="text-gray-300 hover:text-white" onclick="Swal.fire({title: 'Menu', text: 'Gunakan Sidebar di mode Desktop', icon: 'info', background: '#050b0a', color: '#fff'})">
-                <i class="fa-solid fa-bars text-xl"></i>
+            <button class="text-gray-300 hover:text-white transition-colors" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars text-xl" id="mobile-menu-icon"></i>
             </button>
         </header>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-2 right-2 glass-panel rounded-xl z-50 p-4 flex flex-col space-y-2 fade-in shadow-2xl border border-emerald-500/20">
+            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Menu Navigasi</div>
+            <a href="#" onclick="nav('home'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="home">
+                <i class="fa-solid fa-house w-5 text-center"></i> <span>Beranda</span>
+            </a>
+            <a href="#" onclick="nav('generator'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="generator">
+                <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-emerald-400"></i> <span>AI Multi-Scene</span>
+            </a>
+            <a href="#" onclick="nav('prompt'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="prompt">
+                <i class="fa-solid fa-video w-5 text-center"></i> <span>Prompt Video AI</span>
+            </a>
+            <a href="#" onclick="nav('overlay'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="overlay">
+                <i class="fa-solid fa-layer-group w-5 text-center"></i> <span>Overlay Studio</span>
+            </a>
+        </div>
 
         <!-- Dynamic Content Container -->
         <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-8 pt-2 custom-scrollbar">
@@ -398,10 +415,30 @@
                     el.classList.add('bg-white/10', 'text-white', 'border-r-4', 'border-emerald-500');
                 }
             });
+            document.querySelectorAll('.nav-item-mobile').forEach(el => {
+                el.classList.remove('bg-white/10', 'text-white', 'border-l-4', 'border-emerald-500');
+                if(el.dataset.target === targetId) {
+                    el.classList.add('bg-white/10', 'text-white', 'border-l-4', 'border-emerald-500');
+                }
+            });
             document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
             document.getElementById('view-' + targetId).classList.remove('hidden');
         }
         nav('home');
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-xmark');
+            } else {
+                menu.classList.add('hidden');
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
+        }
 
         // --- Utils ---
         const Toast = Swal.mixin({
