@@ -185,6 +185,37 @@
                     <p class="text-sm text-gray-400">Buat storytelling dakwah 3 adegan berkesinambungan dengan alur emosional cinematic.</p>
                 </div>
 
+                <!-- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) -->
+                <div class="glass-panel p-5 md:p-6 rounded-2xl mb-8 border border-blue-500/20 bg-blue-900/5">
+                    <h3 class="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2"><i class="fa-solid fa-user-astronaut"></i> Generator Prompt Gambar Aktor/Karakter</h3>
+                    <p class="text-xs text-gray-400 mb-4">Gunakan ini untuk men-generate gambar wajah/karakter utama Anda terlebih dahulu di Midjourney, Bing, atau AI Image lainnya sebelum membuat video.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="md:col-span-2">
+                            <input type="text" id="actor-prompt-input" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-colors text-sm" placeholder="Detail aktor (misal: memakai kacamata, brewok rapi, menangis...)">
+                        </div>
+                        <div>
+                            <select id="actor-prompt-gender" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-colors text-sm">
+                                <option value="man">Pria (Muslim)</option>
+                                <option value="woman">Wanita (Muslimah Berhijab)</option>
+                                <option value="boy">Anak Laki-Laki</option>
+                                <option value="girl">Anak Perempuan (Berhijab)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button onclick="generateActorPrompt()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 px-4 rounded-xl font-semibold text-white shadow-lg transition flex justify-center items-center gap-2 text-sm">
+                                <i class="fa-solid fa-wand-magic"></i> Buat Prompt
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="actor-prompt-result" class="hidden mt-4 bg-black/50 p-4 rounded-xl border border-white/5 relative group transition-all">
+                        <button onclick="copyActorPrompt()" class="absolute top-2 right-2 text-[10px] bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white px-3 py-1.5 rounded flex items-center gap-1.5 transition-all border border-white/10 hover:border-blue-500" title="Copy Prompt Gambar">
+                            <i class="fa-regular fa-copy"></i> Copy
+                        </button>
+                        <p id="actor-prompt-output" class="font-mono text-[12px] text-gray-300 leading-relaxed pr-16"></p>
+                    </div>
+                </div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
                     <div class="lg:col-span-1">
                         <div class="glass-panel p-6 rounded-2xl sticky top-4">
@@ -644,17 +675,48 @@
             ]
         };
 
-        // Fallback Mapping untuk tema-tema yang baru ditambahkan
-        wisdomDB.cinta = wisdomDB.sabar; 
-        wisdomDB.taubat = wisdomDB.sabar;
-        wisdomDB.sholat = wisdomDB.sabar;
-        wisdomDB.kehidupan = wisdomDB.rezeki;
-        wisdomDB.akhirat = wisdomDB.sabar;
+        // PENGEMBANGAN DATABASE STORYBOARD UNTUK TEMA-TEMA BARU YANG DINAMIS
+        wisdomDB.cinta = [
+            {
+                master_concept: "Seorang pemuda tersenyum menatap langit sore yang indah, merenungkan cinta sejati yang membawanya semakin dekat kepada Sang Pencipta.",
+                scenes: [
+                    { scene_num: 1, title: "Definisi Cinta Sesungguhnya", arab: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا", latin: "Wa min aayaatihii an khalaqa lakum min anfusikum azwaajaa", terjemahan: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri.", sumber: "QS. Ar-Rum: 21", makna: "Cinta karena Allah adalah cinta yang menguatkan ketaatan.", voiceover: "Cinta sejati bukanlah sekadar tentang memiliki... melainkan tentang siapa yang membawamu semakin dekat kepada-Nya.", prompt_video: "Scene 1: Cinematic medium shot of a young muslim man sitting peacefully on a park bench at sunset, looking deeply into the beautiful sky, soft gentle smile, warm orange lighting, calm atmosphere.", prompt_audio: "Suara angin sore berhembus lembut, melodi biola yang tenang dan romantis islami." },
+                    { scene_num: 2, title: "Melepaskan karena Allah", arab: "عَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Jika dia bukan untukmu, Allah sudah siapkan yang lebih baik.", voiceover: "Terkadang kita harus melepaskan seseorang, bukan karena kita berhenti mencintainya, tapi karena kita lebih mencintai Sang Pemilik Hati.", prompt_video: "Scene 2: Close up shot of the same young man looking down slightly, closing his eyes in acceptance, letting out a peaceful sigh, holding prayer beads, serene expression.", prompt_audio: "Nada piano mulai melambat, hening sejenak mencerminkan keikhlasan." },
+                    { scene_num: 3, title: "Ketenangan dalam Ketetapan", arab: "إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ", latin: "Innallaha yuhibbul mutawakkiliin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertawakkal kepada-Nya.", sumber: "QS. Ali 'Imran: 159", makna: "Hati yang berserah akan selalu menemukan kedamaian.", voiceover: "Biarkan Allah yang merawat hatimu. Jika memang berjodoh, semesta akan punya cara terindah untuk menyatukan.", prompt_video: "Scene 3: Wide cinematic shot, night time looking at the moon. The same young man walking calmly away, looking at peace and contented, soft moonlight illuminating his path.", prompt_audio: "Melodi berubah menjadi ceria dan penuh keyakinan, ambience malam yang tenang." }
+                ]
+            }
+        ];
+
+        wisdomDB.taubat = [
+            {
+                master_concept: "Seorang pemuda menangis menyesali dosa masa lalunya di kamar yang gelap, lalu perlahan ia bangkit mengambil air wudhu, dan diakhiri dengan ketenangan usai sujud panjang.",
+                scenes: [
+                    { scene_num: 1, title: "Beban Dosa Masa Lalu", arab: "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ", latin: "Qul yaa 'ibaadiyalladziina asrafuu 'alaa anfusihim laa taqnathuu mir rahmatillah", terjemahan: "Katakanlah: 'Hai hamba-hamba-Ku yang malampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah.'", sumber: "QS. Az-Zumar: 53", makna: "Ampunan Allah jauh lebih luas dari samudra dosamu.", voiceover: "Sebanyak apapun noda di masa lalu... Sehina apapun kita merasa hari ini, pintu ampunan-Nya tak pernah sekalipun tertutup.", prompt_video: "Scene 1: Cinematic close up shot of a young muslim man sitting on the floor in a dark room, head in his hands, looking regretful and silently crying, single tear, dramatic moody lighting.", prompt_audio: "Keheningan total, hanya terdengar suara isak tangis pelan dan detak jam dinding." },
+                    { scene_num: 2, title: "Langkah Menuju Cahaya", arab: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ", latin: "Innallaha yuhibbut tawwaabiin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertaubat.", sumber: "QS. Al-Baqarah: 222", makna: "Air mata taubat adalah sebaik-baiknya pembasuh luka.", voiceover: "Basuhlah wajahmu dengan air wudhu. Biarkan setiap tetesnya menggugurkan kesedihan dan penyesalan yang membelenggu jiwamu.", prompt_video: "Scene 2: Medium shot of the same young man washing his face with water (wudhu), water dripping from his face, looking into the mirror with a look of emerging hope, bathroom with dim warm light.", prompt_audio: "Suara gemericik air yang mengalir perlahan, melodi menenangkan yang membangkitkan harapan." },
+                    { scene_num: 3, title: "Sujud yang Menenangkan", arab: "وَهُوَ الَّذِي يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ", latin: "Wa huwalladzi yaqbalut taubata 'an 'ibaadihi", terjemahan: "Dan Dialah yang menerima taubat dari hamba-hamba-Nya.", sumber: "QS. Asy-Syura: 25", makna: "Seorang pendosa yang bertaubat seolah tak memiliki dosa.", voiceover: "Menangislah dalam sujudmu. Karena sebaik-baiknya tempat kembali bagi hati yang tersesat, adalah pelukan kasih sayang Penciptanya.", prompt_video: "Scene 3: Wide cinematic shot, beautiful morning light coming through a window. The same young man is in a deep, long prostration (sujud) on a prayer mat, very peaceful and tranquil atmosphere.", prompt_audio: "Suara burung di pagi hari, instrumen piano yang sangat lembut dan damai." }
+                ]
+            }
+        ];
+
+        wisdomDB.kehilangan = [
+            {
+                master_concept: "Seorang pemuda terdiam menatap barang kenangan dengan tatapan kosong, lalu ia perlahan belajar tersenyum mengikhlaskan, hingga ia menemukan kebahagiaan baru di kemudian hari.",
+                scenes: [
+                    { scene_num: 1, title: "Perpisahan yang Menyakitkan", arab: "الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", latin: "Alladziina idzaa ashaabathum mushiibatun qaaluu innaa lillaahi wa innaa ilaihi raaji'uun", terjemahan: "(yaitu) orang-orang yang apabila ditimpa musibah, mereka mengucapkan: 'Sesungguhnya kami adalah milik Allah dan kepada-Nya-lah kami kembali.'", sumber: "QS. Al-Baqarah: 156", makna: "Semua yang kita miliki di dunia ini hanyalah titipan.", voiceover: "Setiap yang datang pasti akan pergi. Dan setiap titipan... pada akhirnya harus dikembalikan kepada Sang Pemilik Sejati.", prompt_video: "Scene 1: Cinematic close up shot of a young muslim man staring blankly at an old photo or object in his hands, eyes looking sad and empty, cold gloomy lighting, sitting alone in a room.", prompt_audio: "Suara angin mendesah pelan, melodi piano yang sangat sedih dan melambat." },
+                    { scene_num: 2, title: "Belajar Mengikhlaskan", arab: "وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Wa 'asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Allah mengambil sesuatu untuk menggantinya dengan yang lebih baik.", voiceover: "Sakit memang... Namun di balik setiap kepergian, Allah selalu merencanakan hikmah yang tak mampu dijangkau oleh akal kita hari ini.", prompt_video: "Scene 2: Medium shot of the same young man putting the object into a box gently, closing the box, taking a deep breath, trying to smile with acceptance, warm lighting starting to hit his face.", prompt_audio: "Hening sejenak, lalu terdengar nada musik yang perlahan mengalun hangat, memberikan rasa lega." },
+                    { scene_num: 3, title: "Ganti yang Lebih Baik", arab: "مَا عِندَكُمْ يَنفَدُ ۖ وَمَا عِندَ اللَّهِ بَاقٍ", latin: "Maa 'indakum yanfadu, wa maa 'indallahi baaqin", terjemahan: "Apa yang di sisimu akan lenyap, dan apa yang ada di sisi Allah adalah kekal.", sumber: "QS. An-Nahl: 96", makna: "Ikhlas adalah puncak tertinggi dari mencintai.", voiceover: "Kuatkan hatimu. Karena mereka yang mampu tersenyum setelah kehilangan, sedang disiapkan ganti yang jauh lebih indah oleh Tuhan.", prompt_video: "Scene 3: Wide cinematic outdoor shot, bright and sunny day. The same young man is walking in a beautiful garden or beach, smiling genuinely, looking at the horizon with hope and true happiness.", prompt_audio: "Suara ombak pelan atau angin segar, musik instrumental yang mengangkat semangat dan ceria." }
+                ]
+            }
+        ];
+
+        // Memetakan sisa tema ke salah satu database di atas agar tidak terjadi error (karena Anda bisa membuatnya lebih banyak nanti)
+        wisdomDB.sholat = wisdomDB.taubat;
+        wisdomDB.kehidupan = wisdomDB.sabar;
+        wisdomDB.akhirat = wisdomDB.taubat;
         wisdomDB.syukur = wisdomDB.rezeki;
-        wisdomDB.kehilangan = wisdomDB.sabar;
-        wisdomDB.kematian = wisdomDB.sabar;
-        wisdomDB.hati = wisdomDB.sabar;
-        wisdomDB.jodoh = wisdomDB.rezeki;
+        wisdomDB.kematian = wisdomDB.kehilangan;
+        wisdomDB.hati = wisdomDB.cinta;
+        wisdomDB.jodoh = wisdomDB.cinta;
         wisdomDB.tawakal = wisdomDB.sabar;
 
         function toggleCustomInputs() {
@@ -873,6 +935,44 @@
             document.getElementById('prompt-base').value = currentGeneratedData.master_concept;
             nav('prompt'); 
             generateCinematicPrompt();
+        }
+
+        // --- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) DENGAN RANDOMIZER WAJAH ---
+        function generateActorPrompt() {
+            const desc = document.getElementById('actor-prompt-input').value;
+            const gender = document.getElementById('actor-prompt-gender').value;
+            const resultBox = document.getElementById('actor-prompt-result');
+            const outputText = document.getElementById('actor-prompt-output');
+            
+            // Database Randomizer Wajah Anti-Monoton
+            const regions = ["Southeast Asian", "Middle Eastern", "South Asian", "Indonesian", "Malay", "Turkish", "Levantine", "Central Asian", "North African", "Mixed Asian-Arab"];
+            const faceStructures = ["sharp jawline", "soft facial features", "oval face shape", "prominent cheekbones", "distinctive unique facial structure", "symmetrical face", "slightly asymmetrical natural face", "strong facial structure", "gentle facial expression"];
+            const eyeColors = ["dark brown eyes", "light brown eyes", "hazel eyes", "deep black eyes", "amber eyes"];
+            
+            // Pilih secara acak
+            const randomRegion = regions[Math.floor(Math.random() * regions.length)];
+            const randomFace = faceStructures[Math.floor(Math.random() * faceStructures.length)];
+            const randomEyes = eyeColors[Math.floor(Math.random() * eyeColors.length)];
+            const randomSeed = Math.floor(Math.random() * 9000000) + 1000000; // Seed unik untuk Midjourney
+            
+            let baseSubject = "";
+            if (gender === 'man') baseSubject = `A handsome young muslim man of ${randomRegion} descent`;
+            else if (gender === 'woman') baseSubject = `A beautiful young muslim woman of ${randomRegion} descent wearing an elegant and modest hijab`;
+            else if (gender === 'boy') baseSubject = `A cute little muslim boy of ${randomRegion} descent`;
+            else if (gender === 'girl') baseSubject = `A cute little muslim girl of ${randomRegion} descent wearing a beautiful small hijab`;
+            
+            const detailedDesc = desc.trim() !== "" ? desc + ", " : "";
+            
+            // Inject randomizer ke dalam full prompt
+            const fullPrompt = `Ultra-realistic portrait photography of ${baseSubject}, ${detailedDesc}${randomFace}, ${randomEyes}, highly detailed face, expressive eyes, 8k resolution, cinematic lighting, photorealistic, shot on 35mm lens, depth of field, sharp focus, natural skin texture, dramatic shadow, --ar 9:16 --seed ${randomSeed}`;
+            
+            outputText.innerText = fullPrompt;
+            resultBox.classList.remove('hidden');
+        }
+
+        function copyActorPrompt() {
+            const text = document.getElementById('actor-prompt-output').innerText;
+            if(text) copyText(text);
         }
 
         // --- PROMPT OUTPUT ---
