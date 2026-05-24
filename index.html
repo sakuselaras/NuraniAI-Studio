@@ -296,7 +296,7 @@
                     <div class="lg:col-span-3 min-h-[400px] flex flex-col relative">
                         <div id="gen-placeholder" class="glass-panel rounded-2xl flex-1 flex flex-col items-center justify-center text-gray-500 p-12">
                             <i class="fa-solid fa-film text-5xl mb-4 opacity-30"></i>
-                            <p class="text-center">Tekan Generate untuk menyusun 3 Scene Cinematic berkesinambungan.</p>
+                            <p class="text-center">Tekan Generate untuk menyusun 4 Scene Cinematic berkesinambungan.</p>
                         </div>
                         <div id="gen-result" class="hidden flex-1 flex flex-col">
                             <div class="flex justify-between items-center mb-4">
@@ -331,7 +331,7 @@
                             </select>
                         </div>
                         <button onclick="generateCinematicPrompt()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold text-white shadow-lg transition mt-2 flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-wand-magic"></i> Susun Prompt 3 Scene
+                            <i class="fa-solid fa-wand-magic"></i> Susun Prompt 4 Scene
                         </button>
                     </div>
                     <div class="glass-panel p-6 rounded-2xl flex flex-col bg-slate-900/80 relative">
@@ -553,161 +553,78 @@
         const wisdomDB = {
             sabar: [
                 { 
-                    master_concept: "Seorang pemuda muslim berjalan sendirian di tengah hujan malam yang lebat, wajahnya lelah, perlahan hujan mereda, hingga transisi ke pagi yang damai saat ia tersenyum di teras masjid.",
+                    master_concept: "Seseorang berjalan sendirian di tengah hujan lebat dengan lelah, berteduh, beribadah, hingga akhirnya ia berjalan lega di pagi yang cerah.",
                     scenes: [
-                        { 
-                            scene_num: 1, title: "Rasa Lelah dan Ujian Hidup", arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", latin: "La yukallifullahu nafsan illa wus'aha",
-                            terjemahan: "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.", sumber: "QS. Al-Baqarah: 286",
-                            makna: "Sebesar apapun rintangan hari ini, Allah tahu batas kemampuanmu.",
-                            voiceover: "Terkadang, langkah terasa sangat berat... Hujan seakan tak mau berhenti, dan dada terasa sesak oleh beban yang tak terlihat.",
-                            prompt_video: "Scene 1: Close up cinematic shot of a young muslim man walking through heavy rain at night, looking tired and exhausted but still pushing forward, melancholic expression, wet clothes, urban night background.",
-                            prompt_audio: "Suara hujan lebat, rintik air, gemuruh petir pelan di kejauhan, instrumen piano melankolis yang lambat."
-                        },
-                        { 
-                            scene_num: 2, title: "Tawakal dan Keyakinan", arab: "وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُوتُ", latin: "Wa tawakkal 'alal hayyil ladzi la yamut",
-                            terjemahan: "Dan bertawakallah kepada Allah yang hidup (kekal) yang tidak mati.", sumber: "QS. Al-Furqan: 58",
-                            makna: "Menyerahkan hasil akhir hanya kepada Zat yang tak pernah tidur.",
-                            voiceover: "Tapi di titik terendah itulah, kita diajarkan tentang berserah. Bahwa tidak semua hal harus kita kendalikan sendiri...",
-                            prompt_video: "Scene 2: Medium shot of the same young muslim man, standing still under a street lamp. The rain is slowing down. He looks up to the night sky, closing his eyes, taking a deep breath, expression of surrender and faith.",
-                            prompt_audio: "Hujan mulai mereda perlahan, suara angin berhembus pelan, nada piano mulai meninggi memberikan harapan."
-                        },
-                        { 
-                            scene_num: 3, title: "Ketenangan dan Harapan", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra",
-                            terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5",
-                            makna: "Janji Allah itu pasti, selalu ada pelangi setelah badai terlewati.",
-                            voiceover: "Dan percayalah, setelah malam yang paling gelap, pasti akan terbit fajar yang menenangkan. Bersabarlah sebentar lagi.",
-                            prompt_video: "Scene 3: Wide cinematic shot, morning light, golden hour. The same young man is now sitting on the terrace of a beautiful mosque, dry clothes, smiling gently, peaceful expression, soft sunlight hitting his face.",
-                            prompt_audio: "Suara burung berkicau pelan di pagi hari, ambience masjid yang tenang, melodi hangat dan damai."
-                        }
+                        { scene_num: 1, title: "Rasa Lelah dan Ujian Hidup", arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", latin: "La yukallifullahu nafsan illa wus'aha", terjemahan: "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.", sumber: "QS. Al-Baqarah: 286", makna: "Sebesar apapun rintangan hari ini, Allah tahu batas kemampuanmu.", voiceover: "Terkadang, langkah terasa sangat berat... Hujan seakan tak mau berhenti, dan dada terasa sesak oleh beban yang tak terlihat.", prompt_video: "Sorotan sinematik jarak dekat [AKTOR_UTAMA] yang berjalan di tengah hujan lebat di malam hari, tampak sangat lelah dan kehabisan tenaga namun tetap memaksakan diri melangkah, ekspresi melankolis, pakaian basah kuyup, latar belakang kota malam hari yang gelap.", prompt_audio: "Suara hujan lebat, rintik air, gemuruh petir pelan di kejauhan, instrumen piano melankolis yang lambat." },
+                        { scene_num: 2, title: "Tawakal dan Keyakinan", arab: "وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُوتُ", latin: "Wa tawakkal 'alal hayyil ladzi la yamut", terjemahan: "Dan bertawakallah kepada Allah yang hidup (kekal) yang tidak mati.", sumber: "QS. Al-Furqan: 58", makna: "Menyerahkan hasil akhir hanya kepada Zat yang tak pernah tidur.", voiceover: "Tapi di titik terendah itulah, kita diajarkan tentang berserah. Bahwa tidak semua hal harus kita kendalikan sendiri...", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA], berdiri diam di bawah lampu jalan. Hujan mulai mereda. Ia menatap ke langit malam, memejamkan mata, menarik napas panjang, menunjukkan ekspresi berserah diri dan penuh keyakinan.", prompt_audio: "Hujan mulai mereda perlahan, suara angin berhembus pelan, nada piano mulai meninggi memberikan harapan." },
+                        { scene_num: 3, title: "Ketenangan dalam Jiwa", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra", terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5", makna: "Janji Allah itu pasti, selalu ada pelangi setelah badai terlewati.", voiceover: "Dan percayalah, setelah malam yang paling gelap, pasti akan terbit fajar yang menenangkan. Bersabarlah sebentar lagi.", prompt_video: "Sorotan sinematik sudut lebar, cahaya pagi terang. [AKTOR_SAMA] kini duduk di teras masjid yang indah, pakaiannya mengering, tersenyum lembut, ekspresi damai, cahaya matahari pagi menyinari wajahnya.", prompt_audio: "Suara burung berkicau pelan di pagi hari, ambience masjid yang tenang, melodi hangat dan damai." },
+                        { scene_num: 4, title: "Langkah Harapan Baru", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib", terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3", makna: "Akhir dari sebuah kesabaran adalah hadiah kejutan dari Allah.", voiceover: "Karena di ujung setiap kesabaran, Allah telah menyiapkan jalan keluar yang tak pernah kau duga sebelumnya.", prompt_video: "Sorotan dinamis mengikuti [AKTOR_SAMA] yang sedang berjalan perlahan meninggalkan area masjid, langkah kakinya kini terlihat ringan dan penuh semangat, tersenyum ikhlas menatap ke depan, latar belakang jalanan pagi yang asri dan cerah.", prompt_audio: "Suara langkah kaki yang mantap, melodi ceria penutup yang penuh motivasi." }
                     ]
                 },
                 { 
-                    // Variasi Sabar ke-2
-                    master_concept: "Seorang muslimah duduk menatap jendela di ruangan yang gelap, menangis pelan memegang tasbih, lalu ia mulai sholat tahajud, dan diakhiri dengan ia tersenyum melihat cahaya matahari terbit.",
+                    master_concept: "Seseorang menangis di kamar gelap, menumpahkan keluh kesahnya di atas sajadah, lalu menyambut fajar dengan senyum dan keikhlasan mutlak.",
                     scenes: [
-                        { 
-                            scene_num: 1, title: "Kehampaan dan Kesedihan", arab: "إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ", latin: "Innama asyku batsi wa huzni illallah",
-                            terjemahan: "Sesungguhnya hanyalah kepada Allah aku mengadukan kesusahan dan kesedihanku.", sumber: "QS. Yusuf: 86",
-                            makna: "Menangislah di hadapan-Nya, karena Dia Maha Mendengar setiap rintihan tanpa suara.",
-                            voiceover: "Ada luka yang tak bisa diceritakan kepada siapapun. Ruang terasa hampa, dan air mata jatuh tanpa bisa ditahan.",
-                            prompt_video: "Scene 1: Cinematic medium shot of a young muslim woman wearing hijab, sitting alone in a dimly lit room looking out the window, holding prayer beads (tasbih), single tear falling, moonlight illuminating her face, emotional depth.",
-                            prompt_audio: "Suara jam berdetak pelan, keheningan malam, nada instrumen cello yang sangat sedih."
-                        },
-                        { 
-                            scene_num: 2, title: "Mengadu di Sepertiga Malam", arab: "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ", latin: "Wasta'inu bis-shabri was-shalat",
-                            terjemahan: "Jadikanlah sabar dan shalat sebagai penolongmu.", sumber: "QS. Al-Baqarah: 45",
-                            makna: "Sujud adalah jarak terdekat antara hamba dengan Penciptanya.",
-                            voiceover: "Lalu kau membentangkan sajadah... Di sepertiga malam itu, kau tumpahkan segala rasa sakit kepada Zat yang menggenggam hatimu.",
-                            prompt_video: "Scene 2: Wide angle shot from behind, the same woman is now in sujud (prostration) on a prayer mat. Soft moonlight creates a dramatic shadow. Peaceful and intimate atmosphere.",
-                            prompt_audio: "Suara gesekan kain lembut, ambience malam yang hening, musik mulai berubah menenangkan."
-                        },
-                        { 
-                            scene_num: 3, title: "Cahaya Setelah Kegelapan", arab: "وَاللَّهُ يُحِبُّ الصَّابِرِينَ", latin: "Wallahu yuhibbus-shabirin",
-                            terjemahan: "Dan Allah mencintai orang-orang yang sabar.", sumber: "QS. Ali 'Imran: 146",
-                            makna: "Kesabaranmu hari ini sedang merajut kebahagiaanmu di hari esok.",
-                            voiceover: "Ketahuilah, hati yang hancur tapi tetap memilih taat... adalah hati yang paling dicintai oleh Allah.",
-                            prompt_video: "Scene 3: Beautiful morning scene. Close up on her face, she is folding the prayer mat, looking outside the window as golden sunrise hits her face. She smiles beautifully, completely relieved and at peace.",
-                            prompt_audio: "Cahaya pagi, suara angin sejuk, melodi piano yang ceria dan penuh harapan."
-                        }
+                        { scene_num: 1, title: "Kehampaan dan Kesedihan", arab: "إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ", latin: "Innama asyku batsi wa huzni illallah", terjemahan: "Sesungguhnya hanyalah kepada Allah aku mengadukan kesusahan dan kesedihanku.", sumber: "QS. Yusuf: 86", makna: "Menangislah di hadapan-Nya, karena Dia Maha Mendengar setiap rintihan tanpa suara.", voiceover: "Ada luka yang tak bisa diceritakan kepada siapapun. Ruang terasa hampa, dan air mata jatuh tanpa bisa ditahan.", prompt_video: "Sorotan sinematik jarak menengah [AKTOR_UTAMA] duduk sendirian di ruangan yang redup menatap ke luar jendela, memegang tasbih, air mata perlahan menetes di pipinya, cahaya bulan yang dingin menyinari wajahnya, nuansa emosional.", prompt_audio: "Suara jam berdetak pelan, keheningan malam, nada instrumen cello yang sangat sedih." },
+                        { scene_num: 2, title: "Mengadu di Sepertiga Malam", arab: "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ", latin: "Wasta'inu bis-shabri was-shalat", terjemahan: "Jadikanlah sabar dan shalat sebagai penolongmu.", sumber: "QS. Al-Baqarah: 45", makna: "Sujud adalah jarak terdekat antara hamba dengan Penciptanya.", voiceover: "Lalu kau membentangkan sajadah... Di sepertiga malam itu, kau tumpahkan segala rasa sakit kepada Zat yang menggenggam hatimu.", prompt_video: "Sorotan sudut lebar dari belakang, [AKTOR_SAMA] sedang bersujud di atas sajadah di lantai kamarnya. Cahaya bulan yang lembut menciptakan bayangan dramatis. Suasana sangat damai dan khusyuk.", prompt_audio: "Suara gesekan kain lembut, ambience malam yang hening, musik mulai berubah menenangkan." },
+                        { scene_num: 3, title: "Cahaya Setelah Kegelapan", arab: "وَاللَّهُ يُحِبُّ الصَّابِرِينَ", latin: "Wallahu yuhibbus-shabirin", terjemahan: "Dan Allah mencintai orang-orang yang sabar.", sumber: "QS. Ali 'Imran: 146", makna: "Kesabaranmu hari ini sedang merajut kebahagiaanmu di hari esok.", voiceover: "Ketahuilah, hati yang hancur tapi tetap memilih taat... adalah hati yang paling dicintai oleh Allah.", prompt_video: "Pemandangan pagi yang indah. Sorotan wajah [AKTOR_SAMA] sedang melipat sajadahnya perlahan, menatap ke luar jendela saat cahaya keemasan matahari terbit menembus masuk menerangi wajahnya. Tersenyum sangat lega.", prompt_audio: "Cahaya pagi, suara angin sejuk, melodi piano yang ceria dan penuh harapan." },
+                        { scene_num: 4, title: "Senyum Keikhlasan", arab: "سَلَامٌ عَلَيْكُم بِمَا صَبَرْتُمْ", latin: "Salaamun 'alaikum bimaa shabartum", terjemahan: "Keselamatan atasmu berkat kesabaranmu.", sumber: "QS. Ar-Ra'd: 24", makna: "Kesabaran yang dipertahankan akan berbuah manis di akhir cerita.", voiceover: "Kelak, kesabaran dan air matamu hari ini akan diganti dengan kedamaian yang tak pernah kau bayangkan sebelumnya.", prompt_video: "Sorotan perlahan dari arah depan, [AKTOR_SAMA] membuka pintu rumahnya, melangkah ke luar teras, merentangkan tangan sedikit meresapi udara segar pagi hari, wajahnya bercahaya penuh keikhlasan dan kebahagiaan sejati.", prompt_audio: "Suara burung bernyanyi, angin pagi yang segar, musik epik yang menggetarkan namun menenangkan." }
                     ]
                 }
             ],
             rezeki: [
                 {
-                    master_concept: "Seorang pedagang kecil muslim menatap dagangannya yang sepi di sore hari, lalu ia tersenyum bersyukur, hingga transisi ia berbagi makanan dengan kucing di malam hari.",
+                    master_concept: "Seseorang khawatir melihat usahanya yang sepi, menenangkan diri, menyedekahkan makanan ke hewan, dan berakhir senyum lepas di malam hari.",
                     scenes: [
-                        {
-                            scene_num: 1, title: "Kekhawatiran Rezeki", arab: "الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ", latin: "Asy-syaitaanu ya'idukumul-faqr",
-                            terjemahan: "Setan menakut-nakuti kamu dengan kemiskinan...", sumber: "QS. Al-Baqarah: 268",
-                            makna: "Kecemasan akan hari esok seringkali membunuh syukur hari ini.",
-                            voiceover: "Hari ini mungkin terasa sepi... Ada rasa cemas yang diam-diam menyelinap, membisikkan ketakutan tentang hari esok.",
-                            prompt_video: "Scene 1: Cinematic medium shot of a humble muslim street vendor looking at his empty stall at dusk, slightly worried expression, warm sunset lighting but empty streets.",
-                            prompt_audio: "Ambience jalanan sore yang sepi, suara hembusan angin, nada gitar akustik melankolis."
-                        },
-                        {
-                            scene_num: 2, title: "Kembali Mengingat Syukur", arab: "لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ", latin: "La'in syakartum la'azidannakum",
-                            terjemahan: "Sesungguhnya jika kamu bersyukur, pasti Kami akan menambah (nikmat) kepadamu.", sumber: "QS. Ibrahim: 7",
-                            makna: "Mengubah fokus dari apa yang belum ada, kepada apa yang masih tersisa.",
-                            voiceover: "Namun kita lupa, rezeki bukan sekadar angka. Nafas yang masih berhembus, dan hati yang masih bisa bersabar adalah rezeki yang tak ternilai.",
-                            prompt_video: "Scene 2: Close up shot of the vendor closing his eyes, smiling softly, whispering a prayer. The warm golden light highlights his grateful expression.",
-                            prompt_audio: "Musik bertransisi menjadi lebih hangat, nada harapan, suara pelan azan magrib di kejauhan."
-                        },
-                        {
-                            scene_num: 3, title: "Cukup Karena Berbagi", arab: "وَمَا مِن دَآبَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا", latin: "Wa ma min dabbatin fil ardi illa 'alallahi rizquha",
-                            terjemahan: "Dan tidak ada suatu binatang melata pun di bumi melainkan Allah-lah yang memberi rezekinya.", sumber: "QS. Hud: 6",
-                            makna: "Rezekimu tak akan tertukar, bahkan hewan kecil pun Allah jamin hidupnya.",
-                            voiceover: "Cukupkan hatimu. Berbagilah meski sedikit, karena di situlah rahasia keberkahan yang sejati turun menyapamu.",
-                            prompt_video: "Scene 3: Wide angle night shot. The vendor is packing up, but he stops to feed a stray cat near his stall. He looks genuinely happy and peaceful under the street lamp.",
-                            prompt_audio: "Suara meong kucing pelan, ambience malam yang tenang, musik instrumen yang menenangkan hati."
-                        }
+                        { scene_num: 1, title: "Kekhawatiran Hari Ini", arab: "الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ", latin: "Asy-syaitaanu ya'idukumul-faqr", terjemahan: "Setan menakut-nakuti kamu dengan kemiskinan...", sumber: "QS. Al-Baqarah: 268", makna: "Kecemasan akan hari esok seringkali membunuh syukur hari ini.", voiceover: "Hari ini mungkin terasa sepi... Ada rasa cemas yang diam-diam menyelinap, membisikkan ketakutan tentang hari esok.", prompt_video: "Sorotan sinematik jarak menengah dari [AKTOR_UTAMA] yang menatap meja dagangan/pekerjaannya yang kosong di sore hari, ekspresi sedikit khawatir dan merenung, cahaya hangat matahari terbenam namun suasana jalanan tampak sepi.", prompt_audio: "Ambience jalanan sore yang sepi, suara hembusan angin, nada gitar akustik melankolis." },
+                        { scene_num: 2, title: "Kembali Mengingat Syukur", arab: "لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ", latin: "La'in syakartum la'azidannakum", terjemahan: "Sesungguhnya jika kamu bersyukur, pasti Kami akan menambah (nikmat) kepadamu.", sumber: "QS. Ibrahim: 7", makna: "Mengubah fokus dari apa yang belum ada, kepada apa yang masih tersisa.", voiceover: "Namun kita lupa, rezeki bukan sekadar angka. Nafas yang masih berhembus, dan hati yang masih bisa bersabar adalah rezeki yang tak ternilai.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang memejamkan mata, memaksakan diri tersenyum lembut, dan membisikkan doa syukur. Cahaya keemasan senja menyoroti wajahnya yang tulus.", prompt_audio: "Musik bertransisi menjadi lebih hangat, nada harapan, suara pelan azan magrib di kejauhan." },
+                        { scene_num: 3, title: "Cukup Karena Berbagi", arab: "وَمَا مِن دَآبَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا", latin: "Wa ma min dabbatin fil ardi illa 'alallahi rizquha", terjemahan: "Dan tidak ada suatu binatang melata pun di bumi melainkan Allah-lah yang memberi rezekinya.", sumber: "QS. Hud: 6", makna: "Rezekimu tak akan tertukar, bahkan hewan kecil pun Allah jamin hidupnya.", voiceover: "Cukupkan hatimu. Berbagilah meski sedikit, karena di situlah rahasia keberkahan yang sejati turun menyapamu.", prompt_video: "Sorotan sudut lebar di malam hari. [AKTOR_SAMA] sedang membereskan barang-barangnya, namun ia berhenti sejenak untuk menunduk dan memberikan sisa makanan kepada seekor kucing jalanan. Tersenyum damai.", prompt_audio: "Suara meong kucing pelan, ambience malam yang tenang, musik instrumen yang menenangkan hati." },
+                        { scene_num: 4, title: "Kepulangan yang Damai", arab: "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ", latin: "Wa lasaufa yu'thiika rabbuka fatardhaa", terjemahan: "Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.", sumber: "QS. Ad-Duha: 5", makna: "Rasa cukup adalah rezeki paling mahal yang diberikan Allah.", voiceover: "Pulanglah dengan hati yang tenang. Karena rasa cukup adalah rezeki yang paling mahal harganya.", prompt_video: "Sorotan dinamis dari [AKTOR_SAMA] yang berjalan santai pulang menyusuri jalan di bawah cahaya lampu jalan yang hangat. Wajahnya berseri-seri bahagia dan sangat lega, melangkah tanpa beban.", prompt_audio: "Suara jangkrik malam yang damai, melodi piano penutup yang syahdu dan menguatkan." }
                     ]
                 },
                 {
-                    // Variasi Rezeki ke-2
-                    master_concept: "Seorang pekerja kantoran menatap dompetnya yang tipis, ia berjalan pulang lalu memasukkan sisa uangnya ke kotak amal masjid, diakhiri dengan ia mendapat bingkisan makanan tak terduga saat sampai di rumah.",
+                    master_concept: "Seseorang melihat sisa hartanya yang menipis, memilih menyedekahkannya di masjid, mendapat balasan bingkisan, dan menangis haru menikmatinya.",
                     scenes: [
-                        {
-                            scene_num: 1, title: "Sempitnya Harta Pengecut", arab: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا", latin: "Wa may yattaqillaha yaj'al lahu makhraja",
-                            terjemahan: "Barangsiapa bertakwa kepada Allah niscaya Dia akan mengadakan baginya jalan keluar.", sumber: "QS. At-Talaq: 2",
-                            makna: "Disaat dunia menyempit, jalan menuju langit selalu terbuka lebar.",
-                            voiceover: "Saat dompet menipis dan tagihan menumpuk... rasanya dunia perlahan menyempit, menghimpit dada.",
-                            prompt_video: "Scene 1: Over the shoulder shot of a tired muslim office worker looking at his nearly empty wallet on a train/bus, sighing, looking out the window with a stressed expression. Cold cinematic lighting.",
-                            prompt_audio: "Suara bising kendaraan kota, deru kereta pelan, musik ambient yang menegangkan namun lirih."
-                        },
-                        {
-                            scene_num: 2, title: "Sedekah di Waktu Sempit", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib",
-                            terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3",
-                            makna: "Sedekah terbaik adalah yang dikeluarkan saat engkau sendiri sangat membutuhkannya.",
-                            voiceover: "Tapi kau memilih melawan egomu. Kau berikan sisa rezekimu untuk mereka yang lebih membutuhkan, melepaskan keterikatan pada dunia.",
-                            prompt_video: "Scene 2: Medium shot of the man walking past a mosque. He stops, smiles sincerely, and puts his last few bills into the donation box (kotak amal). Warm lighting from the mosque door illuminates his face.",
-                            prompt_audio: "Suara koin/kertas dimasukkan, langkah kaki, musik mulai mengayun lembut memberi kenyamanan."
-                        },
-                        {
-                            scene_num: 3, title: "Kejutan dari Langit", arab: "إِنَّ رَبِّي لَسَمِيعُ الدُّعَاءِ", latin: "Inna rabbi lasami'ud-du'a",
-                            terjemahan: "Sesungguhnya Tuhanku, benar-benar Maha Mendengar doa.", sumber: "QS. Ibrahim: 39",
-                            makna: "Allah tak pernah berhutang. Ia ganti apa yang kau lepas dengan sesuatu yang lebih baik.",
-                            voiceover: "Dan lihatlah... Allah membalasnya tanpa jeda. Rezeki yang tak pernah kau duga, datang menyapa dari pintu yang tak pernah kau kira.",
-                            prompt_video: "Scene 3: The man arrives at his humble home/apartment door. His neighbor is waiting holding a basket of warm food, smiling and giving it to him. The man is shocked but extremely happy and grateful. Cozy warm indoor lighting.",
-                            prompt_audio: "Suara ketukan pintu, suara tawa ramah tetangga, melodi kebahagiaan yang sangat menyentuh hati."
-                        }
+                        { scene_num: 1, title: "Ujian Kesempitan", arab: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا", latin: "Wa may yattaqillaha yaj'al lahu makhraja", terjemahan: "Barangsiapa bertakwa kepada Allah niscaya Dia akan mengadakan baginya jalan keluar.", sumber: "QS. At-Talaq: 2", makna: "Di saat dunia menyempit, jalan menuju langit selalu terbuka lebar.", voiceover: "Saat saku menipis dan tagihan terasa mencekik... rasanya dunia perlahan menyempit, menghimpit dada.", prompt_video: "Sorotan dari atas bahu [AKTOR_UTAMA] yang tampak kelelahan, menatap sedih dompetnya yang hampir kosong saat berada di dalam angkutan umum/kereta, menghela napas berat melihat ke luar jendela kaca.", prompt_audio: "Suara bising kendaraan kota, deru kereta pelan, musik ambient yang menegangkan namun lirih." },
+                        { scene_num: 2, title: "Berinfak di Waktu Sempit", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib", terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3", makna: "Sedekah terbaik adalah yang dikeluarkan saat engkau sendiri sangat membutuhkannya.", voiceover: "Tapi kau memilih mengalahkan egomu. Kau relakan sisa hartamu untuk mereka yang lebih membutuhkan, melepaskan ikatan pada dunia.", prompt_video: "Sorotan jarak menengah [AKTOR_SAMA] yang sedang berjalan melewati masjid. Ia berhenti, tersenyum tulus, dan memasukkan sisa uang kertas terakhirnya ke dalam kotak amal masjid dengan ikhlas.", prompt_audio: "Suara kertas dimasukkan perlahan, langkah kaki beranjak pergi, musik mulai mengayun lembut." },
+                        { scene_num: 3, title: "Kejutan dari Langit", arab: "إِنَّ رَبِّي لَسَمِيعُ الدُّعَاءِ", latin: "Inna rabbi lasami'ud-du'a", terjemahan: "Sesungguhnya Tuhanku, benar-benar Maha Mendengar doa.", sumber: "QS. Ibrahim: 39", makna: "Allah tak pernah berhutang. Ia ganti apa yang kau lepas dengan sesuatu yang tak terduga.", voiceover: "Dan lihatlah... Allah membalasnya tanpa jeda. Rezeki yang tak pernah kau duga, datang menyapa seketika.", prompt_video: "[AKTOR_SAMA] tiba di depan pintu rumahnya yang sederhana. Seorang kerabat/tetangga tiba-tiba menyodorkan sekeranjang makanan hangat. Wajahnya sangat terkejut, matanya berkaca-kaca menahan haru.", prompt_audio: "Suara percakapan ramah yang samar, melodi kebahagiaan yang sangat menyentuh hati mengalir pelan." },
+                        { scene_num: 4, title: "Syukur yang Memuncak", arab: "وَمَا أَنفَقْتُم مِّن شَيْءٍ فَهُوَ يُخْلِفُهُ", latin: "Wa maa anfaqtum min syai'in fahuwa yukhlifuhu", terjemahan: "Dan barang apa saja yang kamu nafkahkan, maka Allah akan menggantinya.", sumber: "QS. Saba: 39", makna: "Tak ada yang berkurang dari harta yang disedekahkan karena Allah.", voiceover: "Nikmatilah jamuan dari Tuhanmu. Sungguh, Dia adalah sebaik-baiknya Dzat Pemberi Rezeki.", prompt_video: "Sorotan hangat dari dalam ruangan, [AKTOR_SAMA] duduk di lantai kamar menikmati hidangan makanan tersebut dengan sangat lahap. Setetes air mata kebahagiaan dan rasa syukur mengalir di pipinya yang tersenyum.", prompt_audio: "Suara denting sendok piring perlahan, alunan musik syahdu yang membawa kedamaian total." }
+                    ]
+                }
+            ],
+            cinta: [
+                {
+                    master_concept: "Seseorang merenungkan takdir cintanya di taman, belajar mengikhlaskan yang bukan miliknya, bangkit perlahan, dan menata diri menuju masa depan yang cerah.",
+                    scenes: [
+                        { scene_num: 1, title: "Merenungi Takdir", arab: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا", latin: "Wa min aayaatihii an khalaqa lakum min anfusikum azwaajaa", terjemahan: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan-pasangan...", sumber: "QS. Ar-Rum: 21", makna: "Cinta karena Allah adalah cinta yang menguatkan ketaatan.", voiceover: "Cinta sejati bukanlah sekadar tentang memaksa untuk memiliki... melainkan tentang siapa yang mampu membawamu semakin dekat kepada-Nya.", prompt_video: "Sorotan sinematik jarak menengah dari [AKTOR_UTAMA] duduk santai di bangku taman saat senja, menatap dalam ke arah langit yang indah, tersenyum lembut, merenung tenang, cahaya oranye hangat dari matahari terbenam.", prompt_audio: "Suara angin sore berhembus lembut, melodi biola yang tenang, damai, dan bernuansa islami." },
+                        { scene_num: 2, title: "Melepaskan Pilihan-Nya", arab: "عَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Jika dia bukan untukmu, Allah sudah menyiapkan pengganti yang jauh lebih baik.", voiceover: "Terkadang kita harus kuat melepaskan, bukan karena berhenti mencintai, tapi karena kita sadar bahwa kita jauh lebih mencintai Sang Pemilik Hati.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang sedikit menunduk sedih, memejamkan matanya rapat-rapat mencoba ikhlas melepaskan, perlahan menggeser manik-manik tasbih di tangannya, ekspresi wajah mulai damai.", prompt_audio: "Nada piano mengalun lambat, hening sejenak mencerminkan perjuangan keikhlasan di dalam hati." },
+                        { scene_num: 3, title: "Berserah pada Waktu", arab: "إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ", latin: "Innallaha yuhibbul mutawakkiliin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertawakkal kepada-Nya.", sumber: "QS. Ali 'Imran: 159", makna: "Hati yang sepenuhnya berserah, kelak akan selalu menemukan kedamaian.", voiceover: "Biarkan Allah yang merawat patah hatimu. Jika memang berjodoh, semesta akan selalu punya cara terindah untuk menyatukan kembali.", prompt_video: "Sorotan sinematik sudut lebar di malam hari. [AKTOR_SAMA] berjalan menjauh di sepanjang trotoar dengan langkah mantap dan tanpa beban, cahaya bulan yang sangat lembut menerangi punggungnya.", prompt_audio: "Melodi berubah perlahan menjadi ceria, mantap, dan penuh keyakinan, ambience malam yang asri." },
+                        { scene_num: 4, title: "Menjemput Masa Depan", arab: "وَالطَّيِّبَاتُ لِلطَّيِّبِينَ وَالطَّيِّبُونَ لِلطَّيِّبَاتِ", latin: "Wath-thayyibaatu lith-thayyibiina wath-thayyibuuna lith-thayyibaat", terjemahan: "Wanita-wanita yang baik adalah untuk laki-laki yang baik dan laki-laki yang baik adalah untuk wanita-wanita yang baik.", sumber: "QS. An-Nur: 26", makna: "Perbaiki dirimu, maka Allah akan otomatis memperbaiki kualitas jodohmu.", voiceover: "Fokuslah memperbaiki dirimu. Jagalah hatimu, hingga tiba saat yang tepat untuk berlabuh pada yang halal dan diridhai-Nya.", prompt_video: "Sorotan pagi yang sangat cerah. [AKTOR_SAMA] berdiri tegap merapikan bajunya dengan senyum percaya diri di depan cermin, tampak sangat segar dan berseri-seri siap melangkah keluar menuju lembaran takdir yang baru.", prompt_audio: "Suara denting jam positif, musik optimis, ceria, dan penuh harapan yang menggebu-gebu." }
+                    ]
+                }
+            ],
+            taubat: [
+                {
+                    master_concept: "Seseorang menangis tersedu di kamar akibat dosa masa lalu, perlahan bangkit mengambil wudhu, bersujud memohon ampun, dan membiarkan cahaya mentari pagi masuk ke ruangannya.",
+                    scenes: [
+                        { scene_num: 1, title: "Beban Dosa Masa Lalu", arab: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ", latin: "Laa taqnathuu mir rahmatillah", terjemahan: "Janganlah kamu berputus asa dari rahmat Allah.", sumber: "QS. Az-Zumar: 53", makna: "Ampunan Allah jauh lebih luas dari samudra dosamu.", voiceover: "Sebanyak apapun noda di masa lalu... Sehina apapun kita merasa hari ini, pintu ampunan-Nya tak pernah sekalipun tertutup untuk kita.", prompt_video: "Sorotan sinematik jarak dekat dari [AKTOR_UTAMA] duduk meringkuk di lantai kamar yang gelap memegang kepala, tampak sangat menyesal dan menangis tanpa suara, setetes air mata jatuh ke lantai, pencahayaan sangat muram.", prompt_audio: "Keheningan total, hanya terdengar detak jam dinding perlahan dan isak tangis yang tertahan." },
+                        { scene_num: 2, title: "Membersihkan Jiwa", arab: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ", latin: "Innallaha yuhibbut tawwaabiin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertaubat.", sumber: "QS. Al-Baqarah: 222", makna: "Air mata taubat adalah sebaik-baiknya pembasuh luka batin.", voiceover: "Basuhlah wajahmu dengan air wudhu. Biarkan setiap tetesnya menggugurkan kesedihan dan penyesalan yang selama ini membelenggu jiwamu.", prompt_video: "Sorotan jarak menengah [AKTOR_SAMA] yang sedang membasuh wajahnya dengan air (wudhu), butiran air menetes dari dagunya, menatap tajam ke arah cermin dengan secercah harapan baru, kamar mandi dengan lampu kuning redup.", prompt_audio: "Suara gemericik air keran yang mengalir bersih, melodi menenangkan yang membangkitkan ketegaran hati." },
+                        { scene_num: 3, title: "Sujud yang Menenangkan", arab: "وَهُوَ الَّذِي يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ", latin: "Wa huwalladzi yaqbalut taubata 'an 'ibaadihi", terjemahan: "Dan Dialah yang menerima taubat dari hamba-hamba-Nya.", sumber: "QS. Asy-Syura: 25", makna: "Seorang pendosa yang bertaubat seolah terlahir kembali tanpa dosa.", voiceover: "Menangislah sepuasnya dalam sujudmu. Karena sebaik-baiknya tempat bersandar bagi hati yang tersesat, adalah pelukan kasih sayang Sang Pencipta.", prompt_video: "Sorotan sudut lebar, cahaya pagi biru mulai masuk melalui celah jendela. [AKTOR_SAMA] sedang bersujud dengan posisi sangat rendah dan lama di atas sajadah di kamarnya, suasana sangat damai, hening, dan syahdu.", prompt_audio: "Suara embusan napas lega, instrumen piano yang sangat syahdu, lambat, dan memeluk jiwa." },
+                        { scene_num: 4, title: "Lahir Kembali", arab: "وَإِنِّي لَغَفَّارٌ لِّمَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا", latin: "Wa innii laghaffaarun liman taaba wa aamana wa 'amila shaalihaa", terjemahan: "Dan sesungguhnya Aku Maha Pengampun bagi orang yang bertaubat, beriman, beramal saleh.", sumber: "QS. Taha: 82", makna: "Kesempatan selalu ada bagi mereka yang benar-benar berniat memperbaiki diri.", voiceover: "Usaplah air matamu. Bukalah lembaran baru. Allah Maha Pengampun bagi siapa saja yang mau melangkah kembali dan memperbaiki diri.", prompt_video: "Sorotan dari belakang perlahan mendekat, [AKTOR_SAMA] membuka tirai dan jendela kamarnya lebar-lebar membiarkan cahaya matahari pagi keemasan menerangi seluruh ruangan, ia menatap langit dengan senyum kelegaan luar biasa.", prompt_audio: "Suara engsel jendela dibuka, kicauan burung yang kencang dan ceria, musik kemenangan rohani yang megah." }
+                    ]
+                }
+            ],
+            kehilangan: [
+                {
+                    master_concept: "Seseorang terdiam menatap foto kenangan di tangannya, memasukkannya perlahan ke dalam laci, berjalan menyusuri taman, lalu tersenyum bebas di tepi pantai melepas beban.",
+                    scenes: [
+                        { scene_num: 1, title: "Perpisahan yang Menyakitkan", arab: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", latin: "Innaa lillaahi wa innaa ilaihi raaji'uun", terjemahan: "Sesungguhnya kami adalah milik Allah dan kepada-Nya-lah kami kembali.", sumber: "QS. Al-Baqarah: 156", makna: "Semua yang kita cintai di dunia ini pada hakikatnya hanyalah titipan.", voiceover: "Setiap yang datang pasti akan pergi. Dan setiap titipan yang indah... pada akhirnya harus diikhlaskan kembali kepada Sang Pemilik Sejati.", prompt_video: "Sorotan sinematik jarak dekat dari [AKTOR_UTAMA] menatap kosong dan sangat sedih pada sebuah benda atau foto kenangan di tangannya, bibirnya sedikit bergetar menahan tangis, pencahayaan ruangan yang dingin dan muram.", prompt_audio: "Suara hembusan angin mendesah pelan, melodi piano minor yang sangat sedih dan melambat." },
+                        { scene_num: 2, title: "Seni Mengikhlaskan", arab: "وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Wa 'asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Allah kadang mengambil sesuatu secara paksa untuk melindungimu dari hal buruk.", voiceover: "Melepas itu menyakitkan... Namun di balik setiap kepergian, Allah selalu merajut hikmah indah yang belum mampu dijangkau oleh akal kita hari ini.", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA] meletakkan barang kenangan itu ke dalam sebuah kotak/laci dengan gerakan sangat lembut, menutupnya perlahan, memejamkan mata dan menarik napas panjang mencoba tersenyum ikhlas.", prompt_audio: "Hening sejenak saat laci ditutup, lalu terdengar nada musik hangat perlahan yang mulai membasuh luka." },
+                        { scene_num: 3, title: "Melangkah Menyembuhkan Luka", arab: "مَا عِندَكُمْ يَنفَدُ ۖ وَمَا عِندَ اللَّهِ بَاقٍ", latin: "Maa 'indakum yanfadu, wa maa 'indallahi baaqin", terjemahan: "Apa yang di sisimu akan lenyap, dan apa yang ada di sisi Allah adalah kekal.", sumber: "QS. An-Nahl: 96", makna: "Ikhlas adalah bentuk rasa cinta dan tawakal di level tertinggi.", voiceover: "Jangan biarkan hatimu mati bersama apa yang telah pergi. Teruslah berjalan, karena sisa waktu hidupmu terlalu berharga untuk disia-siakan.", prompt_video: "Sorotan sinematik sudut lebar bergerak perlahan dari samping. [AKTOR_SAMA] berjalan menyusuri jalan setapak di sebuah taman rindang dengan pepohonan hijau, ekspresinya semakin tenang dan berdamai dengan kenyataan.", prompt_audio: "Suara langkah kaki menginjak daun kering, hembusan angin sejuk, musik mulai membangun semangat dari keterpurukan." },
+                        { scene_num: 4, title: "Ganti yang Lebih Indah", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra", terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5", makna: "Allah selalu menyimpan pelangi terindah setelah hujan badai mereda.", voiceover: "Kuatkan hatimu sahabat. Karena mereka yang mampu tersenyum tulus setelah kehilangan besar, sedang disiapkan hadiah ganti yang jauh lebih memukau oleh-Nya.", prompt_video: "Sorotan drone perlahan mengitari [AKTOR_SAMA] yang kini berdiri tegak di tepi danau atau pantai menatap matahari terbit yang megah. Ia merentangkan tangannya sedikit meresapi angin bebas dengan senyuman bahagia tanpa beban.", prompt_audio: "Suara deburan ombak kecil, hembusan angin laut yang kencang, instrumen biola dan orkestra yang sangat megah dan membebaskan." }
                     ]
                 }
             ]
         };
-
-        // PENGEMBANGAN DATABASE STORYBOARD UNTUK TEMA-TEMA BARU YANG DINAMIS
-        wisdomDB.cinta = [
-            {
-                master_concept: "Seorang pemuda tersenyum menatap langit sore yang indah, merenungkan cinta sejati yang membawanya semakin dekat kepada Sang Pencipta.",
-                scenes: [
-                    { scene_num: 1, title: "Definisi Cinta Sesungguhnya", arab: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا", latin: "Wa min aayaatihii an khalaqa lakum min anfusikum azwaajaa", terjemahan: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri.", sumber: "QS. Ar-Rum: 21", makna: "Cinta karena Allah adalah cinta yang menguatkan ketaatan.", voiceover: "Cinta sejati bukanlah sekadar tentang memiliki... melainkan tentang siapa yang membawamu semakin dekat kepada-Nya.", prompt_video: "Scene 1: Cinematic medium shot of a young muslim man sitting peacefully on a park bench at sunset, looking deeply into the beautiful sky, soft gentle smile, warm orange lighting, calm atmosphere.", prompt_audio: "Suara angin sore berhembus lembut, melodi biola yang tenang dan romantis islami." },
-                    { scene_num: 2, title: "Melepaskan karena Allah", arab: "عَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Jika dia bukan untukmu, Allah sudah siapkan yang lebih baik.", voiceover: "Terkadang kita harus melepaskan seseorang, bukan karena kita berhenti mencintainya, tapi karena kita lebih mencintai Sang Pemilik Hati.", prompt_video: "Scene 2: Close up shot of the same young man looking down slightly, closing his eyes in acceptance, letting out a peaceful sigh, holding prayer beads, serene expression.", prompt_audio: "Nada piano mulai melambat, hening sejenak mencerminkan keikhlasan." },
-                    { scene_num: 3, title: "Ketenangan dalam Ketetapan", arab: "إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ", latin: "Innallaha yuhibbul mutawakkiliin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertawakkal kepada-Nya.", sumber: "QS. Ali 'Imran: 159", makna: "Hati yang berserah akan selalu menemukan kedamaian.", voiceover: "Biarkan Allah yang merawat hatimu. Jika memang berjodoh, semesta akan punya cara terindah untuk menyatukan.", prompt_video: "Scene 3: Wide cinematic shot, night time looking at the moon. The same young man walking calmly away, looking at peace and contented, soft moonlight illuminating his path.", prompt_audio: "Melodi berubah menjadi ceria dan penuh keyakinan, ambience malam yang tenang." }
-                ]
-            }
-        ];
-
-        wisdomDB.taubat = [
-            {
-                master_concept: "Seorang pemuda menangis menyesali dosa masa lalunya di kamar yang gelap, lalu perlahan ia bangkit mengambil air wudhu, dan diakhiri dengan ketenangan usai sujud panjang.",
-                scenes: [
-                    { scene_num: 1, title: "Beban Dosa Masa Lalu", arab: "قُلْ يَا عِبَادِيَ الَّذِينَ أَسْرَفُوا عَلَىٰ أَنفُسِهِمْ لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ", latin: "Qul yaa 'ibaadiyalladziina asrafuu 'alaa anfusihim laa taqnathuu mir rahmatillah", terjemahan: "Katakanlah: 'Hai hamba-hamba-Ku yang malampaui batas terhadap diri mereka sendiri, janganlah kamu berputus asa dari rahmat Allah.'", sumber: "QS. Az-Zumar: 53", makna: "Ampunan Allah jauh lebih luas dari samudra dosamu.", voiceover: "Sebanyak apapun noda di masa lalu... Sehina apapun kita merasa hari ini, pintu ampunan-Nya tak pernah sekalipun tertutup.", prompt_video: "Scene 1: Cinematic close up shot of a young muslim man sitting on the floor in a dark room, head in his hands, looking regretful and silently crying, single tear, dramatic moody lighting.", prompt_audio: "Keheningan total, hanya terdengar suara isak tangis pelan dan detak jam dinding." },
-                    { scene_num: 2, title: "Langkah Menuju Cahaya", arab: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ", latin: "Innallaha yuhibbut tawwaabiin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertaubat.", sumber: "QS. Al-Baqarah: 222", makna: "Air mata taubat adalah sebaik-baiknya pembasuh luka.", voiceover: "Basuhlah wajahmu dengan air wudhu. Biarkan setiap tetesnya menggugurkan kesedihan dan penyesalan yang membelenggu jiwamu.", prompt_video: "Scene 2: Medium shot of the same young man washing his face with water (wudhu), water dripping from his face, looking into the mirror with a look of emerging hope, bathroom with dim warm light.", prompt_audio: "Suara gemericik air yang mengalir perlahan, melodi menenangkan yang membangkitkan harapan." },
-                    { scene_num: 3, title: "Sujud yang Menenangkan", arab: "وَهُوَ الَّذِي يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ", latin: "Wa huwalladzi yaqbalut taubata 'an 'ibaadihi", terjemahan: "Dan Dialah yang menerima taubat dari hamba-hamba-Nya.", sumber: "QS. Asy-Syura: 25", makna: "Seorang pendosa yang bertaubat seolah tak memiliki dosa.", voiceover: "Menangislah dalam sujudmu. Karena sebaik-baiknya tempat kembali bagi hati yang tersesat, adalah pelukan kasih sayang Penciptanya.", prompt_video: "Scene 3: Wide cinematic shot, beautiful morning light coming through a window. The same young man is in a deep, long prostration (sujud) on a prayer mat, very peaceful and tranquil atmosphere.", prompt_audio: "Suara burung di pagi hari, instrumen piano yang sangat lembut dan damai." }
-                ]
-            }
-        ];
-
-        wisdomDB.kehilangan = [
-            {
-                master_concept: "Seorang pemuda terdiam menatap barang kenangan dengan tatapan kosong, lalu ia perlahan belajar tersenyum mengikhlaskan, hingga ia menemukan kebahagiaan baru di kemudian hari.",
-                scenes: [
-                    { scene_num: 1, title: "Perpisahan yang Menyakitkan", arab: "الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", latin: "Alladziina idzaa ashaabathum mushiibatun qaaluu innaa lillaahi wa innaa ilaihi raaji'uun", terjemahan: "(yaitu) orang-orang yang apabila ditimpa musibah, mereka mengucapkan: 'Sesungguhnya kami adalah milik Allah dan kepada-Nya-lah kami kembali.'", sumber: "QS. Al-Baqarah: 156", makna: "Semua yang kita miliki di dunia ini hanyalah titipan.", voiceover: "Setiap yang datang pasti akan pergi. Dan setiap titipan... pada akhirnya harus dikembalikan kepada Sang Pemilik Sejati.", prompt_video: "Scene 1: Cinematic close up shot of a young muslim man staring blankly at an old photo or object in his hands, eyes looking sad and empty, cold gloomy lighting, sitting alone in a room.", prompt_audio: "Suara angin mendesah pelan, melodi piano yang sangat sedih dan melambat." },
-                    { scene_num: 2, title: "Belajar Mengikhlaskan", arab: "وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Wa 'asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Allah mengambil sesuatu untuk menggantinya dengan yang lebih baik.", voiceover: "Sakit memang... Namun di balik setiap kepergian, Allah selalu merencanakan hikmah yang tak mampu dijangkau oleh akal kita hari ini.", prompt_video: "Scene 2: Medium shot of the same young man putting the object into a box gently, closing the box, taking a deep breath, trying to smile with acceptance, warm lighting starting to hit his face.", prompt_audio: "Hening sejenak, lalu terdengar nada musik yang perlahan mengalun hangat, memberikan rasa lega." },
-                    { scene_num: 3, title: "Ganti yang Lebih Baik", arab: "مَا عِندَكُمْ يَنفَدُ ۖ وَمَا عِندَ اللَّهِ بَاقٍ", latin: "Maa 'indakum yanfadu, wa maa 'indallahi baaqin", terjemahan: "Apa yang di sisimu akan lenyap, dan apa yang ada di sisi Allah adalah kekal.", sumber: "QS. An-Nahl: 96", makna: "Ikhlas adalah puncak tertinggi dari mencintai.", voiceover: "Kuatkan hatimu. Karena mereka yang mampu tersenyum setelah kehilangan, sedang disiapkan ganti yang jauh lebih indah oleh Tuhan.", prompt_video: "Scene 3: Wide cinematic outdoor shot, bright and sunny day. The same young man is walking in a beautiful garden or beach, smiling genuinely, looking at the horizon with hope and true happiness.", prompt_audio: "Suara ombak pelan atau angin segar, musik instrumental yang mengangkat semangat dan ceria." }
-                ]
-            }
-        ];
 
         // Memetakan sisa tema ke salah satu database di atas agar tidak terjadi error (karena Anda bisa membuatnya lebih banyak nanti)
         wisdomDB.sholat = wisdomDB.taubat;
@@ -751,26 +668,32 @@
             if (moodType === 'custom') moodType = document.getElementById('gen-mood-custom').value;
             if (locationType === 'custom') locationType = document.getElementById('gen-location-custom').value;
             
-            // Merangkai deskripsi karakter dinamis
-            let promptActor = "young muslim man";
+            // Merangkai deskripsi karakter dinamis DALAM BAHASA INDONESIA
+            let promptActor = "seorang pria muda muslim";
+            let promptActorSame = "pria muda muslim yang sama";
             let isCustomActor = false;
 
-            if (actorType === 'woman') promptActor = "young muslim woman wearing hijab";
-            else if (actorType === 'boy') promptActor = "muslim boy";
-            else if (actorType === 'girl') promptActor = "muslim girl wearing hijab";
+            if (actorType === 'woman') {
+                promptActor = "seorang wanita muda muslimah berhijab";
+                promptActorSame = "wanita muda muslimah berhijab yang sama";
+            }
+            else if (actorType === 'boy') {
+                promptActor = "seorang anak laki-laki muslim";
+                promptActorSame = "anak laki-laki muslim yang sama";
+            }
+            else if (actorType === 'girl') {
+                promptActor = "seorang anak perempuan muslimah berhijab";
+                promptActorSame = "anak perempuan muslimah berhijab yang sama";
+            }
             else if (actorType !== 'man' && actorType.trim() !== "") {
-                promptActor = actorType; // Menggunakan aktor manual
+                promptActor = `seorang karakter (${actorType})`; 
+                promptActorSame = `karakter (${actorType}) yang sama`;
                 isCustomActor = true;
             }
 
             if (clothingType && clothingType.trim() !== "") {
-                if (isCustomActor) {
-                    promptActor += ` wearing ${clothingType}`;
-                } else {
-                    promptActor += (actorType === 'woman' || actorType === 'girl') 
-                        ? ` and ${clothingType}` 
-                        : ` wearing ${clothingType}`;
-                }
+                promptActor += ` yang memakai pakaian ${clothingType}`;
+                promptActorSame += ` yang memakai pakaian ${clothingType}`;
             }
 
             btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyusun Storyboard...';
@@ -784,71 +707,31 @@
                 const selected = JSON.parse(JSON.stringify(db[randomIndex]));
                 
                 // Penyesuaian kata kunci untuk UI Terjemahan
-                let actorId = 'Seorang pemuda';
-                let workerId = 'Seorang pekerja';
-                let traderId = 'Seorang pedagang';
-                if (actorType === 'woman') {
-                    actorId = 'Seorang muslimah'; workerId = 'Seorang pekerja wanita'; traderId = 'Seorang pedagang wanita';
-                } else if (actorType === 'boy') {
-                    actorId = 'Seorang anak laki-laki'; workerId = 'Seorang anak laki-laki yang bekerja'; traderId = 'Seorang pedagang cilik';
-                } else if (actorType === 'girl') {
-                    actorId = 'Seorang anak perempuan'; workerId = 'Seorang anak perempuan yang bekerja'; traderId = 'Seorang pedagang cilik perempuan';
-                } else if (isCustomActor) {
-                    actorId = `Seseorang (${promptActor})`; workerId = actorId; traderId = actorId;
-                }
+                let actorId = 'Seseorang';
+                if (actorType === 'woman') actorId = 'Seorang muslimah';
+                else if (actorType === 'boy') actorId = 'Seorang anak laki-laki';
+                else if (actorType === 'girl') actorId = 'Seorang anak perempuan';
+                else if (actorType === 'man') actorId = 'Seorang pemuda';
+                else if (isCustomActor) actorId = `Seseorang (${actorType})`;
 
                 // Modifikasi teks master konsep secara dinamis (Terjemahan UI)
-                selected.master_concept = selected.master_concept
-                    .replace(/Seorang pemuda/gi, actorId)
-                    .replace(/Seorang pekerja/gi, workerId)
-                    .replace(/Seorang pedagang/gi, traderId)
-                    .replace(/Seorang muslimah/gi, actorId);
+                selected.master_concept = selected.master_concept.replace(/Seseorang/gi, actorId);
 
-                // Setup Prefix Suasana & Lokasi
+                // Setup Prefix Suasana & Lokasi (Bahasa Indonesia)
                 let environmentPrefix = "";
-                if (locationType && locationType.trim() !== "") environmentPrefix += `[Location: ${locationType}] `;
-                if (moodType && moodType.trim() !== "") environmentPrefix += `[Atmosphere: ${moodType}] `;
+                if (locationType && locationType.trim() !== "") environmentPrefix += `[Lokasi: ${locationType}] `;
+                if (moodType && moodType.trim() !== "") environmentPrefix += `[Suasana: ${moodType}] `;
 
-                // Modifikasi Prompt Video (Inggris) secara dinamis
+                // Modifikasi Prompt Video secara dinamis (Inject ke bahasa Indonesia)
                 selected.scenes.forEach((sc) => {
-                    // 1. Timpa subjek karakter
+                    // 1. Timpa subjek karakter [AKTOR_UTAMA] dan [AKTOR_SAMA]
                     sc.prompt_video = sc.prompt_video
-                        .replace(/young muslim woman wearing hijab/gi, promptActor)
-                        .replace(/young muslim woman/gi, promptActor)
-                        .replace(/young muslim man/gi, promptActor)
-                        .replace(/same young man/gi, `same ${promptActor}`)
-                        .replace(/same young woman/gi, `same ${promptActor}`)
-                        .replace(/same woman/gi, `same ${promptActor}`);
-                        
-                    // 2. Timpa Pronoun (Kata Ganti he/she/his/her/man/woman/boy/girl) agar AI Generate Video tidak bingung
-                    if (!isCustomActor) {
-                        if (actorType === 'woman' || actorType === 'girl') {
-                            sc.prompt_video = sc.prompt_video
-                                .replace(/\bhe is\b/gi, "she is")
-                                .replace(/\bHe is\b/g, "She is")
-                                .replace(/\bhe\b/gi, "she")
-                                .replace(/\bHe\b/g, "She")
-                                .replace(/\bhis\b/gi, "her")
-                                .replace(/\bHis\b/g, "Her")
-                                .replace(/\bhim\b/gi, "her")
-                                .replace(/\bman\b/g, actorType === 'girl' ? "girl" : "woman");
-                        } else {
-                            sc.prompt_video = sc.prompt_video
-                                .replace(/\bshe is\b/gi, "he is")
-                                .replace(/\bShe is\b/g, "He is")
-                                .replace(/\bshe\b/gi, "he")
-                                .replace(/\bShe\b/g, "He")
-                                .replace(/\bher\b/gi, "his")
-                                .replace(/\bHer\b/g, "His")
-                                .replace(/\bwoman\b/g, actorType === 'boy' ? "boy" : "man")
-                                .replace(/\bman\b/g, actorType === 'boy' ? "boy" : "man");
-                        }
-                    }
+                        .replace(/\[AKTOR_UTAMA\]/g, promptActor)
+                        .replace(/\[AKTOR_SAMA\]/g, promptActorSame);
 
-                    // 3. Inject Suasana & Lokasi di awal prompt secara aman
+                    // 2. Inject Suasana & Lokasi di awal prompt secara aman
                     if (environmentPrefix !== "") {
-                        // Menambahkan konteks ke prompt visual setelah teks "Scene X:"
-                        sc.prompt_video = sc.prompt_video.replace(/Scene \d+:/i, `$& ${environmentPrefix} - `);
+                        sc.prompt_video = `${environmentPrefix} - ${sc.prompt_video}`;
                     }
                     
                     sc.prompt_video = sc.prompt_video.replace(/  +/g, ' '); // Merapikan spasi dobel
@@ -975,25 +858,30 @@
             if(text) copyText(text);
         }
 
-        // --- PROMPT OUTPUT ---
+        // --- PROMPT OUTPUT DALAM BAHASA INDONESIA ---
         function generateCinematicPrompt() { 
             if(!currentGeneratedData) return;
             const master = document.getElementById('prompt-base').value;
             const ratio = document.getElementById('prompt-ratio').value;
-            const magicKeywords = "ultra realistic, 8K cinematic detail, natural movement, professional movie composition, iphone cinematic camera, depth of field, realistic lighting, realistic ambience";
+            
+            // Keyword rendering dikonversi ke padanan agar AI lebih paham, 
+            // namun untuk Video AI (seperti Luma/Kling), bahasa campuran Indonesia-Inggris sudah sangat dipahami.
+            const magicKeywords = "ultra realistis, detail sinematik 8K, pergerakan alami, komposisi film profesional, pencahayaan realistis, suasana sinematik";
             
             const outEl = document.getElementById('prompt-output');
             outEl.innerHTML = "";
             
-            const masterRule = `[MASTER CONTINUITY RULE]:\nKeep the main character consistent across all 3 shots. Same clothes, same person. Emotional transition from tired to peaceful. Aspect ratio ${ratio}.`;
+            const masterRule = `[ATURAN KONSISTENSI KARAKTER (MASTER RULE)]:\nKunci wajah, postur, dan pakaian karakter agar 100% konsisten persis seperti di Scene 1 sampai Scene 4 ini. Jangan ubah orangnya, jangan ubah jenis pakaiannya. Rasio aspek ${ratio}.`;
             
             currentGeneratedData.scenes.forEach((sc, index) => {
-                const promptText = `${masterRule}\n\n==============\n[SHOT ${sc.scene_num} - ${sc.title}]\n==============\nVisual Prompt: ${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\nAmbience Audio: ${sc.prompt_audio}\nVoiceover Script: "${sc.voiceover}"`;
+                // PERBAIKAN: Mengelompokkan Visual dan Audio menjadi 2 blok tegas agar AI (seperti Leonardo)
+                // tidak memotong/melewatkan baris Voiceover karena prompt visual yang terlalu panjang di Scene 1.
+                const promptText = `${masterRule}\n\n==============\n[ADEGAN ${sc.scene_num} - ${sc.title}]\n==============\n[PROMPT VISUAL]\n${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\n[PROMPT AUDIO (SFX & VOICEOVER)]\n- Suasana BGM: ${sc.prompt_audio}\n- Narasi Voiceover (Wajib Dibaca): "${sc.voiceover}"`;
                 
                 const cardHTML = `
                 <div class="bg-black/50 p-4 rounded-xl border border-white/5 relative fade-in group hover:border-blue-500/30 transition-all">
                     <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2">
-                        <span class="text-xs font-bold text-blue-400 tracking-wider">SCENE ${sc.scene_num} PROMPT</span>
+                        <span class="text-xs font-bold text-blue-400 tracking-wider">PROMPT ADEGAN ${sc.scene_num}</span>
                         <button onclick="copyGeneratedPrompt(${index})" class="text-[10px] bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white px-3 py-1.5 rounded flex items-center gap-1.5 transition-all border border-white/10 hover:border-blue-500">
                             <i class="fa-regular fa-copy"></i> Copy Prompt Scene ${sc.scene_num}
                         </button>
@@ -1042,7 +930,7 @@
             document.getElementById('overlay-input').value = fullVoiceover;
             updateOverlay();
             nav('overlay');
-            Toast.fire({ icon: 'success', title: 'Data 3-Scene dikirim ke Overlay Studio!' });
+            Toast.fire({ icon: 'success', title: 'Data 4-Scene dikirim ke Overlay Studio!' });
         }
 
         function updateOverlay() {
