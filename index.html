@@ -182,7 +182,7 @@
             <div id="view-generator" class="view-section hidden fade-in">
                 <div class="mb-6">
                     <h2 class="text-2xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-clapperboard text-emerald-500"></i> AI Multi-Scene Generator</h2>
-                    <p class="text-sm text-gray-400">Buat storytelling dakwah 3 adegan berkesinambungan dengan alur emosional cinematic.</p>
+                    <p class="text-sm text-gray-400">Buat storytelling dakwah adegan berkesinambungan dengan alur emosional cinematic.</p>
                 </div>
 
                 <!-- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) -->
@@ -355,10 +355,8 @@
                     <div class="glass-panel p-6 rounded-2xl flex flex-col bg-slate-900/80 relative">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-sm font-bold text-blue-400">HASIL PROMPT AI VIDEO</h3>
-                            <!-- Tombol Copy Umum Dihapus Sesuai Permintaan -->
                         </div>
                         <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-2" id="prompt-output">
-                            <!-- Hasil prompt akan dirender di sini sebagai kartu terpisah -->
                             <div class="bg-black/50 p-4 rounded-xl border border-white/5 font-mono text-[13px] text-gray-300">Menunggu Generate Prompt...</div>
                         </div>
                     </div>
@@ -566,7 +564,7 @@
 
         // --- Data & Generate Logic ---
         let currentGeneratedData = null;
-        let currentOverlaySceneName = "1"; // VARIABEL BARU: Menyimpan identitas scene yang aktif di Overlay Studio
+        let currentOverlaySceneName = "1"; // Menyimpan identitas scene yang aktif di Overlay Studio
 
         const wisdomDB = {
             sabar: [
@@ -627,7 +625,7 @@
                         { scene_num: 1, title: "Beban Dosa Masa Lalu", arab: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ", latin: "Laa taqnathuu mir rahmatillah", terjemahan: "Janganlah kamu berputus asa dari rahmat Allah.", sumber: "QS. Az-Zumar: 53", makna: "Ampunan Allah jauh lebih luas dari samudra dosamu.", voiceover: "Sebanyak apapun noda di masa lalu... Sehina apapun kita merasa hari ini, pintu ampunan-Nya tak pernah sekalipun tertutup untuk kita.", prompt_video: "Sorotan sinematik jarak dekat dari [AKTOR_UTAMA] duduk meringkuk di lantai kamar yang gelap memegang kepala, tampak sangat menyesal dengan mata berkaca-kaca, setetes air mata natural mengalir halus membasahi pipinya (sangat realistis, bukan menangis histeris), pencahayaan sangat muram.", prompt_audio: "Keheningan malam, isak tangis tertahan, instrumen utama melodi seruling syahdu bermain pelan." },
                         { scene_num: 2, title: "Membersihkan Jiwa", arab: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ", latin: "Innallaha yuhibbut tawwaabiin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertaubat.", sumber: "QS. Al-Baqarah: 222", makna: "Air mata taubat adalah sebaik-baiknya pembasuh luka batin.", voiceover: "Basuhlah wajahmu dengan air wudhu. Biarkan setiap tetesnya menggugurkan kesedihan dan penyesalan yang selama ini membelenggu jiwamu.", prompt_video: "Sorotan jarak menengah [AKTOR_SAMA] yang sedang membasuh wajahnya dengan air (wudhu), butiran air menetes dari dagunya, menatap tajam ke arah cermin dengan secercah harapan baru, kamar mandi dengan lampu kuning redup.", prompt_audio: "Suara gemericik air keran yang mengalir bersih, instrumen seruling syahdu yang sama membangkitkan ketegaran." },
                         { scene_num: 3, title: "Sujud yang Menenangkan", arab: "وَهُوَ الَّذِي يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ", latin: "Wa huwalladzi yaqbalut taubata 'an 'ibaadihi", terjemahan: "Dan Dialah yang menerima taubat dari hamba-hamba-Nya.", sumber: "QS. Asy-Syura: 25", makna: "Seorang pendosa yang bertaubat seolah terlahir kembali tanpa dosa.", voiceover: "Menangislah sepuasnya dalam sujudmu. Karena sebaik-baiknya tempat bersandar bagi hati yang tersesat, adalah pelukan kasih sayang Sang Pencipta.", prompt_video: "Sorotan sudut lebar, cahaya pagi biru mulai masuk melalui celah jendela. [AKTOR_SAMA] sedang bersujud dengan posisi sangat rendah dan lama di atas sajadah di kamarnya, suasana sangat damai, hening, dan syahdu.", prompt_audio: "Suara embusan napas lega, instrumen seruling syahdu yang sama mengalun lambat dan memeluk jiwa." },
-                        { scene_num: 4, title: "Lahir Kembali", arab: "وَإِنِّي لَغَفَّارٌ لِّمَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا", latin: "Wa innii laghaffaarun liman taaba wa aamana wa 'amila shaalihaa", terjemahan: "Dan sesungguhnya Aku Maha Pengampun bagi orang yang bertaubat, beriman, beramal saleh.", sumber: "QS. Taha: 82", makna: "Kesempatan selalu ada bagi mereka yang benar-benar berniat memperbaiki diri.", voiceover: "Usaplah air matamu. Bukalah lembaran baru. Allah Maha Pengampun bagi siapa saja yang mau melangkah kembali dan memperbaiki diri.", prompt_video: "Sorotan dari belakang perlahan mendekat, [AKTOR_SAMA] membuka tirai dan jendela kamarnya lebar-lebar membiarkan cahaya matahari pagi keemasan menerangi seluruh ruangan, ia menatap langit dengan senyum kelegaan luar biasa.", prompt_video_note: "wajah bersih, tanpa air mata, tersenyum lebar", prompt_audio: "Suara jendela dibuka, kicauan burung pagi, instrumen seruling syahdu yang sama bertransisi menjadi musik kemenangan yang megah." }
+                        { scene_num: 4, title: "Lahir Kembali", arab: "وَإِنِّي لَغَفَّارٌ لِّمَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا", latin: "Wa innii laghaffaarun liman taaba wa aamana wa 'amila shaalihaa", terjemahan: "Dan sesungguhnya Aku Maha Pengampun bagi orang yang bertaubat, beriman, beramal saleh.", sumber: "QS. Taha: 82", makna: "Kesempatan selalu ada bagi mereka yang benar-benar berniat memperbaiki diri.", voiceover: "Usaplah air matamu. Bukalah lembaran baru. Allah Maha Pengampun bagi siapa saja yang mau melangkah kembali dan memperbaiki diri.", prompt_video: "Sorotan dari belakang perlahan mendekat, [AKTOR_SAMA] membuka tirai dan jendela kamarnya lebar-lebar membiarkan cahaya matahari pagi keemasan menerangi seluruh ruangan, ia menatap langit dengan senyum kelegaan luar biasa.", prompt_audio: "Suara jendela dibuka, kicauan burung pagi, instrumen seruling syahdu yang sama bertransisi menjadi musik kemenangan yang megah." }
                     ]
                 }
             ],
@@ -644,7 +642,7 @@
             ]
         };
 
-        // Memetakan sisa tema ke salah satu database di atas agar tidak terjadi error (karena Anda bisa membuatnya lebih banyak nanti)
+        // Memetakan sisa tema ke salah satu database di atas agar tidak terjadi error 
         wisdomDB.sholat = wisdomDB.taubat;
         wisdomDB.kehidupan = wisdomDB.sabar;
         wisdomDB.akhirat = wisdomDB.taubat;
@@ -667,6 +665,44 @@
                     }
                 }
             });
+        }
+
+        // --- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) DENGAN RANDOMIZER WAJAH ---
+        function generateActorPrompt() {
+            const desc = document.getElementById('actor-prompt-input').value;
+            const gender = document.getElementById('actor-prompt-gender').value;
+            const resultBox = document.getElementById('actor-prompt-result');
+            const outputText = document.getElementById('actor-prompt-output');
+            
+            // Database Randomizer Wajah Anti-Monoton
+            const regions = ["Southeast Asian", "Middle Eastern", "South Asian", "Indonesian", "Malay", "Turkish", "Levantine", "Central Asian", "North African", "Mixed Asian-Arab"];
+            const faceStructures = ["sharp jawline", "soft facial features", "oval face shape", "prominent cheekbones", "distinctive unique facial structure", "symmetrical face", "slightly asymmetrical natural face", "strong facial structure", "gentle facial expression"];
+            const eyeColors = ["dark brown eyes", "light brown eyes", "hazel eyes", "deep black eyes", "amber eyes"];
+            
+            // Pilih secara acak
+            const randomRegion = regions[Math.floor(Math.random() * regions.length)];
+            const randomFace = faceStructures[Math.floor(Math.random() * faceStructures.length)];
+            const randomEyes = eyeColors[Math.floor(Math.random() * eyeColors.length)];
+            const randomSeed = Math.floor(Math.random() * 9000000) + 1000000; // Seed unik untuk Midjourney
+            
+            let baseSubject = "";
+            if (gender === 'man') baseSubject = `A handsome young muslim man of ${randomRegion} descent`;
+            else if (gender === 'woman') baseSubject = `A beautiful young muslim woman of ${randomRegion} descent wearing an elegant and modest hijab`;
+            else if (gender === 'boy') baseSubject = `A cute little muslim boy of ${randomRegion} descent`;
+            else if (gender === 'girl') baseSubject = `A cute little muslim girl of ${randomRegion} descent wearing a beautiful small hijab`;
+            
+            const detailedDesc = desc.trim() !== "" ? desc + ", " : "";
+            
+            // Inject randomizer ke dalam full prompt
+            const fullPrompt = `Ultra-realistic portrait photography of ${baseSubject}, ${detailedDesc}${randomFace}, ${randomEyes}, highly detailed face, expressive eyes, 8k resolution, cinematic lighting, photorealistic, shot on 35mm lens, depth of field, sharp focus, natural skin texture, dramatic shadow, --ar 9:16 --seed ${randomSeed}`;
+            
+            outputText.innerText = fullPrompt;
+            resultBox.classList.remove('hidden');
+        }
+
+        function copyActorPrompt() {
+            const text = document.getElementById('actor-prompt-output').innerText;
+            if(text) copyText(text);
         }
 
         function generateWisdom() {
@@ -727,6 +763,26 @@
                 // DEEP COPY: Mengkopi data tanpa merusak / mengubah database asli yang tersimpan
                 const selected = JSON.parse(JSON.stringify(db[randomIndex]));
                 
+                // --- FITUR BARU: DYNAMIC CONTEXTUALIZER (ANTI MONOTON & LOGIKA USIA) ---
+                const isChild = (actorType === 'boy' || actorType === 'girl');
+                
+                // Kumpulan Variasi Anti-Monoton untuk Voiceover (Kondisi Dewasa)
+                const adultMoneyProbs = ["tagihan terasa mencekik", "cicilan seakan tak berujung", "kebutuhan hidup semakin mendesak", "jalan keluar terasa buntu", "tuntutan hidup di pundak semakin berat"];
+                const randMoneyProb = adultMoneyProbs[Math.floor(Math.random() * adultMoneyProbs.length)];
+                
+                const adultSakuProbs = ["saku menipis", "saldo mulai kosong", "pemasukan tersendat", "penghasilan tak menentu", "pekerjaan atau usaha terasa sepi"];
+                const randSakuProb = adultSakuProbs[Math.floor(Math.random() * adultSakuProbs.length)];
+
+                const openingsLelah = ["Terkadang, langkah terasa sangat berat...", "Ada kalanya dunia terasa begitu membebani pundak ini...", "Pernahkah kau merasa begitu lelah hingga ingin menyerah?", "Di titik tertentu, kita merasa kehabisan tenaga untuk melangkah..."];
+                const randLelah = openingsLelah[Math.floor(Math.random() * openingsLelah.length)];
+
+                const openingsSedih = ["Ada luka yang tak bisa diceritakan kepada siapapun.", "Beberapa kesedihan hanya bisa disimpan rapat di dalam dada.", "Menangis dalam diam adalah bahasa hati yang paling jujur.", "Terkadang senyum adalah tameng untuk menyembunyikan luka terdalam."];
+                const randSedih = openingsSedih[Math.floor(Math.random() * openingsSedih.length)];
+
+                const kepergianArr = ["Setiap yang datang pasti akan pergi.", "Tak ada yang abadi di dunia ini.", "Pada akhirnya, perpisahan adalah kepastian yang harus dihadapi.", "Semua yang kita genggam suatu saat akan lepas dari tangan."];
+                const randKepergian = kepergianArr[Math.floor(Math.random() * kepergianArr.length)];
+                // --- END OF DYNAMIC CONTEXTUALIZER ---
+
                 // Penyesuaian kata kunci untuk UI Terjemahan
                 let actorId = 'Seseorang';
                 if (actorType === 'woman') actorId = 'Seorang muslimah';
@@ -746,6 +802,41 @@
 
                 // Modifikasi Prompt Video secara dinamis (Inject ke bahasa Indonesia)
                 selected.scenes.forEach((sc) => {
+                    
+                    // --- ADAPTASI LOGIKA CERITA (VOICEOVER & VISUAL) BERDASARKAN USIA & VARIASI ---
+                    if (isChild) {
+                        // Logika Anak-anak (Menyesuaikan konteks kehidupan anak)
+                        sc.voiceover = sc.voiceover
+                            .replace(/tagihan terasa mencekik/gi, "melihat teman-teman bisa jajan bebas sementara kita harus menahan keinginan")
+                            .replace(/tagihan menumpuk/gi, "kebutuhan sekolah belum terbayar")
+                            .replace(/saku menipis/gi, "bekal sekolah terasa kurang")
+                            .replace(/dompet menipis/gi, "uang saku tak ada")
+                            .replace(/meja dagangan\/pekerjaannya yang kosong/gi, "sepatu dan tas sekolahnya yang sudah usang")
+                            .replace(/pekerjaan/gi, "tugas sekolah")
+                            .replace(/pasangan-pasangan/gi, "keluarga dan sahabat yang menyayangi")
+                            .replace(/berjodoh/gi, "ditakdirkan sukses bersama")
+                            .replace(/kualitas jodohmu/gi, "masa depanmu")
+                            .replace(/berlabuh pada yang halal dan diridhai-Nya/gi, "tumbuh menjadi kebanggaan yang diridhai-Nya")
+                            .replace(/dosa masa lalu/gi, "kesalahan di masa kecil")
+                            .replace(/Sehina apapun kita/gi, "Sekecil apapun kita merasa");
+
+                        sc.prompt_video = sc.prompt_video
+                            .replace(/pekerja kantoran/gi, "pelajar kecil")
+                            .replace(/pedagang kecil/gi, "anak kecil yang membantu orang tua")
+                            .replace(/dompetnya/gi, "tas sekolahnya yang usang atau celengannya")
+                            .replace(/meja dagangan/gi, "buku pelajarannya");
+                    } else {
+                        // Logika Dewasa (Anti-Monoton dengan Randomizer Dinamis)
+                        sc.voiceover = sc.voiceover
+                            .replace(/tagihan terasa mencekik/gi, randMoneyProb)
+                            .replace(/tagihan menumpuk/gi, randMoneyProb)
+                            .replace(/saku menipis/gi, randSakuProb)
+                            .replace(/dompet menipis/gi, randSakuProb)
+                            .replace(/Terkadang, langkah terasa sangat berat\.\.\./gi, randLelah)
+                            .replace(/Ada luka yang tak bisa diceritakan kepada siapapun\./gi, randSedih)
+                            .replace(/Setiap yang datang pasti akan pergi\./gi, randKepergian);
+                    }
+
                     // 1. Timpa subjek karakter [AKTOR_UTAMA] dan [AKTOR_SAMA]
                     sc.prompt_video = sc.prompt_video
                         .replace(/\[AKTOR_UTAMA\]/g, promptActor)
@@ -842,52 +933,12 @@
             generateCinematicPrompt();
         }
 
-        // --- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) DENGAN RANDOMIZER WAJAH ---
-        function generateActorPrompt() {
-            const desc = document.getElementById('actor-prompt-input').value;
-            const gender = document.getElementById('actor-prompt-gender').value;
-            const resultBox = document.getElementById('actor-prompt-result');
-            const outputText = document.getElementById('actor-prompt-output');
-            
-            // Database Randomizer Wajah Anti-Monoton
-            const regions = ["Southeast Asian", "Middle Eastern", "South Asian", "Indonesian", "Malay", "Turkish", "Levantine", "Central Asian", "North African", "Mixed Asian-Arab"];
-            const faceStructures = ["sharp jawline", "soft facial features", "oval face shape", "prominent cheekbones", "distinctive unique facial structure", "symmetrical face", "slightly asymmetrical natural face", "strong facial structure", "gentle facial expression"];
-            const eyeColors = ["dark brown eyes", "light brown eyes", "hazel eyes", "deep black eyes", "amber eyes"];
-            
-            // Pilih secara acak
-            const randomRegion = regions[Math.floor(Math.random() * regions.length)];
-            const randomFace = faceStructures[Math.floor(Math.random() * faceStructures.length)];
-            const randomEyes = eyeColors[Math.floor(Math.random() * eyeColors.length)];
-            const randomSeed = Math.floor(Math.random() * 9000000) + 1000000; // Seed unik untuk Midjourney
-            
-            let baseSubject = "";
-            if (gender === 'man') baseSubject = `A handsome young muslim man of ${randomRegion} descent`;
-            else if (gender === 'woman') baseSubject = `A beautiful young muslim woman of ${randomRegion} descent wearing an elegant and modest hijab`;
-            else if (gender === 'boy') baseSubject = `A cute little muslim boy of ${randomRegion} descent`;
-            else if (gender === 'girl') baseSubject = `A cute little muslim girl of ${randomRegion} descent wearing a beautiful small hijab`;
-            
-            const detailedDesc = desc.trim() !== "" ? desc + ", " : "";
-            
-            // Inject randomizer ke dalam full prompt
-            const fullPrompt = `Ultra-realistic portrait photography of ${baseSubject}, ${detailedDesc}${randomFace}, ${randomEyes}, highly detailed face, expressive eyes, 8k resolution, cinematic lighting, photorealistic, shot on 35mm lens, depth of field, sharp focus, natural skin texture, dramatic shadow, --ar 9:16 --seed ${randomSeed}`;
-            
-            outputText.innerText = fullPrompt;
-            resultBox.classList.remove('hidden');
-        }
-
-        function copyActorPrompt() {
-            const text = document.getElementById('actor-prompt-output').innerText;
-            if(text) copyText(text);
-        }
-
         // --- PROMPT OUTPUT DALAM BAHASA INDONESIA ---
         function generateCinematicPrompt() { 
             if(!currentGeneratedData) return;
             const master = document.getElementById('prompt-base').value;
             const ratio = document.getElementById('prompt-ratio').value;
             
-            // Keyword rendering dikonversi ke padanan agar AI lebih paham, 
-            // namun untuk Video AI (seperti Luma/Kling), bahasa campuran Indonesia-Inggris sudah sangat dipahami.
             const magicKeywords = "ultra realistis, detail sinematik 8K, pergerakan alami, komposisi film profesional, pencahayaan realistis, suasana sinematik";
             
             const outEl = document.getElementById('prompt-output');
@@ -897,9 +948,6 @@
             const audioRule = `[ATURAN AUDIO BGM & TRANSISI (MASTER AUDIO RULE)]:\nGunakan aliran/instrumen Soundtrack BGM yang SAMA persis dari awal Scene 1 hingga Scene 4 agar musiknya nyambung. Wajib terapkan efek perlahan masuk (FADE-IN 1 detik) di awal setiap scene, dan perlahan mereda/menghilang (FADE-OUT 1 detik) di akhir scene agar transisi antar scene sangat halus/indah.`;
             
             currentGeneratedData.scenes.forEach((sc, index) => {
-                // PERBAIKAN: Mengelompokkan Visual dan Audio menjadi 2 blok tegas agar AI (seperti Leonardo)
-                // tidak memotong/melewatkan baris Voiceover karena prompt visual yang terlalu panjang di Scene 1.
-                // Ditambahkan Master Audio Rule agar AI patuh melakukan fade-in/fade-out & kontinuitas.
                 const promptText = `${masterRule}\n${audioRule}\n\n==============\n[ADEGAN ${sc.scene_num} - ${sc.title}]\n==============\n[PROMPT VISUAL]\n${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\n[PROMPT AUDIO (SFX & VOICEOVER)]\n- Suasana BGM (Fade In 1s, Fade Out 1s): ${sc.prompt_audio}\n- Narasi Voiceover (Wajib Dibaca): "${sc.voiceover}"`;
                 
                 const cardHTML = `
@@ -925,7 +973,7 @@
         function sendSingleSceneToOverlay(sceneIndex) {
             const scene = currentGeneratedData.scenes[sceneIndex];
             
-            currentOverlaySceneName = scene.scene_num; // Tracker scene name (e.g. "1")
+            currentOverlaySceneName = scene.scene_num; 
             
             document.getElementById('overlay-arab-input').value = scene.arab;
             document.getElementById('overlay-latin-input').value = scene.latin;
@@ -942,7 +990,7 @@
             if(!currentGeneratedData) return;
             const mainScene = currentGeneratedData.scenes[0];
             
-            currentOverlaySceneName = "1"; // Default ke 1 karena header mengambil scene 1
+            currentOverlaySceneName = "1"; 
             
             document.getElementById('overlay-arab-input').value = mainScene.arab;
             document.getElementById('overlay-latin-input').value = mainScene.latin;
@@ -1098,11 +1146,8 @@
                 }
 
                 const link = document.createElement('a');
-                
-                // MENGUBAH NAMA FILE DOWNLOAD (SESUAI SCENE YANG SEDANG AKTIF)
                 const prefix = includeVoiceover ? 'Overlay' : 'Header';
                 link.download = `${prefix}_NuraniAI_Scene_${currentOverlaySceneName}.png`;
-                
                 link.href = canvas.toDataURL('image/png');
                 link.click();
 
