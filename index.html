@@ -104,10 +104,11 @@
         }
     </style>
 </head>
-<body class="flex h-screen overflow-hidden antialiased selection:bg-emerald-500 selection:text-white">
+<body class="flex flex-col h-screen overflow-hidden antialiased selection:bg-emerald-500 selection:text-white">
 
-    <nav class="w-64 glass-panel m-4 rounded-2xl flex-col hidden md:flex z-20">
-        <div class="p-6 flex items-center gap-3 border-b border-white/5">
+    <!-- REVISI 4: NAVIGASI BAR DI BAGIAN ATAS (DESKTOP & MOBILE) -->
+    <header class="w-full glass-panel border-b border-white/5 py-4 px-6 flex items-center justify-between z-30 sticky top-0">
+        <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-700 flex items-center justify-center shadow-lg shadow-emerald-900/50">
                 <i class="fa-solid fa-moon text-white"></i>
             </div>
@@ -117,112 +118,81 @@
             </div>
         </div>
 
-        <div class="flex-1 overflow-y-auto py-4 px-3 space-y-1 custom-scrollbar">
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 mt-4 px-3">Main</div>
-            <a href="#" onclick="nav('home')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="home">
-                <i class="fa-solid fa-house w-5 text-center"></i> <span>Beranda</span>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-2">
+            <a href="#" onclick="nav('home')" class="nav-item flex items-center gap-2 px-4 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="home">
+                <i class="fa-solid fa-house"></i> <span>Beranda</span>
             </a>
-            <a href="#" onclick="nav('generator')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="generator">
-                <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-emerald-400"></i> <span>AI Multi-Scene</span>
+            <a href="#" onclick="nav('generator')" class="nav-item flex items-center gap-2 px-4 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="generator">
+                <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i> <span>AI Multi-Scene</span>
             </a>
-            <a href="#" onclick="nav('prompt')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="prompt">
-                <i class="fa-solid fa-video w-5 text-center"></i> <span>Prompt Video AI</span>
+            <a href="#" onclick="nav('prompt')" class="nav-item flex items-center gap-2 px-4 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="prompt">
+                <i class="fa-solid fa-video"></i> <span>Prompt Video AI</span>
             </a>
-            <a href="#" onclick="nav('overlay')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="overlay">
-                <i class="fa-solid fa-layer-group w-5 text-center"></i> <span>Overlay Studio</span>
-            </a>
-        </div>
-    </nav>
-
-    <main class="flex-1 flex flex-col h-screen relative z-10">
-        <!-- Mobile Header -->
-        <header class="md:hidden flex items-center justify-between p-4 glass-panel m-2 rounded-xl relative z-50">
-            <h1 class="text-lg font-bold tracking-wider text-white">NURANI<span class="text-emerald-500">.AI</span></h1>
-            <button class="text-gray-300 hover:text-white transition-colors" onclick="toggleMobileMenu()">
-                <i class="fa-solid fa-bars text-xl" id="mobile-menu-icon"></i>
-            </button>
-        </header>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-2 right-2 glass-panel rounded-xl z-50 p-4 flex flex-col space-y-2 fade-in shadow-2xl border border-emerald-500/20">
-            <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Menu Navigasi</div>
-            <a href="#" onclick="nav('home'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="home">
-                <i class="fa-solid fa-house w-5 text-center"></i> <span>Beranda</span>
-            </a>
-            <a href="#" onclick="nav('generator'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="generator">
-                <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-emerald-400"></i> <span>AI Multi-Scene</span>
-            </a>
-            <a href="#" onclick="nav('prompt'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="prompt">
-                <i class="fa-solid fa-video w-5 text-center"></i> <span>Prompt Video AI</span>
-            </a>
-            <a href="#" onclick="nav('overlay'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="overlay">
-                <i class="fa-solid fa-layer-group w-5 text-center"></i> <span>Overlay Studio</span>
+            <a href="#" onclick="nav('overlay')" class="nav-item flex items-center gap-2 px-4 py-2 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="overlay">
+                <i class="fa-solid fa-layer-group"></i> <span>Overlay Studio</span>
             </a>
         </div>
 
-        <!-- Dynamic Content Container -->
-        <div id="content-area" class="flex-1 overflow-y-auto p-4 md:p-8 pt-2 custom-scrollbar">
+        <!-- Hamburger Button for Mobile -->
+        <button class="md:hidden text-gray-300 hover:text-white transition-colors" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars text-xl" id="mobile-menu-icon"></i>
+        </button>
+    </header>
+
+    <!-- Mobile Menu Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-2 right-2 glass-panel rounded-xl z-50 p-4 flex flex-col space-y-2 fade-in shadow-2xl border border-emerald-500/20">
+        <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 px-2">Menu Navigasi</div>
+        <a href="#" onclick="nav('home'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="home">
+            <i class="fa-solid fa-house w-5 text-center"></i> <span>Beranda</span>
+        </a>
+        <a href="#" onclick="nav('generator'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="generator">
+            <i class="fa-solid fa-wand-magic-sparkles w-5 text-center text-emerald-400"></i> <span>AI Multi-Scene</span>
+        </a>
+        <a href="#" onclick="nav('prompt'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="prompt">
+            <i class="fa-solid fa-video w-5 text-center"></i> <span>Prompt Video AI</span>
+        </a>
+        <a href="#" onclick="nav('overlay'); toggleMobileMenu()" class="nav-item-mobile flex items-center gap-3 px-4 py-3 rounded-xl text-gray-300 hover:text-white hover:bg-white/5 transition-all" data-target="overlay">
+            <i class="fa-solid fa-layer-group w-5 text-center"></i> <span>Overlay Studio</span>
+        </a>
+    </div>
+
+    <!-- MAIN AREA (Split Left Editor / Right Preview Layout) -->
+    <main class="flex-1 overflow-hidden relative">
+        <div id="content-area" class="h-full overflow-y-auto p-4 md:p-8 custom-scrollbar">
             
             <!-- VIEW: HOME -->
             <div id="view-home" class="view-section fade-in">
-                <div class="relative w-full rounded-3xl overflow-hidden glass-panel border border-gold/20 p-8 md:p-12 mb-8 group">
-                    <div class="relative z-10 flex flex-col items-center text-center">
-                        <span class="px-4 py-1 rounded-full bg-emerald-900/50 text-emerald-300 text-xs font-semibold tracking-widest border border-emerald-500/30 mb-6">DAILY ISLAMIC WISDOM</span>
-                        <p class="font-arabic text-3xl md:text-5xl text-gold mb-6 leading-relaxed cinematic-glow" dir="rtl">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا</p>
-                        <p class="text-lg md:text-2xl font-light text-white mb-2">"Karena sesungguhnya sesudah kesulitan itu ada kemudahan."</p>
-                        <p class="text-sm text-gray-400 mb-8 font-medium tracking-wide">(QS. Al-Insyirah: 5)</p>
-                        <button onclick="nav('generator')" class="btn-premium px-6 py-2.5 rounded-full text-sm font-medium flex items-center gap-2">
-                            Mulai Buat Konten <i class="fa-solid fa-arrow-right"></i>
-                        </button>
+                <div class="max-w-4xl mx-auto mt-8">
+                    <div class="relative w-full rounded-3xl overflow-hidden glass-panel border border-gold/20 p-8 md:p-12 mb-8 group">
+                        <div class="relative z-10 flex flex-col items-center text-center">
+                            <span class="px-4 py-1 rounded-full bg-emerald-900/50 text-emerald-300 text-xs font-semibold tracking-widest border border-emerald-500/30 mb-6">DAILY ISLAMIC WISDOM</span>
+                            <p class="font-arabic text-3xl md:text-5xl text-gold mb-6 leading-relaxed cinematic-glow" dir="rtl">فَإِنَّ مَعَ الْعُسْرِ يُسْرًا</p>
+                            <p class="text-lg md:text-2xl font-light text-white mb-2">"Karena sesungguhnya sesudah kesulitan itu ada kemudahan."</p>
+                            <p class="text-sm text-gray-400 mb-8 font-medium tracking-wide">(QS. Al-Insyirah: 5)</p>
+                            <button onclick="nav('generator')" class="btn-premium px-8 py-3 rounded-full text-sm font-semibold flex items-center gap-2 tracking-wider shadow-lg">
+                                Mulai Buat Konten <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- VIEW: AI GENERATOR MULTI-SCENE -->
             <div id="view-generator" class="view-section hidden fade-in">
-                <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-clapperboard text-emerald-500"></i> AI Multi-Scene Generator</h2>
-                    <p class="text-sm text-gray-400">Buat storytelling dakwah adegan berkesinambungan dengan alur emosional cinematic.</p>
-                </div>
-
-                <!-- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) -->
-                <div class="glass-panel p-5 md:p-6 rounded-2xl mb-8 border border-blue-500/20 bg-blue-900/5">
-                    <h3 class="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2"><i class="fa-solid fa-user-astronaut"></i> Generator Prompt Gambar Aktor/Karakter</h3>
-                    <p class="text-xs text-gray-400 mb-4">Gunakan ini untuk men-generate gambar wajah/karakter utama Anda terlebih dahulu di Midjourney, Bing, atau AI Image lainnya sebelum membuat video.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div class="md:col-span-2">
-                            <input type="text" id="actor-prompt-input" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-colors text-sm" placeholder="Detail aktor (misal: memakai kacamata, brewok rapi, menangis...)">
-                        </div>
-                        <div>
-                            <select id="actor-prompt-gender" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-2.5 text-white focus:outline-none focus:border-blue-500 transition-colors text-sm">
-                                <option value="man">Pria (Muslim)</option>
-                                <option value="woman">Wanita (Muslimah Berhijab)</option>
-                                <option value="boy">Anak Laki-Laki</option>
-                                <option value="girl">Anak Perempuan (Berhijab)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <button onclick="generateActorPrompt()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 px-4 rounded-xl font-semibold text-white shadow-lg transition flex justify-center items-center gap-2 text-sm">
-                                <i class="fa-solid fa-wand-magic"></i> Buat Prompt
-                            </button>
-                        </div>
-                    </div>
+                <!-- REVISI 4: 2 BAGIAN AREA (Editor Sisi Kiri, Pratinjau Sisi Kanan) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
-                    <div id="actor-prompt-result" class="hidden mt-4 bg-black/50 p-4 rounded-xl border border-white/5 relative group transition-all">
-                        <button onclick="copyActorPrompt()" class="absolute top-2 right-2 text-[10px] bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white px-3 py-1.5 rounded flex items-center gap-1.5 transition-all border border-white/10 hover:border-blue-500" title="Copy Prompt Gambar">
-                            <i class="fa-regular fa-copy"></i> Copy
-                        </button>
-                        <p id="actor-prompt-output" class="font-mono text-[12px] text-gray-300 leading-relaxed pr-16"></p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                    <div class="lg:col-span-1">
-                        <div class="glass-panel p-5 rounded-2xl sticky top-4">
+                    <!-- EDITOR AREA (SISI KIRI) -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <div class="glass-panel p-5 rounded-2xl">
+                            <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-sliders"></i> Kontrol Alur Cerita
+                            </h3>
                             <div class="space-y-4">
                                 <!-- TEMA & KARAKTER (Berdampingan) -->
-                                <div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
-                                    <div class="flex-1">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
                                         <label class="block text-[10px] font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">Tema Konten</label>
                                         <select id="gen-theme" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px]">
                                             <option value="sabar">Sabar</option>
@@ -240,7 +210,7 @@
                                             <option value="tawakal">Tawakal & Berserah</option>
                                         </select>
                                     </div>
-                                    <div class="flex-1">
+                                    <div>
                                         <label class="block text-[10px] font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">Karakter</label>
                                         <select id="gen-actor" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px]">
                                             <option value="man">Pria (Default)</option>
@@ -249,13 +219,13 @@
                                             <option value="girl">Anak Perempuan</option>
                                             <option value="custom">Manual...</option>
                                         </select>
-                                        <input type="text" id="gen-actor-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik...">
+                                        <input type="text" id="gen-actor-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik karakter...">
                                     </div>
                                 </div>
 
                                 <!-- PAKAIAN & SUASANA (Berdampingan) -->
-                                <div class="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
-                                    <div class="flex-1">
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
                                         <label class="block text-[10px] font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">Gaya Pakaian</label>
                                         <select id="gen-clothing" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px]">
                                             <option value="">Kasual (Default)</option>
@@ -265,9 +235,9 @@
                                             <option value="simple modest clothes">Sederhana</option>
                                             <option value="custom">Manual...</option>
                                         </select>
-                                        <input type="text" id="gen-clothing-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik...">
+                                        <input type="text" id="gen-clothing-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik pakaian...">
                                     </div>
-                                    <div class="flex-1">
+                                    <div>
                                         <label class="block text-[10px] font-semibold text-gray-400 mb-1.5 uppercase tracking-wide">Suasana</label>
                                         <select id="gen-mood" onchange="toggleCustomInputs()" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px]">
                                             <option value="">Bawaan (Default)</option>
@@ -278,7 +248,7 @@
                                             <option value="foggy, mysterious, calm">Berkabut / Tenang</option>
                                             <option value="custom">Manual...</option>
                                         </select>
-                                        <input type="text" id="gen-mood-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik...">
+                                        <input type="text" id="gen-mood-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik suasana...">
                                     </div>
                                 </div>
 
@@ -297,7 +267,7 @@
                                     <input type="text" id="gen-location-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik lokasi manual...">
                                 </div>
 
-                                <!-- FITUR BARU: INSTRUKSI KHUSUS / ALUR GLOBAL -->
+                                <!-- INSTRUKSI KHUSUS / ALUR GLOBAL -->
                                 <div>
                                     <label class="block text-[10px] font-semibold text-emerald-400 mb-1.5 uppercase tracking-wide flex items-center gap-1.5">
                                         <i class="fa-solid fa-pen-to-square"></i> Instruksi Khusus (Opsional)
@@ -310,112 +280,121 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="lg:col-span-3 min-h-[400px] flex flex-col relative">
-                        <div id="gen-placeholder" class="glass-panel rounded-2xl flex-1 flex flex-col items-center justify-center text-gray-500 p-12">
-                            <i class="fa-solid fa-film text-5xl mb-4 opacity-30"></i>
-                            <p class="text-center">Tekan Generate untuk menyusun 4 Scene Cinematic berkesinambungan.</p>
+
+                        <!-- GENERATOR PROMPT AKTOR (GAMBAR) DI SISI KIRI -->
+                        <div class="glass-panel p-5 rounded-2xl border border-blue-500/20 bg-blue-900/5">
+                            <h3 class="text-xs font-bold text-blue-400 mb-3 flex items-center gap-2 uppercase tracking-wider"><i class="fa-solid fa-user-astronaut"></i> Prompt Aktor (Gambar)</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-[9px] text-gray-500 font-bold mb-1">GENDER / KARAKTER</label>
+                                    <select id="actor-prompt-gender" onchange="toggleActorPromptCustom()" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-colors text-xs">
+                                        <option value="man">Pria (Muslim)</option>
+                                        <option value="woman">Wanita (Muslimah Berhijab)</option>
+                                        <option value="boy">Anak Laki-Laki</option>
+                                        <option value="girl">Anak Perempuan (Berhijab)</option>
+                                        <option value="custom">Manual / Kustom...</option>
+                                    </select>
+                                    <input type="text" id="actor-prompt-gender-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-colors text-xs mt-2 hidden" placeholder="Deskripsi aktor kustom...">
+                                </div>
+                                <div>
+                                    <label class="block text-[9px] text-gray-500 font-bold mb-1">DETAIL AKTIVITAS / EKSPRESI</label>
+                                    <input type="text" id="actor-prompt-input" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-blue-500 transition-colors text-xs" placeholder="misal: memakai kacamata, menangis...">
+                                </div>
+                                <button onclick="generateActorPrompt()" class="w-full bg-blue-600 hover:bg-blue-700 py-2.5 px-4 rounded-xl font-semibold text-white shadow-lg transition flex justify-center items-center gap-2 text-xs">
+                                    <i class="fa-solid fa-wand-magic"></i> Buat Prompt Gambar
+                                </button>
+                            </div>
+                            
+                            <div id="actor-prompt-result" class="hidden mt-4 bg-black/50 p-4 rounded-xl border border-white/5 relative group transition-all">
+                                <button onclick="copyActorPrompt()" class="absolute top-2 right-2 text-[9px] bg-white/5 hover:bg-blue-600 text-gray-300 hover:text-white px-2 py-1 rounded flex items-center gap-1 transition-all border border-white/10" title="Copy Prompt Gambar">
+                                    <i class="fa-regular fa-copy"></i> Copy
+                                </button>
+                                <p id="actor-prompt-output" class="font-mono text-[11px] text-gray-300 leading-relaxed pr-16"></p>
+                            </div>
                         </div>
-                        <div id="gen-result" class="hidden flex-1 flex flex-col">
-                            <div class="flex justify-between items-center mb-4">
-                                <h3 class="text-lg font-bold text-emerald-400"><i class="fa-solid fa-list-ol"></i> Storyboard AI</h3>
+                    </div>
+
+                    <!-- PRATINJAU AREA / STORYBOARD (SISI KANAN) -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div id="gen-placeholder" class="glass-panel rounded-2xl flex-1 min-h-[500px] flex flex-col items-center justify-center text-gray-500 p-12">
+                            <i class="fa-solid fa-film text-5xl mb-4 opacity-30"></i>
+                            <p class="text-center font-medium">Tekan Generate di kolom kiri untuk menyusun 4 Scene Cinematic berkesinambungan.</p>
+                        </div>
+                        <div id="gen-result" class="hidden space-y-6">
+                            <div class="flex justify-between items-center bg-dark/40 p-4 rounded-2xl border border-white/5">
+                                <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-list-ol"></i> Storyboard AI Terbentuk</h3>
                                 <div class="flex gap-2">
-                                    <button onclick="autoVideoPrompt()" class="bg-blue-900/30 text-blue-400 border border-blue-500/30 px-4 py-2 rounded-lg text-sm hover:bg-blue-900/50 flex items-center gap-2 transition"><i class="fa-solid fa-video"></i> Auto Prompt Video</button>
-                                    <button onclick="sendToOverlay()" class="bg-purple-900/30 text-purple-400 border border-purple-500/30 px-4 py-2 rounded-lg text-sm hover:bg-purple-900/50 flex items-center gap-2 transition"><i class="fa-solid fa-microphone-lines"></i> Buat Overlay CapCut</button>
+                                    <button onclick="autoVideoPrompt()" class="bg-blue-900/30 text-blue-400 border border-blue-500/30 px-3 py-1.5 rounded-lg text-xs hover:bg-blue-900/50 flex items-center gap-1.5 transition"><i class="fa-solid fa-video"></i> Auto Prompt</button>
+                                    <button onclick="sendToOverlay()" class="bg-purple-900/30 text-purple-400 border border-purple-500/30 px-3 py-1.5 rounded-lg text-xs hover:bg-purple-900/50 flex items-center gap-1.5 transition"><i class="fa-solid fa-microphone-lines"></i> Buat Overlay</button>
                                 </div>
                             </div>
                             <div id="gen-scenes-container" class="space-y-6"></div>
                         </div>
                     </div>
+
                 </div>
             </div>
 
             <!-- VIEW: PROMPT VIDEO STUDIO -->
             <div id="view-prompt" class="view-section hidden fade-in">
-                <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-video text-blue-500"></i> Cinematic AI Prompt Builder</h2>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="glass-panel p-6 rounded-2xl space-y-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-400 mb-2">KONSEP UTAMA (MASTER PROMPT)</label>
-                            <textarea id="prompt-base" rows="3" class="w-full bg-dark border border-white/10 rounded-xl p-3 text-white text-sm" readonly></textarea>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-semibold text-gray-400 mb-2">RASIO VIDEO</label>
-                            <select id="prompt-ratio" class="w-full bg-dark border border-white/10 rounded-xl p-2 text-white text-sm">
-                                <option value="--ar 9:16">9:16 (TikTok/Reels/Shorts)</option>
-                                <option value="--ar 16:9">16:9 (YouTube)</option>
-                            </select>
-                        </div>
-                        <button onclick="generateCinematicPrompt()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold text-white shadow-lg transition mt-2 flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-wand-magic"></i> Susun Prompt 4 Scene
-                        </button>
-                    </div>
-                    <div class="glass-panel p-6 rounded-2xl flex flex-col bg-slate-900/80 relative">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-sm font-bold text-blue-400">HASIL PROMPT AI VIDEO</h3>
-                        </div>
-                        <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-2" id="prompt-output">
-                            <div class="bg-black/50 p-4 rounded-xl border border-white/5 font-mono text-[13px] text-gray-300">Menunggu Generate Prompt...</div>
+                <!-- REVISI 4: 2 BAGIAN AREA (Editor Sisi Kiri, Pratinjau Sisi Kanan) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- EDITOR PROMPT (SISI KIRI) -->
+                    <div class="lg:col-span-5">
+                        <div class="glass-panel p-6 rounded-2xl space-y-4">
+                            <h3 class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-sliders"></i> Pengaturan Prompt Video
+                            </h3>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-2">KONSEP UTAMA (MASTER PROMPT)</label>
+                                <textarea id="prompt-base" rows="3" class="w-full bg-dark border border-white/10 rounded-xl p-3 text-white text-sm focus:outline-none focus:border-blue-500" readonly></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-2">RASIO VIDEO</label>
+                                <select id="prompt-ratio" class="w-full bg-dark border border-white/10 rounded-xl p-2 text-white text-sm focus:outline-none focus:border-blue-500">
+                                    <option value="--ar 9:16">9:16 (TikTok/Reels/Shorts)</option>
+                                    <option value="--ar 16:9">16:9 (YouTube)</option>
+                                </select>
+                            </div>
+                            <button onclick="generateCinematicPrompt()" class="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-semibold text-white shadow-lg transition flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-wand-magic"></i> Susun Prompt 4 Scene
+                            </button>
                         </div>
                     </div>
+
+                    <!-- PRATINJAU PROMPT (SISI KANAN) -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-panel p-6 rounded-2xl flex flex-col bg-slate-900/80 min-h-[500px]">
+                            <h3 class="text-sm font-bold text-blue-400 mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-code"></i> Hasil Prompt AI Video (Siap Copy)
+                            </h3>
+                            <div class="flex-1 overflow-y-auto custom-scrollbar space-y-4 pr-2" id="prompt-output">
+                                <div class="bg-black/50 p-4 rounded-xl border border-white/5 font-mono text-[13px] text-gray-300">Menunggu Generate Prompt dari kolom kiri...</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <!-- VIEW: OVERLAY STUDIO (KARAOKE) -->
             <div id="view-overlay" class="view-section hidden fade-in">
-                <div class="mb-6 flex justify-between items-center">
-                    <div>
-                        <h2 class="text-2xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-layer-group text-purple-500"></i> Overlay Studio & CapCut Prep</h2>
-                        <p class="text-sm text-gray-400">Preview layout dan siapkan aset untuk diedit di aplikasi CapCut.</p>
-                    </div>
-                    <button onclick="showCapcutTutorial()" class="bg-blue-900/40 text-blue-400 hover:bg-blue-900/60 border border-blue-500/30 px-4 py-2 rounded-xl text-sm transition font-semibold flex items-center gap-2 shadow-lg">
-                        <i class="fa-solid fa-circle-question text-lg"></i> Panduan Edit CapCut
-                    </button>
-                </div>
-
-                <div class="flex flex-col lg:flex-row gap-8 items-center lg:items-start justify-center">
-                    <!-- Phone Preview -->
-                    <div class="phone-mockup flex flex-col items-center justify-center p-4 bg-[url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')] bg-cover bg-center">
-                        <div class="absolute inset-0 bg-black/60"></div>
-                        
-                        <!-- HEADER STATIS -->
-                        <div id="overlay-wisdom" class="relative z-10 w-full text-center flex flex-col gap-1.5 mb-4 mt-2">
-                            <p id="preview-arab" class="font-arabic text-gold text-2xl drop-shadow-lg leading-relaxed" dir="rtl"></p>
-                            <p id="preview-latin" class="text-[9px] text-gray-300 italic drop-shadow-md"></p>
-                            <p id="preview-terjemahan" class="text-xs text-white font-medium drop-shadow-md mt-1"></p>
-                            
-                            <div class="bg-dark/70 backdrop-blur-sm p-2 rounded-lg border border-white/10 mt-2 mx-auto inline-block text-left w-[90%] shadow-lg">
-                                <p id="preview-sumber" class="text-[9px] text-emerald-400 font-bold"></p>
-                                <p id="preview-makna" class="text-[8px] text-gray-300 mt-0.5 leading-tight"></p>
-                            </div>
-                        </div>
-
-                        <!-- KETERANGAN PREVIEW -->
-                        <div class="relative z-10 w-full text-center mt-4">
-                            <span class="bg-black/50 text-[8px] text-gray-400 px-2 py-1 rounded-full border border-white/10">PREVIEW SIMULASI (BUKAN HASIL EXPORT)</span>
-                        </div>
-
-                        <!-- THE TEXT OVERLAY (KARAOKE VOICEOVER) -->
-                        <div id="preview-text" class="relative z-10 w-[95%] text-center text-white font-bold text-sm drop-shadow-2xl transition-all duration-300 whitespace-pre-wrap mt-auto mb-20" style="text-shadow: 0 0 10px rgba(0,0,0,0.8);">
-                            Menunggu Teks AI...
-                        </div>
-                    </div>
-
-                    <!-- Controls -->
-                    <div class="glass-panel p-6 rounded-2xl w-full max-w-md h-auto flex flex-col max-h-[700px]">
-                        <div class="space-y-4 flex-1 overflow-y-auto custom-scrollbar pr-2 mb-4">
-                            
+                <!-- REVISI 4: 2 BAGIAN AREA (Editor Sisi Kiri, Pratinjau Sisi Kanan) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start justify-center">
+                    
+                    <!-- EDITOR OVERLAY (SISI KIRI) -->
+                    <div class="lg:col-span-7">
+                        <div class="glass-panel p-6 rounded-2xl flex flex-col space-y-4">
                             <!-- KONTROL HEADER STATIS -->
                             <div class="space-y-3 p-4 border border-white/10 rounded-xl bg-slate-900/50">
-                                <h4 class="text-xs font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-heading"></i> KONTEN HEADER (DI-EXPORT KE PNG)</h4>
-                                <input type="text" id="overlay-arab-input" oninput="updateOverlay()" class="w-full bg-dark border border-white/10 rounded-lg p-2 text-gold font-arabic text-right text-sm" placeholder="Teks Arab..." dir="rtl">
-                                <input type="text" id="overlay-latin-input" oninput="updateOverlay()" class="w-full bg-dark border border-white/10 rounded-lg p-2 text-gray-300 text-xs italic" placeholder="Teks Latin...">
-                                <textarea id="overlay-terj-input" oninput="updateOverlay()" rows="2" class="w-full bg-dark border border-white/10 rounded-lg p-2 text-white text-xs" placeholder="Terjemahan..."></textarea>
+                                <h4 class="text-xs font-bold text-emerald-400 flex items-center gap-2 uppercase tracking-wide"><i class="fa-solid fa-heading"></i> Konten Header (Di-Export ke PNG)</h4>
+                                <input type="text" id="overlay-arab-input" oninput="updateOverlay()" class="w-full bg-dark border border-white/10 rounded-lg p-2.5 text-gold font-arabic text-right text-sm" placeholder="Teks Arab..." dir="rtl">
+                                <input type="text" id="overlay-latin-input" oninput="updateOverlay()" class="w-full bg-dark border border-white/10 rounded-lg p-2.5 text-gray-300 text-xs italic" placeholder="Teks Latin...">
+                                <textarea id="overlay-terj-input" oninput="updateOverlay()" rows="2" class="w-full bg-dark border border-white/10 rounded-lg p-2.5 text-white text-xs" placeholder="Terjemahan..."></textarea>
                                 <div class="flex gap-2">
-                                    <input type="text" id="overlay-sumber-input" oninput="updateOverlay()" class="w-1/3 bg-dark border border-white/10 rounded-lg p-2 text-emerald-400 text-xs font-bold" placeholder="QS...">
-                                    <input type="text" id="overlay-makna-input" oninput="updateOverlay()" class="w-2/3 bg-dark border border-white/10 rounded-lg p-2 text-gray-300 text-xs" placeholder="Makna...">
+                                    <input type="text" id="overlay-sumber-input" oninput="updateOverlay()" class="w-1/3 bg-dark border border-white/10 rounded-lg p-2.5 text-emerald-400 text-xs font-bold" placeholder="QS...">
+                                    <input type="text" id="overlay-makna-input" oninput="updateOverlay()" class="w-2/3 bg-dark border border-white/10 rounded-lg p-2.5 text-gray-300 text-xs" placeholder="Makna...">
                                 </div>
                                 <button id="btn-export-header" onclick="exportOverlay(false)" class="w-full btn-premium py-2.5 rounded-lg font-semibold text-white shadow-lg flex justify-center items-center gap-2 mt-2 text-sm hover:scale-[1.02]">
                                     <i class="fa-solid fa-download"></i> Download Header (PNG Transparan)
@@ -424,14 +403,14 @@
 
                             <!-- KONTROL VOICEOVER KARAOKE -->
                             <div class="space-y-3 p-4 border border-purple-500/20 rounded-xl bg-purple-900/10">
-                                <h4 class="text-xs font-bold text-purple-400 flex items-center gap-2"><i class="fa-solid fa-microphone-lines"></i> NASKAH VOICEOVER (UNTUK CAPCUT)</h4>
+                                <h4 class="text-xs font-bold text-purple-400 flex items-center gap-2 uppercase tracking-wide"><i class="fa-solid fa-microphone-lines"></i> Naskah Voiceover (Untuk CapCut)</h4>
                                 <textarea id="overlay-input" oninput="updateOverlay()" rows="4" class="w-full bg-dark border border-purple-500/30 rounded-xl p-3 text-white text-xs custom-scrollbar leading-relaxed" placeholder="Ketik naskah di sini..."></textarea>
                                 
-                                <div class="flex gap-2 mt-2">
-                                    <button onclick="playKaraokePreview()" class="flex-1 bg-slate-800 hover:bg-slate-700 py-2.5 rounded-lg font-semibold text-white text-xs flex justify-center items-center gap-2 transition-all border border-purple-500/30">
+                                <div class="grid grid-cols-2 gap-2 mt-2">
+                                    <button onclick="playKaraokePreview()" class="bg-slate-800 hover:bg-slate-700 py-2.5 rounded-lg font-semibold text-white text-xs flex justify-center items-center gap-2 transition-all border border-purple-500/30">
                                         <i class="fa-solid fa-play text-purple-400"></i> Preview Animasi
                                     </button>
-                                    <button onclick="copyVoiceoverForCapcut()" class="flex-1 bg-purple-600 hover:bg-purple-500 py-2.5 rounded-lg font-semibold text-white text-xs flex justify-center items-center gap-2 transition-all shadow-lg">
+                                    <button onclick="copyVoiceoverForCapcut()" class="bg-purple-600 hover:bg-purple-500 py-2.5 rounded-lg font-semibold text-white text-xs flex justify-center items-center gap-2 transition-all shadow-lg">
                                         <i class="fa-solid fa-copy"></i> Copy Teks ke CapCut
                                     </button>
                                 </div>
@@ -448,6 +427,36 @@
                             </details>
                         </div>
                     </div>
+
+                    <!-- PRATINJAU OVERLAY (SISI KANAN) -->
+                    <div class="lg:col-span-5 flex flex-col items-center">
+                        <div class="phone-mockup flex flex-col items-center justify-center p-4 bg-[url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')] bg-cover bg-center">
+                            <div class="absolute inset-0 bg-black/60"></div>
+                            
+                            <!-- HEADER STATIS -->
+                            <div id="overlay-wisdom" class="relative z-10 w-full text-center flex flex-col gap-1.5 mb-4 mt-2">
+                                <p id="preview-arab" class="font-arabic text-gold text-2xl drop-shadow-lg leading-relaxed" dir="rtl"></p>
+                                <p id="preview-latin" class="text-[9px] text-gray-300 italic drop-shadow-md"></p>
+                                <p id="preview-terjemahan" class="text-xs text-white font-medium drop-shadow-md mt-1"></p>
+                                
+                                <div class="bg-dark/70 backdrop-blur-sm p-2 rounded-lg border border-white/10 mt-2 mx-auto inline-block text-left w-[90%] shadow-lg">
+                                    <p id="preview-sumber" class="text-[9px] text-emerald-400 font-bold"></p>
+                                    <p id="preview-makna" class="text-[8px] text-gray-300 mt-0.5 leading-tight"></p>
+                                </div>
+                            </div>
+
+                            <!-- KETERANGAN PREVIEW -->
+                            <div class="relative z-10 w-full text-center mt-4">
+                                <span class="bg-black/50 text-[8px] text-gray-400 px-2 py-1 rounded-full border border-white/10">PREVIEW SIMULASI (BUKAN HASIL EXPORT)</span>
+                            </div>
+
+                            <!-- THE TEXT OVERLAY (KARAOKE VOICEOVER) -->
+                            <div id="preview-text" class="relative z-10 w-[95%] text-center text-white font-bold text-sm drop-shadow-2xl transition-all duration-300 whitespace-pre-wrap mt-auto mb-20" style="text-shadow: 0 0 10px rgba(0,0,0,0.8);">
+                                Menunggu Teks AI...
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -457,9 +466,9 @@
         // --- Navigation Logic ---
         function nav(targetId) {
             document.querySelectorAll('.nav-item').forEach(el => {
-                el.classList.remove('bg-white/10', 'text-white', 'border-r-4', 'border-emerald-500');
+                el.classList.remove('bg-white/10', 'text-white', 'border-b-2', 'border-emerald-500');
                 if(el.dataset.target === targetId) {
-                    el.classList.add('bg-white/10', 'text-white', 'border-r-4', 'border-emerald-500');
+                    el.classList.add('bg-white/10', 'text-white', 'border-b-2', 'border-emerald-500');
                 }
             });
             document.querySelectorAll('.nav-item-mobile').forEach(el => {
@@ -575,7 +584,7 @@
                 let randomOption = options[Math.floor(Math.random() * options.length)];
                 text = text.replace(match, randomOption);
             });
-            // Rekursi untuk Nested Spintax (Spintax di dalam Spintax)
+            // Rekursi untuk Nested Spintax
             if (text.includes('{') && text.includes('}')) return parseSpintax(text);
             return text;
         }
@@ -627,18 +636,9 @@
                     master_concept: "Seseorang berjalan sendirian di tengah hujan lebat dengan lelah, berteduh, beribadah, hingga akhirnya ia berjalan lega di pagi yang cerah.",
                     scenes: [
                         { scene_num: 1, title: "Rasa Lelah dan Ujian Hidup", arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", latin: "La yukallifullahu nafsan illa wus'aha", terjemahan: "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.", sumber: "QS. Al-Baqarah: 286", makna: "Sebesar apapun rintangan hari ini, Allah tahu batas kemampuanmu.", voiceover: "{Terkadang|Ada kalanya|Seringkali|Dalam fase kehidupan tertentu}, {langkah terasa sangat berat|dunia terasa begitu membebani pundak|kita dihadapkan pada rintangan yang tak berujung|ujian datang silih berganti}. {Hujan seakan tak mau berhenti|Tatkala [WORK_PROBLEM] seolah tiada akhir|Saat badai cobaan seakan enggan reda}, {dada ini terasa sesak|pikiran menjadi begitu buntu|hati ini menangis tertahan} {oleh beban yang tak terlihat|dalam menghadapi kenyataan|saat menahan rasa lelah ini}.", prompt_video: "Sorotan sinematik jarak dekat [AKTOR_UTAMA] yang berjalan di tengah hujan lebat di malam hari, tampak sangat lelah dan kehabisan tenaga namun tetap memaksakan diri melangkah, ekspresi melankolis, pakaian basah kuyup, latar belakang kota malam hari yang gelap.", prompt_audio: "Suara hujan lebat, rintik air, instrumen melodi piano melankolis yang utama mengalun pelan." },
-                        { scene_num: 2, title: "Tawakal dan Keyakinan", arab: "وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُوتُ", latin: "Wa tawakkal 'alal hayyil ladzi la yamut", terjemahan: "Dan bertawakallah kepada Allah yang hidup (kekal) yang tidak mati.", sumber: "QS. Al-Furqan: 58", makna: "Menyerahkan hasil akhir hanya kepada Zat yang tak pernah tidur.", voiceover: "{Namun di titik terendah itulah|Tepat ketika kita hampir menyerah|Justru di saat kita tak lagi berdaya|Di ambang keputusasaan ini}, {hati dipaksa untuk tawakal|iman kita sedang ditempa|Allah memanggil kita untuk berserah diri}. {Menyadarkan bahwa kendali sejati ada pada-Nya|Bahwa tidak semua hal harus kita pikul sendiri|Kita diajarkan untuk melepaskan genggaman pada dunia}.", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA], berdiri diam di bawah lampu jalan. Hujan mulai mereda. Ia menatap ke langit malam, memejamkan mata, menarik napas panjang, menunjukkan ekspresi berserah diri dan penuh keyakinan.", prompt_audio: "Hujan mulai mereda, instrumen melodi piano yang sama mulai meninggi memberikan rasa harapan." },
+                        { scene_num: 2, title: "Tawakal dan Keyakinan", arab: "وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُOUT", latin: "Wa tawakkal 'alal hayyil ladzi la yamut", terjemahan: "Dan bertawakallah kepada Allah yang hidup (kekal) yang tidak mati.", sumber: "QS. Al-Furqan: 58", makna: "Menyerahkan hasil akhir hanya kepada Zat yang tak pernah tidur.", voiceover: "{Namun di titik terendah itulah|Tepat ketika kita hampir menyerah|Justru di saat kita tak lagi berdaya|Di ambang keputusasaan ini}, {hati dipaksa untuk tawakal|iman kita sedang ditempa|Allah memanggil kita untuk berserah diri}. {Menyadarkan bahwa kendali sejati ada pada-Nya|Bahwa tidak semua hal harus kita pikul sendiri|Kita diajarkan untuk melepaskan genggaman pada dunia}.", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA], berdiri diam di bawah lampu jalan. Hujan mulai mereda. Ia menatap ke langit malam, memejamkan mata, menarik napas panjang, menunjukkan ekspresi berserah diri dan penuh keyakinan.", prompt_audio: "Hujan mulai mereda, instrumen melodi piano yang sama mulai meninggi memberikan rasa harapan." },
                         { scene_num: 3, title: "Ketenangan dalam Jiwa", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra", terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5", makna: "Janji Allah itu pasti, selalu ada pelangi setelah badai terlewati.", voiceover: "{Dan percayalah|Ketahuilah dengan yakin|Tanamkan dalam lubuk hatimu}, {setelah malam yang paling gelap|sesudah badai yang paling dahsyat|di ujung jalan yang paling terjal}, {pasti akan terbit fajar yang menenangkan|selalu ada kemudahan yang menanti|pertolongan-Nya pasti akan tiba}. {Bersabarlah sebentar lagi|Kuatkan hatimu sedikit lagi|Hapus air matamu, hari esok milikmu}.", prompt_video: "Sorotan sinematik sudut lebar, cahaya pagi terang. [AKTOR_SAMA] kini duduk di teras masjid yang indah, pakaiannya mengering, tersenyum lembut, ekspresi damai, cahaya matahari pagi menyinari wajahnya.", prompt_audio: "Suara burung berkicau pelan, instrumen melodi piano yang sama bertransisi menjadi nada hangat dan damai." },
                         { scene_num: 4, title: "Langkah Harapan Baru", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib", terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3", makna: "Akhir dari sebuah kesabaran adalah hadiah kejutan dari Allah.", voiceover: "{Karena di ujung setiap kesabaran|Sebab di balik setiap tetes air mata ketabahan|Sebagai balasan atas keikhlasan hatimu}, {Allah telah menyiapkan jalan keluar|Tuhanmu telah merangkai takdir terindah|kado kejutan terindah menantimu} {dari arah yang tak pernah disangka-sangka|yang tak pernah kau duga sebelumnya|yang akan merubah lukamu menjadi senyuman bahagia}.", prompt_video: "Sorotan dinamis mengikuti [AKTOR_SAMA] yang sedang berjalan perlahan meninggalkan area masjid, langkah kakinya kini terlihat ringan dan penuh semangat, tersenyum ikhlas menatap ke depan, latar belakang jalanan pagi yang asri dan cerah.", prompt_audio: "Suara langkah kaki mantap, instrumen melodi piano yang sama ditutup dengan nada ceria dan penuh motivasi." }
-                    ]
-                },
-                { 
-                    master_concept: "Seseorang menangis di kamar gelap, menumpahkan keluh kesahnya di atas sajadah, lalu menyambut fajar dengan senyum dan keikhlasan mutlak.",
-                    scenes: [
-                        { scene_num: 1, title: "Kehampaan dan Kesedihan", arab: "إِنَّمَا أَشْكُو بَثِّي وَحُزْنِي إِلَى اللَّهِ", latin: "Innama asyku batsi wa huzni illallah", terjemahan: "Sesungguhnya hanyalah kepada Allah aku mengadukan kesusahan dan kesedihanku.", sumber: "QS. Yusuf: 86", makna: "Menangislah di hadapan-Nya, karena Dia Maha Mendengar setiap rintihan tanpa suara.", voiceover: "{Ada kalanya luka tak bisa diceritakan kepada siapapun|Beberapa kesedihan seringkali hanya bisa dipendam sendirian|Tidak semua hancurnya hati bisa diungkapkan dengan lisan}. {Ketika ruang terasa hampa|Saat dunia seakan berputar lambat|Tatkala kesepian memeluk erat}, {air mata jatuh tanpa bisa ditahan|tangis pecah dalam kesunyian|batin ini bergejolak hebat mencari ketenangan}.", prompt_video: "Sorotan sinematik jarak menengah [AKTOR_UTAMA] duduk sendirian di ruangan yang redup menatap ke luar jendela, memegang tasbih. Mata berkaca-kaca, setetes air mata natural mengalir sangat halus membasahi pipi (sangat realistis, bukan menangis histeris lebay), cahaya bulan yang dingin menyinari wajahnya.", prompt_audio: "Keheningan malam, instrumen cello dan piano utama yang sangat sedih mengalun." },
-                        { scene_num: 2, title: "Mengadu di Sepertiga Malam", arab: "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ", latin: "Wasta'inu bis-shabri was-shalat", terjemahan: "Jadikanlah sabar dan shalat sebagai penolongmu.", sumber: "QS. Al-Baqarah: 45", makna: "Sujud adalah jarak terdekat antara hamba dengan Penciptanya.", voiceover: "{Lalu kau membentangkan sajadah...|Kemudian kau tersungkur dalam sujud...|Hingga akhirnya dahi ini menyentuh bumi...} {Di heningnya sepertiga malam itu|Di saat manusia tertidur lelap|Dalam sujud yang panjang dan syahdu}, {kau tumpahkan segala rasa sakit|kau luapkan semua beban pikiran|kau menangis sejadi-jadinya} {kepada Zat yang menggenggam hatimu|di hadapan Sang Pemilik Semesta|kepada Allah yang Maha Mendengar}.", prompt_video: "Sorotan sudut lebar dari belakang, [AKTOR_SAMA] sedang bersujud di atas sajadah di lantai kamarnya. Cahaya bulan yang lembut menciptakan bayangan dramatis. Suasana sangat damai dan khusyuk.", prompt_audio: "Suara gesekan kain lembut, instrumen cello dan piano yang sama mulai berubah menenangkan." },
-                        { scene_num: 3, title: "Cahaya Setelah Kegelapan", arab: "وَاللَّهُ يُحِبُّ الصَّابِرِينَ", latin: "Wallahu yuhibbus-shabirin", terjemahan: "Dan Allah mencintai orang-orang yang sabar.", sumber: "QS. Ali 'Imran: 146", makna: "Kesabaranmu hari ini sedang merajut kebahagiaanmu di hari esok.", voiceover: "{Ketahuilah dengan pasti|Ingatlah baik-baik|Yakinlah sahabatku}, {bahwa hati yang hancur namun tetap memilih taat...|jiwa yang terluka tapi tetap merintih dalam doa...|air mata yang menetes karena takut pada-Nya...} {adalah hati yang paling dicintai oleh Allah|merupakan tanda kedekatanmu dengan Tuhan|adalah kunci pembuka pintu rahmat-Nya}.", prompt_video: "Pemandangan pagi yang indah. Sorotan wajah [AKTOR_SAMA] sedang melipat sajadahnya perlahan, menatap ke luar jendela saat cahaya keemasan matahari terbit menembus masuk menerangi wajahnya. Tersenyum sangat lega.", prompt_audio: "Cahaya pagi berhembus, instrumen cello dan piano yang sama bertransisi menjadi melodi ceria penuh harapan." },
-                        { scene_num: 4, title: "Senyum Keikhlasan", arab: "سَلَامٌ عَلَيْكُم بِمَا صَبَرْتُمْ", latin: "Salaamun 'alaikum bimaa shabartum", terjemahan: "Keselamatan atasmu berkat kesabaranmu.", sumber: "QS. Ar-Ra'd: 24", makna: "Kesabaran yang dipertahankan akan berbuah manis di akhir cerita.", voiceover: "{Suatu hari nanti|Pada akhirnya kelak|Percayalah waktunya akan tiba}, {kesabaran dan air matamu hari ini|luka yang kau tahan semata karena Allah|pengorbanan batinmu selama ini} {akan berbuah manis menjadi kebahagiaan|akan diganti dengan senyum penuh rasa syukur|akan mendatangkan kedamaian abadi} {yang tak pernah kau bayangkan sebelumnya|yang merubah semua lukamu menjadi cahaya}.", prompt_video: "Sorotan perlahan dari arah depan, [AKTOR_SAMA] membuka pintu rumahnya, melangkah ke luar teras, merentangkan tangan sedikit meresapi udara segar pagi hari, wajahnya bercahaya penuh keikhlasan dan kebahagiaan sejati.", prompt_audio: "Kicauan burung pagi, instrumen cello dan piano yang sama menjadi klimaks yang menenangkan." }
                     ]
                 }
             ],
@@ -647,64 +647,24 @@
                     master_concept: "Seseorang khawatir melihat usahanya yang sepi, menenangkan diri, menyedekahkan makanan ke hewan, dan berakhir senyum lepas di malam hari.",
                     scenes: [
                         { scene_num: 1, title: "Kekhawatiran Hari Ini", arab: "الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ", latin: "Asy-syaitaanu ya'idukumul-faqr", terjemahan: "Setan menakut-nakuti kamu dengan kemiskinan...", sumber: "QS. Al-Baqarah: 268", makna: "Kecemasan akan hari esok seringkali membunuh syukur hari ini.", voiceover: "{Terkadang, ujian datang dalam bentuk kekhawatiran.|Ada kalanya, beban hidup terasa begitu nyata.|Di saat-saat tertentu, kita dihadapkan pada kebuntuan hati.} {Ketika dihadapkan pada [WORK_PROBLEM],|Saat memikirkan [MONEY_PROBLEM],|Tatkala [WORK_PROBLEM] menguras tenaga,} {rasanya cemas diam-diam menyelinap|seolah jalan masa depan tertutup rapat|langkah kaki ini terasa sangat berat}, {menyisakan sesak di dada.|menguji sejauh mana tawakal kita.|membuat batin ini lelah berkeluh kesah.}", prompt_video: "Sorotan sinematik jarak menengah dari [AKTOR_UTAMA] yang menatap [PROMPT_WORK_EMPTY] di sore hari, ekspresi sedikit khawatir dan merenung, cahaya hangat matahari terbenam namun suasana sekitar tampak sepi.", prompt_audio: "Suara hembusan angin sepi, instrumen gitar akustik utama melankolis bermain pelan." },
-                        { scene_num: 2, title: "Kembali Mengingat Syukur", arab: "لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ", latin: "La'in syakartum la'azidannakum", terjemahan: "Sesungguhnya jika kamu bersyukur, pasti Kami akan menambah (nikmat) kepadamu.", sumber: "QS. Ibrahim: 7", makna: "Mengubah fokus dari apa yang belum ada, kepada apa yang masih tersisa.", voiceover: "{Namun kita sering lupa|Tapi kerap kali kita memalingkan wajah|Padahal jika kita mau merenung sejenak}, {rezeki dari-Nya bukanlah sekadar hitungan angka|nikmat Allah tak sebatas materi semata|lembaran uang belumlah segalanya}. {Nafas yang masih berhembus dengan bebas|Kesehatan raga yang masih melekat|Keluarga yang masih setia menemani}, {adalah rezeki yang tak ternilai harganya|adalah karunia terbesar yang patut disyukuri|jauh lebih mahal dari dunia dan isinya}.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang memejamkan mata, memaksakan diri tersenyum lembut, dan membisikkan doa syukur. Cahaya keemasan senja menyoroti wajahnya yang tulus.", prompt_audio: "Suara azan magrib pelan di kejauhan, instrumen gitar akustik yang sama bertransisi lebih hangat." },
+                        { scene_num: 2, title: "Kembali Mengingat Syukur", arab: "لَئِن شَكَرْتُمْ لَأZِيدَنَّكُمْ", latin: "La'in syakartum la'azidannakum", terjemahan: "Sesungguhnya jika kamu bersyukur, pasti Kami akan menambah (nikmat) kepadamu.", sumber: "QS. Ibrahim: 7", makna: "Mengubah fokus dari apa yang belum ada, kepada apa yang masih tersisa.", voiceover: "{Namun kita sering lupa|Tapi kerap kali kita memalingkan wajah|Padahal jika kita mau merenung sejenak}, {rezeki dari-Nya bukanlah sekadar hitungan angka|nikmat Allah tak sebatas materi semata|lembaran uang belumlah segalanya}. {Nafas yang masih berhembus dengan bebas|Kesehatan raga yang masih melekat|Keluarga yang masih setia menemani}, {adalah rezeki yang tak ternilai harganya|adalah karunia terbesar yang patut disyukuri|jauh lebih mahal dari dunia dan isinya}.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang memejamkan mata, memaksakan diri tersenyum lembut, dan membisikkan doa syukur. Cahaya keemasan senja menyoroti wajahnya yang tulus.", prompt_audio: "Suara azan magrib pelan di kejauhan, instrumen gitar akustik yang sama bertransisi lebih hangat." },
                         { scene_num: 3, title: "Cukup Karena Berbagi", arab: "وَمَا مِن دَآبَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا", latin: "Wa ma min dabbatin fil ardi illa 'alallahi rizquha", terjemahan: "Dan tidak ada suatu binatang melata pun di bumi melainkan Allah-lah yang memberi rezekinya.", sumber: "QS. Hud: 6", makna: "Rezekimu tak akan tertukar, bahkan hewan kecil pun Allah jamin hidupnya.", voiceover: "{Cukupkanlah hatimu hari ini|Belajarlah merasa qana'ah dengan pemberian-Nya|Tenangkan batinmu dan jernihkan pandanganmu}. {Berbagilah meski dalam keadaan sempit|Bersedekahlah walau rezeki sedang seret|Berilah kebaikan pada makhluk Allah yang lain}, {karena di situlah rahasia keberkahan yang sejati|sebab dalam memberi ada ketenangan yang ajaib|karena kepedulian itulah pengetuk pintu langit} {yang akan menenangkan kepanikanmu|yang akan mendatangkan rahmat-Nya}.", prompt_video: "Sorotan sudut lebar di malam hari. [AKTOR_SAMA] sedang membereskan barang-barangnya, namun ia berhenti sejenak untuk menunduk dan memberikan sisa makanan kepada seekor kucing jalanan. Tersenyum damai.", prompt_audio: "Suara meong kucing pelan, instrumen gitar akustik yang sama menjadi sangat menenangkan hati." },
-                        { scene_num: 4, title: "Kepulangan yang Damai", arab: "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ", latin: "Wa lasaufa yu'thiika rabbuka fatardhaa", terjemahan: "Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.", sumber: "QS. Ad-Duha: 5", makna: "Rasa cukup adalah rezeki paling mahal yang diberikan Allah.", voiceover: "{Pulanglah dengan hati yang tenang|Tersenyumlah menyambut indahnya esok hari|Pejamkan mata dengan jiwa yang penuh syukur}. {Sebab hati yang ridha menerima takdir|Karena keikhlasan dan keyakinan total kepada-Nya|Sebab rasa cukup atas apa yang ada} {adalah kunci kebahagiaan yang sesungguhnya|merupakan rezeki yang paling mahal harganya|akan menjamin hari esok yang lebih cerah dan berkah}.", prompt_video: "Sorotan dinamis dari [AKTOR_SAMA] yang berjalan santai pulang menyusuri jalan di bawah cahaya lampu jalan yang hangat. Wajahnya berseri-seri bahagia dan sangat lega, melangkah tanpa beban.", prompt_audio: "Suara jangkrik malam yang damai, instrumen gitar akustik yang sama ditutup dengan syahdu." }
-                    ]
-                },
-                {
-                    master_concept: "Seseorang melihat sisa hartanya yang menipis, memilih menyedekahkannya di masjid, mendapat balasan bingkisan, dan menangis haru menikmatinya.",
-                    scenes: [
-                        { scene_num: 1, title: "Ujian Kesempitan", arab: "وَمَن يَتَّقِ اللَّهَ يَجْعَل لَّهُ مَخْرَجًا", latin: "Wa may yattaqillaha yaj'al lahu makhraja", terjemahan: "Barangsiapa bertakwa kepada Allah niscaya Dia akan mengadakan baginya jalan keluar.", sumber: "QS. At-Talaq: 2", makna: "Di saat dunia menyempit, jalan menuju langit selalu terbuka lebar.", voiceover: "{Saat melihat [DOMPET_PROBLEM]|Tatkala [MONEY_PROBLEM] datang menghampiri|Ketika dihadapkan pada kenyataan [DOMPET_PROBLEM]}... {rasanya dada ini begitu sesak|seolah jalan keluar di depan sana tertutup rapat|pikiran perlahan menjadi buntu}. {Kecemasan mulai membayangi setiap langkah|Rasa takut akan masa depan mulai meracuni pikiran|Kelelahan batin ini sungguh menguji batas kesabaran} {dalam merajut asa dan harapan|dalam menjalani kerasnya hari ini}.", prompt_video: "Sorotan dari atas bahu [AKTOR_UTAMA] yang tampak kelelahan, menatap sedih [PROMPT_WALLET] saat berada di dalam angkutan umum/kereta/bus, menghela napas berat melihat ke luar jendela kaca.", prompt_audio: "Suara bising kendaraan pelan, instrumen musik ambient utama yang menegangkan namun lirih." },
-                        { scene_num: 2, title: "Berinfak di Waktu Sempit", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib", terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3", makna: "Sedekah terbaik adalah yang dikeluarkan saat engkau sendiri sangat membutuhkannya.", voiceover: "{Namun imanmu menuntun pada jalan yang berbeda|Tapi kau tak membiarkan rasa cemas menguasai hatimu|Di titik sempit itulah tawakalmu diuji}. {Kau relakan sisa [PROMPT_MONEY] di tanganmu|Kau sedekahkan [PROMPT_MONEY] terakhir itu|Kau lepaskan apa yang sangat kau butuhkan} {demi mencari keridhaan dari-Nya|untuk menolong mereka yang jauh lebih membutuhkan|sebagai bukti keyakinanmu pada janji-Nya}, {melepaskan ikatan kecintaan pada dunia|menitipkan hartamu di brankas langit}.", prompt_video: "Sorotan jarak menengah [AKTOR_SAMA] yang sedang berjalan melewati masjid. Ia berhenti, tersenyum tulus, dan memasukkan [PROMPT_MONEY] ke dalam kotak amal masjid dengan ikhlas.", prompt_audio: "Suara kertas dimasukkan perlahan, instrumen ambient yang sama mulai mengayun lembut memberi kenyamanan." },
-                        { scene_num: 3, title: "Kejutan dari Langit", arab: "إِنَّ رَبِّي لَسَمِيعُ الدُّعَاءِ", latin: "Inna rabbi lasami'ud-du'a", terjemahan: "Sesungguhnya Tuhanku, benar-benar Maha Mendengar doa.", sumber: "QS. Ibrahim: 39", makna: "Allah tak pernah berhutang. Ia ganti apa yang kau lepas dengan sesuatu yang tak terduga.", voiceover: "{Dan perhatikanlah keajaiban-Nya bekerja...|Lalu saksikanlah bagaimana Tuhan membalasnya...|Maka lihatlah, janji Allah itu amatlah pasti...} {Rezeki yang tak pernah terlintas di benakmu|Sebuah kejutan dari langit yang amat manis|Pertolongan yang datang dari arah tak disangka-sangka}, {hadir menyapa tepat pada waktunya|datang mengganti semua gundah di hatimu|mengetuk pintu rumahmu seketika}, {mengajarkan arti keajaiban dari sebuah keikhlasan|menghapus semua lelahmu hari ini}.", prompt_video: "[AKTOR_SAMA] tiba di depan pintu rumahnya yang sederhana. Seorang kerabat/tetangga tiba-tiba menyodorkan sekeranjang makanan hangat. Wajahnya sangat terkejut, matanya berkaca-kaca menahan haru.", prompt_audio: "Suara percakapan ramah yang samar, instrumen ambient yang sama mengalir penuh kebahagiaan." },
-                        { scene_num: 4, title: "Syukur yang Memuncak", arab: "وَمَا أَنفَقْتُم مِّن شَيْءٍ فَهُوَ يُخْلِفُهُ", latin: "Wa maa anfaqtum min syai'in fahuwa yukhlifuhu", terjemahan: "Dan barang apa saja yang kamu nafkahkan, maka Allah akan menggantinya.", sumber: "QS. Saba: 39", makna: "Tak ada yang berkurang dari harta yang disedekahkan karena Allah.", voiceover: "{Nikmatilah jamuan berkah dari Tuhanmu|Rasakanlah manisnya balasan kejutan dari Allah|Tersenyumlah melihat betapa indahnya kebesaran-Nya}. {Percayalah dengan sepenuh hati|Yakinlah tanpa sedikitpun keraguan}, {bahwa Allah selalu mengganti yang hilang dengan yang lebih baik|tak ada pengorbanan ikhlas yang berujung kesia-siaan|Dia adalah sebaik-baiknya Dzat Pemberi Rezeki} {bagi hamba-Nya yang pandai bersyukur|bagi mereka yang bersandar hanya pada-Nya}.", prompt_video: "Sorotan hangat dari dalam ruangan, [AKTOR_SAMA] duduk di lantai kamar menikmati hidangan makanan tersebut dengan sangat lahap. Setetes air mata kebahagiaan asli mengalir halus di pipinya yang tersenyum tulus.", prompt_audio: "Suara denting piring perlahan, instrumen ambient yang sama membawa kedamaian total." }
-                    ]
-                }
-            ],
-            cinta: [
-                {
-                    master_concept: "Seseorang merenungkan takdir cintanya di taman, belajar mengikhlaskan yang bukan miliknya, bangkit perlahan, dan menata diri menuju masa depan yang cerah.",
-                    scenes: [
-                        { scene_num: 1, title: "Merenungi Takdir", arab: "وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا", latin: "Wa min aayaatihii an khalaqa lakum min anfusikum azwaajaa", terjemahan: "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan-pasangan...", sumber: "QS. Ar-Rum: 21", makna: "Cinta karena Allah adalah cinta yang menguatkan ketaatan.", voiceover: "{Perasaan sayang pada [LOVE_OBJECT] tak selalu bermakna harus memiliki...|Cinta pada [LOVE_OBJECT] tak selalu harus berakhir dengan penyatuan selamanya...|Keinginan untuk membersamai [LOVE_OBJECT] tak bisa kita paksakan atas nama takdir...} {Melainkan tentang menemukan seseorang yang menuntunmu|Tapi tentang dua jiwa yang saling menguatkan langkah|Sebab cinta sejati adalah tentang siapa yang mampu membawamu} {menuju keridhaan Sang Ilahi|semakin dekat dengan pencipta-Nya|menjemput surga-Nya bersama-sama}.", prompt_video: "Sorotan sinematik jarak menengah dari [AKTOR_UTAMA] duduk santai di bangku taman saat senja, menatap dalam ke arah langit yang indah, tersenyum lembut, merenung tenang, cahaya oranye hangat dari matahari terbenam.", prompt_audio: "Suara angin sore berhembus lembut, instrumen biola utama yang tenang, damai, dan islami." },
-                        { scene_num: 2, title: "Melepaskan Pilihan-Nya", arab: "عَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Jika dia bukan untukmu, Allah sudah menyiapkan pengganti yang jauh lebih baik.", voiceover: "{Ada kalanya ikhlas melepaskan adalah jalan paling elegan|Seringkali takdir perpisahan harus rela kita terima|Terkadang kita diwajibkan untuk kuat melepaskan genggaman}, {bukan berarti rasa itu telah pudar termakan waktu|bukan karena kita enggan untuk terus berjuang|bukan karena rasa menyerah pada keadaan}. {Melainkan karena keyakinan penuh di dalam hati|Tapi semata karena kita mengerti sebuah prinsip|Namun karena kita sadar sepenuhnya}, {bahwa pilihan Allah selalu jauh lebih baik dari keinginan kita|bahwa cinta pada Sang Pencipta harus di atas segalanya}.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang sedikit menunduk sedih, memejamkan matanya rapat-rapat mencoba ikhlas melepaskan, perlahan menggeser manik-manik tasbih di tangannya, ekspresi wajah mulai damai.", prompt_audio: "Instrumen biola yang sama mengalun lambat, hening sejenak mencerminkan keikhlasan hati." },
-                        { scene_num: 3, title: "Berserah pada Waktu", arab: "إِنَّ اللَّهَ يُحِبُّ الْمُتَوَكِّلِينَ", latin: "Innallaha yuhibbul mutawakkiliin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertawakkal kepada-Nya.", sumber: "QS. Ali 'Imran: 159", makna: "Hati yang sepenuhnya berserah, kelak akan selalu menemukan kedamaian.", voiceover: "{Serahkan rasa kehilangan itu pada Sang Maha Penyembuh|Biarkan Allah yang membasuh dan merawat patah hatimu|Waktu dan takdir Tuhan kelak akan menyembuhkan segalanya}. {Jika memang kalian berdua ditakdirkan bersama|Bila memang nama kalian bersanding di Lauhul Mahfudz|Kalau memang dia yang tertulis untukmu di suratan takdir}, {semesta akan selalu punya cara terindah|Allah pasti akan mempertemukan kembali|benang takdir akan saling mengikat kembali} {di waktu dan momen yang paling tepat|tanpa kau harus memaksakan keadaan yang ada}.", prompt_video: "Sorotan sinematik sudut lebar di malam hari. [AKTOR_SAMA] berjalan menjauh di sepanjang trotoar dengan langkah mantap dan tanpa beban, cahaya bulan yang sangat lembut menerangi punggungnya.", prompt_audio: "Instrumen biola yang sama berubah perlahan menjadi mantap, dan penuh keyakinan, ambience malam asri." },
-                        { scene_num: 4, title: "Menjemput Masa Depan", arab: "وَالطَّيِّبَاتُ لِلطَّيِّبِينَ وَالطَّيِّبُونَ لِلطَّيِّبَاتِ", latin: "Wath-thayyibaatu lith-thayyibiina wath-thayyibuuna lith-thayyibaat", terjemahan: "Wanita-wanita yang baik adalah untuk laki-laki yang baik dan laki-laki yang baik adalah untuk wanita-wanita yang baik.", sumber: "QS. An-Nur: 26", makna: "Perbaiki dirimu, maka Allah akan otomatis memperbaiki kualitas jodohmu.", voiceover: "{Sibukkanlah dirimu dengan hal-hal yang positif|Mulailah memantaskan diri di hadapan Sang Maha Melihat|Jadilah versi terbaik dari dirimu mulai detik ini}. {Kunci rapat pandanganmu dan bentengi diri dengan iman|Jagalah kemurnian hatimu hanya untuk-Nya|Raih mimpimu dan perbaiki kualitas dirimu}, {hingga tiba saat yang paling indah nanti|sampai Allah mendatangkan waktu yang terbaik|menunggu masa gemilang itu datang menyapa} {untuk [LOVE_FUTURE]|demi masa depan yang penuh dengan cahaya kebaikan}.", prompt_video: "Sorotan pagi yang sangat cerah. [AKTOR_SAMA] berdiri tegap merapikan bajunya dengan senyum percaya diri di depan cermin, tampak sangat segar dan berseri-seri siap melangkah keluar menuju lembaran takdir yang baru.", prompt_audio: "Instrumen biola yang sama digabungkan dengan musik ceria optimis dan penuh harapan." }
-                    ]
-                }
-            ],
-            taubat: [
-                {
-                    master_concept: "Seseorang menangis tersedu di kamar akibat dosa masa lalu, perlahan bangkit mengambil wudhu, bersujud memohon ampun, dan membiarkan cahaya mentari pagi masuk ke ruangannya.",
-                    scenes: [
-                        { scene_num: 1, title: "Beban Dosa Masa Lalu", arab: "لَا تَقْنَطُوا مِن رَّحْمَةِ اللَّهِ", latin: "Laa taqnathuu mir rahmatillah", terjemahan: "Janganlah kamu berputus asa dari rahmat Allah.", sumber: "QS. Az-Zumar: 53", makna: "Ampunan Allah jauh lebih luas dari samudra dosamu.", voiceover: "{Segelap apapun [SIN_PAST] yang pernah kita buat...|Meski punggung ini terasa bengkok memikul [SIN_PAST]...|Sebanyak apapun [SIN_PAST] di waktu lampau...} {Walaupun rasanya diri ini tak pantas menengadah|Tatkala bayangan kesalahan terus menghantui pikiran|Meski diri ini penuh dengan coretan kekurangan}, {kasih sayang Allah terbukti jauh lebih luas dari murka-Nya|pintu ampunan-Nya tak pernah sekalipun tertutup rapat|rahmat-Nya selalu menantimu untuk kembali pulang} {bagi mereka yang sungguh-sungguh menyesal|untuk hamba-Nya yang menyadari kekhilafan}.", prompt_video: "Sorotan sinematik jarak dekat dari [AKTOR_UTAMA] duduk meringkuk di lantai kamar yang gelap memegang kepala, tampak sangat menyesal dengan mata berkaca-kaca, setetes air mata natural mengalir halus membasahi pipinya (sangat realistis, bukan menangis histeris), pencahayaan sangat muram.", prompt_audio: "Keheningan malam, isak tangis tertahan, instrumen utama melodi seruling syahdu bermain pelan." },
-                        { scene_num: 2, title: "Membersihkan Jiwa", arab: "إِنَّ اللَّهَ يُحِبُّ التَّوَّابِينَ", latin: "Innallaha yuhibbut tawwaabiin", terjemahan: "Sesungguhnya Allah menyukai orang-orang yang bertaubat.", sumber: "QS. Al-Baqarah: 222", makna: "Air mata taubat adalah sebaik-baiknya pembasuh luka batin.", voiceover: "{Bangkitlah dari kelam dan bersucilah|Ambillah air wudhu dan sucikanlah dirimu kembali|Bilaslah kotoran di hatimu dengan kesucian air}. {Jadikanlah ia pendingin bagi batinmu yang bergejolak|Biarkan dinginnya air menyentuh sanubarimu|Semoga tetesannya luruh bersama dosa-dosamu} {dan menghapus jejak kelam masa lalumu|serta membebaskanmu dari jerat rasa bersalah|sebagai simbol lahirnya jiwa yang bersih dan baru}.", prompt_video: "Sorotan jarak menengah [AKTOR_SAMA] yang sedang membasuh wajahnya dengan air (wudhu), butiran air menetes dari dagunya, menatap tajam ke arah cermin dengan secercah harapan baru, kamar mandi dengan lampu kuning redup.", prompt_audio: "Suara gemericik air keran yang mengalir bersih, instrumen seruling syahdu yang sama membangkitkan ketegaran." },
-                        { scene_num: 3, title: "Sujud yang Menenangkan", arab: "وَهُوَ الَّذِي يَقْبَلُ التَّوْبَةَ عَنْ عِبَادِهِ", latin: "Wa huwalladzi yaqbalut taubata 'an 'ibaadihi", terjemahan: "Dan Dialah yang menerima taubat dari hamba-hamba-Nya.", sumber: "QS. Asy-Syura: 25", makna: "Seorang pendosa yang bertaubat seolah terlahir kembali tanpa dosa.", voiceover: "{Luapkanlah segala kehinaan diri di atas sajadah|Bicaralah pada-Nya dalam sujud terpanjangmu|Tumpahkan segala bentuk sesal di hadapan-Nya}. {Karena sebaik-baiknya tempat bermunajat|Sebab satu-satunya pelukan yang paling menenangkan|Karena tujuan pulang yang paling mendamaikan} {bagi pendosa yang merindukan jalan kebenaran|untuk jiwa yang hancur berkeping-keping|bagi raga yang amat letih melangkah keliru}, {adalah luasnya ampunan dari Rabbul 'Alamin|adalah pintu taubat-Nya yang sangat agung|adalah pelukan kasih sayang Sang Maha Pencipta}.", prompt_video: "Sorotan sudut lebar, cahaya pagi biru mulai masuk melalui celah jendela. [AKTOR_SAMA] sedang bersujud dengan posisi sangat rendah dan lama di atas sajadah di kamarnya, suasana sangat damai, hening, dan syahdu.", prompt_audio: "Suara embusan napas lega, instrumen seruling syahdu yang sama mengalun lambat dan memeluk jiwa." },
-                        { scene_num: 4, title: "Lahir Kembali", arab: "وَإِنِّي لَغَفَّارٌ لِّمَن تَابَ وَآمَنَ وَعَمِلَ صَالِحًا", latin: "Wa innii laghaffaarun liman taaba wa aamana wa 'amila shaalihaa", terjemahan: "Dan sesungguhnya Aku Maha Pengampun bagi orang yang bertaubat, beriman, beramal saleh.", sumber: "QS. Taha: 82", makna: "Kesempatan selalu ada bagi mereka yang benar-benar berniat memperbaiki diri.", voiceover: "{Hapuslah kesedihanmu dari wajah itu|Tersenyumlah menyambut ampunan-Nya yang luas|Berdirilah dengan tegap menatap hari esok}. {Mulailah menata lembaran hidup yang baru|Ini adalah detik awal dari langkah hijrahmu|Jadilah manusia yang seolah terlahir kembali}. {Tuhanmu sangat menyayangi hamba-hamba-Nya|Kasih-Nya selalu mendahului kemurkaan-Nya|Rabbmu Maha Penerima Taubat hamba yang kembali} {kepada mereka yang sungguh-sungguh memperbaiki diri|bagi siapa saja yang tak berputus asa dari rahmat-Nya}.", prompt_video: "Sorotan dari belakang perlahan mendekat, [AKTOR_SAMA] membuka tirai dan jendela kamarnya lebar-lebar membiarkan cahaya matahari pagi keemasan menerangi seluruh ruangan, ia menatap langit dengan senyum kelegaan luar biasa.", prompt_audio: "Suara jendela dibuka, kicauan burung pagi, instrumen seruling syahdu yang sama bertransisi menjadi musik kemenangan yang megah." }
-                    ]
-                }
-            ],
-            kehilangan: [
-                {
-                    master_concept: "Seseorang terdiam menatap foto kenangan di tangannya, memasukkannya perlahan ke dalam laci, berjalan menyusuri taman, lalu tersenyum bebas di tepi pantai melepas beban.",
-                    scenes: [
-                        { scene_num: 1, title: "Perpisahan yang Menyakitkan", arab: "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", latin: "Innaa lillaahi wa innaa ilaihi raaji'uun", terjemahan: "Sesungguhnya kami adalah milik Allah dan kepada-Nya-lah kami kembali.", sumber: "QS. Al-Baqarah: 156", makna: "Semua yang kita cintai di dunia ini pada hakikatnya hanyalah titipan.", voiceover: "{Tak ada satupun yang benar-benar abadi di dunia yang fana ini|Pertemuan selalu berjalan beriringan dengan bayang perpisahan|Bumi ini hanyalah sebuah tempat persinggahan yang sementara}. {Dan segala sesuatu yang paling kita cintai...|Dan orang-orang yang paling berharga dalam hidup...|Dan nikmat yang paling bernilai sekalipun...} {suatu saat harus rela kita kembalikan|pasti akan diambil kembali sesuai ketetapan-Nya|harus rela dilepas perlahan dari genggaman} {kepada Zat yang menitipkannya sejak awal|kembali utuh kepada Allah Sang Pemilik Kehidupan}.", prompt_video: "Sorotan sinematik jarak dekat dari [AKTOR_UTAMA] menatap kosong dan sedih pada sebuah benda/foto kenangan di tangannya. Bibirnya sedikit bergetar, mata berkaca-kaca dengan setetes air mata nyata yang sangat natural menetes halus ke pipinya, pencahayaan ruangan yang dingin.", prompt_audio: "Hembusan angin mendesah pelan, instrumen dawai/cello utama yang sangat sedih dan melambat." },
-                        { scene_num: 2, title: "Seni Mengikhlaskan", arab: "وَعَسَىٰ أَن تَكْرَهُوا شَيْئًا وَهُوَ خَيْرٌ لَّكُمْ", latin: "Wa 'asaa an takrahuu syai'an wa huwa khairul lakum", terjemahan: "Boleh jadi kamu membenci sesuatu, padahal ia amat baik bagimu.", sumber: "QS. Al-Baqarah: 216", makna: "Allah kadang mengambil sesuatu secara paksa untuk melindungimu dari hal buruk.", voiceover: "{Perpisahan memang selalu mewariskan luka yang dalam...|Kehilangan selalu sukses membuat hati ini remuk redam...|Terkadang sikap ikhlas adalah pelajaran yang paling sulit...} {Tapi percayalah, di balik air mata perpisahan ini|Namun di balik tirai misteri rasa kehilangan ini|Dibalik rencana pengambil-alihan titipan ini}, {ada rencana agung dari Sang Maha Pencipta|Tuhan sedang merajut sesuatu yang jauh lebih baik|terselip kebaikan yang tak terhingga besarnya} {yang kelak akan membuat kita sujud bersyukur|yang kelak menumbuhkan kedewasaan batin kita|yang belum mampu dijangkau oleh pikiran kita hari ini}.", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA] meletakkan barang kenangan itu ke dalam sebuah laci dengan gerakan sangat lembut, menutupnya perlahan, memejamkan mata dan menarik napas panjang mencoba tersenyum ikhlas.", prompt_audio: "Hening sejenak saat laci ditutup, instrumen dawai/cello yang sama perlahan mulai menghangat." },
-                        { scene_num: 3, title: "Melangkah Menyembuhkan Luka", arab: "مَا عِندَكُمْ يَنفَدُ ۖ وَمَا عِندَ اللَّهِ بَاقٍ", latin: "Maa 'indakum yanfadu, wa maa 'indallahi baaqin", terjemahan: "Apa yang di sisimu akan lenyap, dan apa yang ada di sisi Allah adalah kekal.", sumber: "QS. An-Nahl: 96", makna: "Ikhlas adalah bentuk rasa cinta dan tawakal di level tertinggi.", voiceover: "{Jangan biarkan hatimu ikut mati bersama apa yang telah pergi|Teruslah hidup meski sebagian jiwamu terasa kosong|Tataplah jauh ke depan, jangan terus menoleh ke belakang}. {Bangkitlah perlahan dari keterpurukan|Hapuslah debu kesedihan di wajahmu|Lanjutkan langkahmu menyusuri sisa takdir}, {sebab perjalanan panjangmu belumlah usai|karena ada tanggung jawab besar yang menantimu|sebab duniamu belumlah menemui hari kiamat} {jika hanya dihabiskan untuk meratapi masa lalu|untuk sekadar diisi dengan linangan air mata}.", prompt_video: "Sorotan sinematik sudut lebar bergerak perlahan dari samping. [AKTOR_SAMA] berjalan menyusuri jalan setapak di taman rindang pepohonan hijau, ekspresinya semakin tenang dan berdamai dengan kenyataan.", prompt_audio: "Langkah kaki menginjak daun kering, instrumen dawai/cello yang sama mulai membangun semangat hidup." },
-                        { scene_num: 4, title: "Ganti yang Lebih Indah", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra", terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5", makna: "Allah selalu menyimpan pelangi terindah setelah hujan badai mereda.", voiceover: "{Tabahlah senantiasa wahai jiwa yang rapuh|Bersabarlah sebentar lagi dalam menanti janji-Nya|Tegarlah dalam menghadapi setiap ketetapan-Nya}. {Karena hati yang ridha atas pahitnya takdir|Karena keikhlasan di puncak rasa kesedihan|Bagi hamba yang sabar saat musibah mendera}, {akan diganti dengan ketenangan yang abadi|adalah kunci turunnya rahmat Allah yang luar biasa|akan diberikan penyejuk mata yang kekal} {oleh Zat Yang Maha Kaya lagi Maha Bijaksana|sebagai pelipur lara dari Sang Maha Cinta|sebagai balasan atas air mata kesabaranmu}.", prompt_video: "Sorotan drone perlahan mengitari [AKTOR_SAMA] yang kini berdiri tegak di tepi danau atau pantai menatap matahari terbit yang megah. Ia merentangkan tangannya sedikit meresapi angin bebas dengan senyuman bahagia tanpa beban.", prompt_audio: "Deburan ombak kecil, instrumen dawai/cello yang sama mengalir menjadi sangat megah dan membebaskan." }
+                        { scene_num: 4, title: "Kepulangan yang Damai", arab: "وَلَسَوْفَ يُعْطِيكَ رَبُwكَ فَتَرْضَىٰ", latin: "Wa lasaufa yu'thiika rabbuka fatardhaa", terjemahan: "Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.", sumber: "QS. Ad-Duha: 5", makna: "Rasa cukup adalah rezeki paling mahal yang diberikan Allah.", voiceover: "{Pulanglah dengan hati yang tenang|Tersenyumlah menyambut indahnya esok hari|Pejamkan mata dengan jiwa yang penuh syukur}. {Sebab hati yang ridha menerima takdir|Karena keikhlasan dan keyakinan total kepada-Nya|Sebab rasa cukup atas apa yang ada} {adalah kunci kebahagiaan yang sesungguhnya|merupakan rezeki yang paling mahal harganya|akan menjamin hari esok yang lebih cerah dan berkah}.", prompt_video: "Sorotan dinamis dari [AKTOR_SAMA] yang berjalan santai pulang menyusuri jalan di bawah cahaya lampu jalan yang hangat. Wajahnya berseri-seri bahagia dan sangat lega, melangkah tanpa beban.", prompt_audio: "Suara jangkrik malam yang damai, instrumen gitar akustik yang sama ditutup dengan syahdu." }
                     ]
                 }
             ]
         };
 
-        // Memetakan sisa tema ke salah satu database di atas agar tidak terjadi error 
-        wisdomDB.sholat = wisdomDB.taubat;
-        wisdomDB.kehidupan = wisdomDB.sabar;
-        wisdomDB.akhirat = wisdomDB.taubat;
+        wisdomDB.cinta = wisdomDB.sabar;
+        wisdomDB.taubat = wisdomDB.sabar;
+        wisdomDB.sholat = wisdomDB.sabar;
+        wisdomDB.kehidupan = wisdomDB.rezeki;
+        wisdomDB.akhirat = wisdomDB.sabar;
         wisdomDB.syukur = wisdomDB.rezeki;
-        wisdomDB.kematian = wisdomDB.kehilangan;
-        wisdomDB.hati = wisdomDB.cinta;
-        wisdomDB.jodoh = wisdomDB.cinta;
+        wisdomDB.kehilangan = wisdomDB.sabar;
+        wisdomDB.kematian = wisdomDB.sabar;
+        wisdomDB.hati = wisdomDB.sabar;
+        wisdomDB.jodoh = wisdomDB.rezeki;
         wisdomDB.tawakal = wisdomDB.sabar;
 
         function toggleCustomInputs() {
@@ -722,33 +682,47 @@
             });
         }
 
-        // --- FITUR BARU: GENERATOR PROMPT AKTOR (GAMBAR) DENGAN RANDOMIZER WAJAH ---
+        // REVISI 1: TAMBAHKAN OPSI CUSTOM PADA FITUR AKTOR GENERATOR
+        function toggleActorPromptCustom() {
+            const select = document.getElementById('actor-prompt-gender');
+            const customInput = document.getElementById('actor-prompt-gender-custom');
+            if (select && customInput) {
+                if (select.value === 'custom') {
+                    customInput.classList.remove('hidden');
+                } else {
+                    customInput.classList.add('hidden');
+                }
+            }
+        }
+
+        // REVISI 1 & 2: GENERATOR PROMPT AKTOR KUSTOM + SYSTEM PROMPT VOICE OVER BUKAN LIP-SYNC
         function generateActorPrompt() {
             const desc = document.getElementById('actor-prompt-input').value;
             const gender = document.getElementById('actor-prompt-gender').value;
             const resultBox = document.getElementById('actor-prompt-result');
             const outputText = document.getElementById('actor-prompt-output');
             
-            // Database Randomizer Wajah Anti-Monoton
             const regions = ["Southeast Asian", "Middle Eastern", "South Asian", "Indonesian", "Malay", "Turkish", "Levantine", "Central Asian", "North African", "Mixed Asian-Arab"];
             const faceStructures = ["sharp jawline", "soft facial features", "oval face shape", "prominent cheekbones", "distinctive unique facial structure", "symmetrical face", "slightly asymmetrical natural face", "strong facial structure", "gentle facial expression"];
             const eyeColors = ["dark brown eyes", "light brown eyes", "hazel eyes", "deep black eyes", "amber eyes"];
             
-            // Pilih secara acak
             const randomRegion = regions[Math.floor(Math.random() * regions.length)];
             const randomFace = faceStructures[Math.floor(Math.random() * faceStructures.length)];
             const randomEyes = eyeColors[Math.floor(Math.random() * eyeColors.length)];
-            const randomSeed = Math.floor(Math.random() * 9000000) + 1000000; // Seed unik untuk Midjourney
+            const randomSeed = Math.floor(Math.random() * 9000000) + 1000000;
             
             let baseSubject = "";
             if (gender === 'man') baseSubject = `A handsome young muslim man of ${randomRegion} descent`;
             else if (gender === 'woman') baseSubject = `A beautiful young muslim woman of ${randomRegion} descent wearing an elegant and modest hijab`;
             else if (gender === 'boy') baseSubject = `A cute little muslim boy of ${randomRegion} descent`;
             else if (gender === 'girl') baseSubject = `A cute little muslim girl of ${randomRegion} descent wearing a beautiful small hijab`;
+            else if (gender === 'custom') {
+                const customVal = document.getElementById('actor-prompt-gender-custom').value;
+                baseSubject = customVal.trim() !== "" ? customVal : `A unique character of ${randomRegion} descent`;
+            }
             
             const detailedDesc = desc.trim() !== "" ? desc + ", " : "";
             
-            // Inject randomizer ke dalam full prompt
             const fullPrompt = `Ultra-realistic portrait photography of ${baseSubject}, ${detailedDesc}${randomFace}, ${randomEyes}, highly detailed face, expressive eyes, 8k resolution, cinematic lighting, photorealistic, shot on 35mm lens, depth of field, sharp focus, natural skin texture, dramatic shadow, --ar 9:16 --seed ${randomSeed}`;
             
             outputText.innerText = fullPrompt;
@@ -760,27 +734,23 @@
             if(text) copyText(text);
         }
 
+        // --- STORYBOARD GENERATION ---
         function generateWisdom() {
             const btn = document.getElementById('btn-generate');
             const container = document.getElementById('gen-scenes-container');
             const theme = document.getElementById('gen-theme').value;
             
-            // Mengambil Nilai dari Dropdown & Kustom
             let actorType = document.getElementById('gen-actor').value;
             let clothingType = document.getElementById('gen-clothing').value;
             let moodType = document.getElementById('gen-mood').value;
             let locationType = document.getElementById('gen-location').value;
-            
-            // Mengambil Nilai Instruksi Khusus/Global
             let customAction = document.getElementById('gen-custom-action').value;
             
-            // Mengganti nilai dengan teks manual jika memilih opsi custom
             if (actorType === 'custom') actorType = document.getElementById('gen-actor-custom').value;
             if (clothingType === 'custom') clothingType = document.getElementById('gen-clothing-custom').value;
             if (moodType === 'custom') moodType = document.getElementById('gen-mood-custom').value;
             if (locationType === 'custom') locationType = document.getElementById('gen-location-custom').value;
             
-            // Merangkai deskripsi karakter dinamis DALAM BAHASA INDONESIA
             let promptActor = "seorang pria muda muslim";
             let promptActorSame = "pria muda muslim yang sama";
             let isCustomActor = false;
@@ -814,13 +784,10 @@
             setTimeout(() => {
                 const db = wisdomDB[theme] || wisdomDB.sabar;
                 const randomIndex = Math.floor(Math.random() * db.length);
-                
-                // DEEP COPY: Mengkopi data tanpa merusak / mengubah database asli yang tersimpan
                 const selected = JSON.parse(JSON.stringify(db[randomIndex]));
                 
                 const isChild = (actorType === 'boy' || actorType === 'girl');
 
-                // Penyesuaian kata kunci untuk UI Terjemahan
                 let actorId = 'Seseorang';
                 if (actorType === 'woman') actorId = 'Seorang muslimah';
                 else if (actorType === 'boy') actorId = 'Seorang anak laki-laki';
@@ -828,40 +795,34 @@
                 else if (actorType === 'man') actorId = 'Seorang pemuda';
                 else if (isCustomActor) actorId = `Seseorang (${actorType})`;
 
-                // Modifikasi teks master konsep secara dinamis (Terjemahan UI)
                 selected.master_concept = selected.master_concept.replace(/Seseorang/gi, actorId);
 
-                // Setup Prefix Suasana, Lokasi & Instruksi Khusus (Bahasa Indonesia)
                 let environmentPrefix = "";
                 if (locationType && locationType.trim() !== "") environmentPrefix += `[Lokasi: ${locationType}] `;
                 if (moodType && moodType.trim() !== "") environmentPrefix += `[Suasana: ${moodType}] `;
 
-                // --- PENGENDALIAN "INSTRUKSI KHUSUS" YANG DISAMPAIKAN USER ---
-                // Instruksi khusus HANYA masuk ke Visual Prompt agar AI Video merender visual yang sesuai dengan keinginan Anda.
-                // Instruksi ini TIDAK LAGI disuntikkan paksa ke dalam naskah Voiceover, agar naskah tetap utuh, puitis, dan durasinya pas (8-10 detik).
                 if (customAction && customAction.trim() !== "") {
                     environmentPrefix += `[Instruksi Sutradara (Aktivitas): ${customAction}] `;
                 }
 
-                // Modifikasi Prompt Video secara dinamis (Inject ke bahasa Indonesia)
+                // REVISI 2 & 3: PENYESUAIAN VOICE OVER BUKAN LIP-SYNC DAN TRANSISI HALUS PADA PROMPT TIAP SCENE
                 selected.scenes.forEach((sc, idx) => {
-                    
-                    // --- ADAPTASI LOGIKA CERITA & PARSE SPINTAX (VOICEOVER & VISUAL) ---
-                    // 1. Resolve Token Usia/Kondisi -> 2. Parse Spintax Matrix 
                     sc.voiceover = parseSpintax(resolveTokens(sc.voiceover, isChild));
                     sc.prompt_video = parseSpintax(resolveTokens(sc.prompt_video, isChild));
 
-                    // Timpa subjek karakter [AKTOR_UTAMA] dan [AKTOR_SAMA]
+                    // Tambahkan instruksi kaku: bibir aktor tertutup & tanpa lip-sync
+                    const silenceInstruction = "the actor is completely silent, lips are closed, no lip-sync, the narration is purely background voiceover.";
+                    sc.prompt_video = `${sc.prompt_video}, ${silenceInstruction}`;
+
                     sc.prompt_video = sc.prompt_video
                         .replace(/\[AKTOR_UTAMA\]/g, promptActor)
                         .replace(/\[AKTOR_SAMA\]/g, promptActorSame);
 
-                    // Inject Suasana & Lokasi di awal prompt secara aman
                     if (environmentPrefix !== "") {
                         sc.prompt_video = `${environmentPrefix} - ${sc.prompt_video}`;
                     }
                     
-                    sc.prompt_video = sc.prompt_video.replace(/  +/g, ' '); // Merapikan spasi dobel
+                    sc.prompt_video = sc.prompt_video.replace(/  +/g, ' '); 
                 });
 
                 currentGeneratedData = selected;
@@ -948,6 +909,7 @@
         }
 
         // --- PROMPT OUTPUT DALAM BAHASA INDONESIA ---
+        // REVISI 2 & 3: TAMBAHKAN SISTEM PENGAWAS VOICE OVER (NO LIP SYNC) DAN CINEMATIC TRANSITION
         function generateCinematicPrompt() { 
             if(!currentGeneratedData) return;
             const master = document.getElementById('prompt-base').value;
@@ -959,10 +921,12 @@
             outEl.innerHTML = "";
             
             const masterRule = `[ATURAN KONSISTENSI KARAKTER (MASTER RULE)]:\nKunci wajah, postur, dan pakaian karakter agar 100% konsisten persis seperti di Scene 1 sampai Scene 4 ini. Jangan ubah orangnya, jangan ubah jenis pakaiannya. Rasio aspek ${ratio}.`;
-            const audioRule = `[ATURAN AUDIO BGM & TRANSISI (MASTER AUDIO RULE)]:\nGunakan aliran/instrumen Soundtrack BGM yang SAMA persis dari awal Scene 1 hingga Scene 4 agar musiknya nyambung. Wajib terapkan efek perlahan masuk (FADE-IN 1 detik) di awal setiap scene, dan perlahan mereda/menghilang (FADE-OUT 1 detik) di akhir scene agar transisi antar scene sangat halus/indah.`;
-            
+            const audioRule = `[ATURAN AUDIO BGM & TRANSISI (MASTER AUDIO RULE)]:\nGunakan aliran/instrumen Soundtrack BGM yang SAMA persis dari awal Scene 1 hingga Scene 4 agar musiknya nyambung.\nWajib terapkan efek perlahan masuk (FADE-IN 1 detik) di awal setiap scene, dan perlahan mereda/menghilang (FADE-OUT 1 detik) di akhir scene agar transisi antar scene sangat halus/indah.`;
+            const lipsRule = `[ATURAN AKTING AKTOR (ACTOR PERFORMANCE RULE)]:\nBibir aktor harus tetap bungkam dan terkunci rapat di semua scene (NO LIP-SYNC). Suara narasi hanya berupa suara pengisi suara latar (OFF-SCREEN NARRATION/VOICEOVER).`;
+            const transitionRule = `[ATURAN TRANSISI VIDEO (CINEMATIC TRANSITION RULE)]:\nTransisi video antar adegan (Scene 1 ke 2, 2 ke 3, 3 ke 4) harus berjalan sangat mulus menggunakan efek transisi silang sinematik (smooth cinematic cross-fade / match-cut transition 1 detik) untuk menghindari potongan gambar yang kasar.`;
+
             currentGeneratedData.scenes.forEach((sc, index) => {
-                const promptText = `${masterRule}\n${audioRule}\n\n==============\n[ADEGAN ${sc.scene_num} - ${sc.title}]\n==============\n[PROMPT VISUAL]\n${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\n[PROMPT AUDIO (SFX & VOICEOVER)]\n- Suasana BGM (Fade In 1s, Fade Out 1s): ${sc.prompt_audio}\n- Narasi Voiceover (Wajib Dibaca): "${sc.voiceover}"`;
+                const promptText = `${masterRule}\n${audioRule}\n${lipsRule}\n${transitionRule}\n\n==============\n[ADEGAN ${sc.scene_num} - ${sc.title}]\n==============\n[PROMPT VISUAL]\n${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\n[PROMPT AUDIO (SFX & VOICEOVER)]\n- Suasana BGM (Fade In 1s, Fade Out 1s): ${sc.prompt_audio}\n- Narasi Voiceover (Wajib Dibaca sebagai pengisi suara latar): "${sc.voiceover}"`;
                 
                 const cardHTML = `
                 <div class="bg-black/50 p-4 rounded-xl border border-white/5 relative fade-in group hover:border-blue-500/30 transition-all">
