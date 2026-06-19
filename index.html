@@ -106,7 +106,6 @@
 </head>
 <body class="flex flex-col h-screen overflow-hidden antialiased selection:bg-emerald-500 selection:text-white">
 
-    <!-- REVISI 4: NAVIGASI BAR DI BAGIAN ATAS (DESKTOP & MOBILE) -->
     <header class="w-full glass-panel border-b border-white/5 py-4 px-6 flex items-center justify-between z-30 sticky top-0">
         <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-700 flex items-center justify-center shadow-lg shadow-emerald-900/50">
@@ -159,7 +158,7 @@
 
     <!-- MAIN AREA (Split Left Editor / Right Preview Layout) -->
     <main class="flex-1 overflow-hidden relative">
-        <div id="content-area" class="h-full overflow-y-auto p-4 md:p-8 custom-scrollbar">
+        <div id="content-area" class="h-full overflow-y-auto p-4 md:p-8 pt-2 custom-scrollbar">
             
             <!-- VIEW: HOME -->
             <div id="view-home" class="view-section fade-in">
@@ -180,7 +179,6 @@
 
             <!-- VIEW: AI GENERATOR MULTI-SCENE -->
             <div id="view-generator" class="view-section hidden fade-in">
-                <!-- REVISI 4: 2 BAGIAN AREA (Editor Sisi Kiri, Pratinjau Sisi Kanan) -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
                     <!-- EDITOR AREA (SISI KIRI) -->
@@ -267,12 +265,12 @@
                                     <input type="text" id="gen-location-custom" class="w-full bg-dark border border-white/10 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px] mt-2 hidden" placeholder="Ketik lokasi manual...">
                                 </div>
 
-                                <!-- INSTRUKSI KHUSUS / ALUR GLOBAL -->
+                                <!-- REVISI MANDAT: INSTRUKSI KHUSUS WAJIB DIISI -->
                                 <div>
                                     <label class="block text-[10px] font-semibold text-emerald-400 mb-1.5 uppercase tracking-wide flex items-center gap-1.5">
-                                        <i class="fa-solid fa-pen-to-square"></i> Instruksi Khusus (Opsional)
+                                        <i class="fa-solid fa-pen-to-square"></i> Instruksi Khusus (Wajib Diisi) <span class="text-red-500 font-bold">*</span>
                                     </label>
-                                    <textarea id="gen-custom-action" rows="2" class="w-full bg-dark border border-emerald-500/30 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px]" placeholder="Misal: Aktor memegang tasbih sambil menatap langit..."></textarea>
+                                    <textarea id="gen-custom-action" rows="2.5" class="w-full bg-dark border border-emerald-500/30 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-emerald-500 transition-colors text-[13px]" placeholder="Wajib masukkan detail alur aktivitas/lokasi kustom... (Contoh: Aktor berjalan di taman bunga yang indah di bawah matahari cerah)"></textarea>
                                 </div>
 
                                 <button onclick="generateWisdom()" id="btn-generate" class="w-full btn-premium py-3 rounded-xl font-semibold text-white shadow-lg flex justify-center items-center gap-2 mt-4 text-sm">
@@ -316,10 +314,28 @@
 
                     <!-- PRATINJAU AREA / STORYBOARD (SISI KANAN) -->
                     <div class="lg:col-span-7 space-y-6">
+                        <!-- PLACEHOLDER AWAL -->
                         <div id="gen-placeholder" class="glass-panel rounded-2xl flex-1 min-h-[500px] flex flex-col items-center justify-center text-gray-500 p-12">
                             <i class="fa-solid fa-film text-5xl mb-4 opacity-30"></i>
                             <p class="text-center font-medium">Tekan Generate di kolom kiri untuk menyusun 4 Scene Cinematic berkesinambungan.</p>
                         </div>
+
+                        <!-- REVISI MANDAT: CINEMATIC 10 SECONDS DEEP LOADER -->
+                        <div id="gen-loader" class="hidden glass-panel rounded-2xl flex-1 min-h-[500px] flex flex-col items-center justify-center p-12 text-center">
+                            <div class="relative w-24 h-24 mb-6">
+                                <!-- Double Orbit Glowing Spinner -->
+                                <div class="absolute inset-0 rounded-full border-4 border-emerald-500/20 border-t-emerald-500 animate-spin"></div>
+                                <div class="absolute inset-2 rounded-full border-4 border-purple-500/10 border-t-purple-500 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+                                <div class="absolute inset-0 flex items-center justify-center text-xs font-bold text-emerald-400 font-mono" id="loader-percent">0%</div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white mb-2 cinematic-glow tracking-wider uppercase">Mengevaluasi Instruksi Khusus</h3>
+                            <p class="text-sm text-gray-400 max-w-md h-12 flex items-center justify-center" id="loader-status">Memulai proses kompilasi alur...</p>
+                            <div class="w-64 bg-dark border border-white/10 h-2 rounded-full overflow-hidden mt-6">
+                                <div id="loader-progress" class="bg-gradient-to-r from-emerald-500 to-purple-600 h-full w-0 transition-all duration-300"></div>
+                            </div>
+                        </div>
+
+                        <!-- HASIL STORYBOARD -->
                         <div id="gen-result" class="hidden space-y-6">
                             <div class="flex justify-between items-center bg-dark/40 p-4 rounded-2xl border border-white/5">
                                 <h3 class="text-sm font-bold text-emerald-400 flex items-center gap-2"><i class="fa-solid fa-list-ol"></i> Storyboard AI Terbentuk</h3>
@@ -337,7 +353,6 @@
 
             <!-- VIEW: PROMPT VIDEO STUDIO -->
             <div id="view-prompt" class="view-section hidden fade-in">
-                <!-- REVISI 4: 2 BAGIAN AREA (Editor Sisi Kiri, Pratinjau Sisi Kanan) -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                     
                     <!-- EDITOR PROMPT (SISI KIRI) -->
@@ -380,7 +395,6 @@
 
             <!-- VIEW: OVERLAY STUDIO (KARAOKE) -->
             <div id="view-overlay" class="view-section hidden fade-in">
-                <!-- REVISI 4: 2 BAGIAN AREA (Editor Sisi Kiri, Pratinjau Sisi Kanan) -->
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start justify-center">
                     
                     <!-- EDITOR OVERLAY (SISI KIRI) -->
@@ -463,6 +477,8 @@
     </main>
 
     <script>
+        const apiKey = ""; // API Key disisipkan otomatis oleh runtime environment
+
         // --- Navigation Logic ---
         function nav(targetId) {
             document.querySelectorAll('.nav-item').forEach(el => {
@@ -558,7 +574,7 @@
                         <ol class="list-decimal pl-5 space-y-2 font-medium">
                             <li>Klik tombol <span class="text-emerald-400">Download Header (PNG)</span> di web ini. Ini akan menyimpan teks ayat Arab & terjemahan tanpa naskah bawah.</li>
                             <li>Buka <b>CapCut</b>. Masukkan video background dan audio suara Anda. Tambahkan foto PNG tadi melalui menu <b>Overlay</b>.</li>
-                            <li>Masuk ke menu <b>Teks</b> > <b>Keterangan Otomatis (Auto Captions)</b>. Setelah teks muncul, pilih <b>Gaya (Style)</b> > <b>Animasi</b> > pilih efek Karaoke atau Highlight yang menyala per kata.</li>
+                            <li>Buka menu <b>Teks</b> > <b>Keterangan Otomatis (Auto Captions)</b>. Setelah teks muncul, pilih <b>Gaya (Style)</b> > <b>Animasi</b> > pilih efek Karaoke atau Highlight yang menyala per kata.</li>
                         </ol>
                         <p class="text-xs text-purple-400 mt-4">*Gunakan tombol 'Copy Teks ke CapCut' jika Anda butuh menempel naskah secara manual ke CapCut.</p>
                     </div>
@@ -573,83 +589,29 @@
 
         // --- Data & Generate Logic ---
         let currentGeneratedData = null;
-        let currentOverlaySceneName = "1"; // Menyimpan identitas scene yang aktif di Overlay Studio
+        let currentOverlaySceneName = "1";
 
-        // --- CORE ENGINE: DEEP SPINTAX & NLP TOKEN INJECTOR (1.000.000+ KOMBINASI) ---
-        function parseSpintax(text) {
-            let matches = text.match(/\{[^{}]+\}/g);
-            if (!matches) return text;
-            matches.forEach(match => {
-                let options = match.substring(1, match.length - 1).split('|');
-                let randomOption = options[Math.floor(Math.random() * options.length)];
-                text = text.replace(match, randomOption);
-            });
-            // Rekursi untuk Nested Spintax
-            if (text.includes('{') && text.includes('}')) return parseSpintax(text);
-            return text;
-        }
-
-        function resolveTokens(text, isChild) {
-            // Matriks Kosa Kata Super Masif
-            const tokens = {
-                '[MONEY_PROBLEM]': isChild ? 
-                    ["{melihat teman jajan sementara kita menahan keinginan|kebutuhan sekolah belum terbayar|uang saku sudah habis|tak ada biaya untuk beli buku|bingung karena alat tulis habis|sepatu sekolah sudah rusak|ingin jajan tapi celengan kosong}"] : 
-                    ["{tagihan terasa mencekik|cicilan seakan tak berujung|kebutuhan hidup semakin mendesak|jalan keluar ekonomi terasa buntu|tuntutan hidup makin berat|hutang mulai menumpuk|biaya hidup terasa mencekik leher|kebutuhan keluarga mendesak|tabungan mulai terkuras habis}"],
-                '[DOMPET_PROBLEM]': isChild ?
-                    ["{celengan kosong|uang saku menipis|bekal terasa kurang|tak ada uang jajan|uang tabungan habis}"] :
-                    ["{saku menipis|dompet tak lagi berisi|saldo mulai kosong|pemasukan tersendat|penghasilan tak menentu|uang belanja menipis}"],
-                '[WORK_PROBLEM]': isChild ?
-                    ["{tugas sekolah menumpuk|kesulitan belajar yang amat sangat|ujian terasa sangat berat|nilai tidak sesuai harapan|kewalahan mengatur waktu belajar}"] :
-                    ["{pekerjaan terasa berat|usaha sedang sepi|dagangan tak kunjung laku|pekerjaan begitu menguras pikiran|karir terasa mandek|klien membatalkan kerja sama|tekanan di tempat kerja memuncak}"],
-                '[LOVE_OBJECT]': isChild ?
-                    ["{sahabat terbaik|teman terdekat|teman bermain|keluarga|orang tua tercinta|sosok yang dikagumi}"] :
-                    ["{cinta sejati|seseorang yang diidamkan|pasangan hidup|jodoh yang dinanti|sosok yang dicintai|tambatan hati}"],
-                '[LOVE_FUTURE]': isChild ?
-                    ["{tumbuh menjadi kebanggaan yang diridhai-Nya|sukses bersama di masa depan|meraih cita-cita dengan gemilang|membahagiakan orang tua kelak}"] :
-                    ["{berlabuh pada yang halal dan diridhai-Nya|ikatan suci yang diberkahi|pernikahan yang sakinah|menuju mahligai rumah tangga yang penuh berkah|bersatu dalam ikatan janji suci}"],
-                '[SIN_PAST]': isChild ?
-                    ["{kesalahan di masa kecil|kenakalan yang pernah dilakukan|sikap buruk di waktu lampau|kata-kata yang menyakiti orang tua}"] :
-                    ["{noda di masa lalu|dosa yang pernah kita perbuat|kesalahan di masa kelam|khilaf yang membayangi|jejak kelam yang disesali|tumpukan dosa yang disembunyikan}"],
-                '[PROMPT_WORK_EMPTY]': isChild ? 
-                    ["{buku dan tas sekolahnya yang sudah usang|meja belajarnya yang kosong|rapor sekolahnya yang tertutup}"] : 
-                    ["{meja dagangan/pekerjaannya yang kosong|layar komputer/tempat kerjanya yang sepi|tumpukan berkas tagihan di meja|ruang usahanya yang sepi pembeli}"],
-                '[PROMPT_WALLET]': isChild ? 
-                    ["{celengan plastik/kalengnya yang kosong|saku tasnya yang kosong|dompet koinnya}"] : 
-                    ["{dompetnya yang hampir kosong|saku celananya yang tipis|layar ponsel menampilkan saldo kosong}"],
-                '[PROMPT_MONEY]': isChild ? 
-                    ["{uang jajan terakhirnya|sisa koin celengannya|lembaran uang lecek sakunya}"] : 
-                    ["{uang kertas terakhirnya|sisa gajinya bulan ini|sisa uang belanja terakhir}"]
-            };
-            let result = text;
-            for (const [key, values] of Object.entries(tokens)) {
-                if (result.includes(key)) {
-                    let regex = new RegExp(key.replace(/\[/g, '\\[').replace(/\]/g, '\\]'), 'g');
-                    result = result.replace(regex, () => values[Math.floor(Math.random() * values.length)]);
-                }
-            }
-            return result;
-        }
-
+        // --- STREAMING_CHUNK: Mengisi bank naskah & dialog orisinal multi-scene ---
         const wisdomDB = {
             sabar: [
                 { 
-                    master_concept: "Seseorang berjalan sendirian di tengah hujan lebat dengan lelah, berteduh, beribadah, hingga akhirnya ia berjalan lega di pagi yang cerah.",
+                    master_concept: "Seseorang berjalan sendirian di bawah langit dengan tegar, merenungi takdir, beribadah, hingga akhirnya menemukan kedamaian.",
                     scenes: [
-                        { scene_num: 1, title: "Rasa Lelah dan Ujian Hidup", arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", latin: "La yukallifullahu nafsan illa wus'aha", terjemahan: "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.", sumber: "QS. Al-Baqarah: 286", makna: "Sebesar apapun rintangan hari ini, Allah tahu batas kemampuanmu.", voiceover: "{Terkadang|Ada kalanya|Seringkali|Dalam fase kehidupan tertentu}, {langkah terasa sangat berat|dunia terasa begitu membebani pundak|kita dihadapkan pada rintangan yang tak berujung|ujian datang silih berganti}. {Hujan seakan tak mau berhenti|Tatkala [WORK_PROBLEM] seolah tiada akhir|Saat badai cobaan seakan enggan reda}, {dada ini terasa sesak|pikiran menjadi begitu buntu|hati ini menangis tertahan} {oleh beban yang tak terlihat|dalam menghadapi kenyataan|saat menahan rasa lelah ini}.", prompt_video: "Sorotan sinematik jarak dekat [AKTOR_UTAMA] yang berjalan di tengah hujan lebat di malam hari, tampak sangat lelah dan kehabisan tenaga namun tetap memaksakan diri melangkah, ekspresi melankolis, pakaian basah kuyup, latar belakang kota malam hari yang gelap.", prompt_audio: "Suara hujan lebat, rintik air, instrumen melodi piano melankolis yang utama mengalun pelan." },
-                        { scene_num: 2, title: "Tawakal dan Keyakinan", arab: "وَتَوَكَّلْ عَلَى الْحَيِّ الَّذِي لَا يَمُOUT", latin: "Wa tawakkal 'alal hayyil ladzi la yamut", terjemahan: "Dan bertawakallah kepada Allah yang hidup (kekal) yang tidak mati.", sumber: "QS. Al-Furqan: 58", makna: "Menyerahkan hasil akhir hanya kepada Zat yang tak pernah tidur.", voiceover: "{Namun di titik terendah itulah|Tepat ketika kita hampir menyerah|Justru di saat kita tak lagi berdaya|Di ambang keputusasaan ini}, {hati dipaksa untuk tawakal|iman kita sedang ditempa|Allah memanggil kita untuk berserah diri}. {Menyadarkan bahwa kendali sejati ada pada-Nya|Bahwa tidak semua hal harus kita pikul sendiri|Kita diajarkan untuk melepaskan genggaman pada dunia}.", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA], berdiri diam di bawah lampu jalan. Hujan mulai mereda. Ia menatap ke langit malam, memejamkan mata, menarik napas panjang, menunjukkan ekspresi berserah diri dan penuh keyakinan.", prompt_audio: "Hujan mulai mereda, instrumen melodi piano yang sama mulai meninggi memberikan rasa harapan." },
-                        { scene_num: 3, title: "Ketenangan dalam Jiwa", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra", terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5", makna: "Janji Allah itu pasti, selalu ada pelangi setelah badai terlewati.", voiceover: "{Dan percayalah|Ketahuilah dengan yakin|Tanamkan dalam lubuk hatimu}, {setelah malam yang paling gelap|sesudah badai yang paling dahsyat|di ujung jalan yang paling terjal}, {pasti akan terbit fajar yang menenangkan|selalu ada kemudahan yang menanti|pertolongan-Nya pasti akan tiba}. {Bersabarlah sebentar lagi|Kuatkan hatimu sedikit lagi|Hapus air matamu, hari esok milikmu}.", prompt_video: "Sorotan sinematik sudut lebar, cahaya pagi terang. [AKTOR_SAMA] kini duduk di teras masjid yang indah, pakaiannya mengering, tersenyum lembut, ekspresi damai, cahaya matahari pagi menyinari wajahnya.", prompt_audio: "Suara burung berkicau pelan, instrumen melodi piano yang sama bertransisi menjadi nada hangat dan damai." },
-                        { scene_num: 4, title: "Langkah Harapan Baru", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib", terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3", makna: "Akhir dari sebuah kesabaran adalah hadiah kejutan dari Allah.", voiceover: "{Karena di ujung setiap kesabaran|Sebab di balik setiap tetes air mata ketabahan|Sebagai balasan atas keikhlasan hatimu}, {Allah telah menyiapkan jalan keluar|Tuhanmu telah merangkai takdir terindah|kado kejutan terindah menantimu} {dari arah yang tak pernah disangka-sangka|yang tak pernah kau duga sebelumnya|yang akan merubah lukamu menjadi senyuman bahagia}.", prompt_video: "Sorotan dinamis mengikuti [AKTOR_SAMA] yang sedang berjalan perlahan meninggalkan area masjid, langkah kakinya kini terlihat ringan dan penuh semangat, tersenyum ikhlas menatap ke depan, latar belakang jalanan pagi yang asri dan cerah.", prompt_audio: "Suara langkah kaki mantap, instrumen melodi piano yang sama ditutup dengan nada ceria dan penuh motivasi." }
+                        { scene_num: 1, title: "Rasa Lelah dan Ujian Hidup", arab: "لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا وُسْعَهَا", latin: "La yukallifullahu nafsan illa wus'aha", terjemahan: "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya.", sumber: "QS. Al-Baqarah: 286", makna: "Sebesar apapun rintangan hari ini, Allah tahu batas kemampuanmu.", voiceover: "{Terkadang|Ada kalanya|Seringkali}, {langkah terasa sangat berat|dunia terasa membebani pundak|kita dihadapkan pada ujian berat}. {Tatkala kesedihan datang mendera|Saat cobaan seakan enggan reda}, {dada ini terasa sesak|pikiran menjadi buntu|hati ini menangis tertahan} {oleh beban yang tak terlihat|dalam menghadapi kenyataan}.", prompt_video: "Sorotan sinematik jarak dekat [AKTOR_UTAMA] yang berjalan lambat, tampak sangat lelah dan kehabisan tenaga namun tetap memaksakan diri melangkah, ekspresi melankolis, pakaian yang sederhana.", prompt_audio: "Suara hembusan angin sepoi-sepoi, instrumen melodi piano melankolis yang utama mengalun pelan." },
+                        { scene_num: 2, title: "Tawakal dan Keyakinan", arab: "وَتَوَكَّل|َ عَلَى الْحَيِّ الَّذِي لَا يَمُوتُ", latin: "Wa tawakkal 'alal hayyil ladzi la yamut", terjemahan: "Dan bertawakallah kepada Allah yang hidup (kekal) yang tidak mati.", sumber: "QS. Al-Furqan: 58", makna: "Menyerahkan hasil akhir hanya kepada Zat yang tak pernah tidur.", voiceover: "{Namun di titik terendah itulah|Justru di saat kita tak lagi berdaya}, {hati dipaksa untuk tawakal|Allah memanggil kita untuk berserah diri}. {Menyadarkan bahwa kendali sejati ada pada-Nya|Bahwa tidak semua hal harus kita pikul sendiri|Kita diajarkan melepaskan ego pada dunia}.", prompt_video: "Sorotan jarak menengah dari [AKTOR_SAMA], berdiri diam, menatap ke arah langit, memejamkan mata, menarik napas panjang, menunjukkan ekspresi berserah diri dan penuh keyakinan.", prompt_audio: "Angin bertiup lembut, instrumen melodi piano yang sama mulai meninggi memberikan rasa harapan." },
+                        { scene_num: 3, title: "Ketenangan dalam Jiwa", arab: "فَإِنَّ مَعَ الْعُسْرِ يُسْرًا", latin: "Fa inna ma'al 'usri yusra", terjemahan: "Karena sesungguhnya sesudah kesulitan itu ada kemudahan.", sumber: "QS. Al-Insyirah: 5", makna: "Janji Allah itu pasti, selalu ada pelangi setelah badai terlewati.", voiceover: "{Dan percayalah|Ketahuilah dengan yakin}, {setelah malam yang paling gelap|sesudah badai yang paling dahsyat}, {pasti akan terbit fajar yang menenangkan|selalu ada kemudahan yang menanti}. {Bersabarlah sebentar lagi|Kuatkan hatimu sedikit lagi}.", prompt_video: "Sorotan sinematik sudut lebar. [AKTOR_SAMA] duduk dengan tenang, tersenyum lembut, ekspresi damai, cahaya matahari pagi menyinari wajahnya.", prompt_audio: "Suara burung berkicau pelan, instrumen melodi piano yang sama bertransisi menjadi nada hangat dan damai." },
+                        { scene_num: 4, title: "Langkah Harapan Baru", arab: "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ", latin: "Wa yarzuqhu min haitsu la yahtasib", terjemahan: "Dan memberinya rezeki dari arah yang tiada disangka-sangkanya.", sumber: "QS. At-Talaq: 3", makna: "Akhir dari sebuah kesabaran adalah hadiah kejutan dari Allah.", voiceover: "{Karena di ujung setiap kesabaran|Sebagai balasan atas keikhlasan hatimu}, {Allah telah menyiapkan jalan keluar|Tuhanmu telah merangkai takdir terindah} {dari arah yang tak pernah disangka-sangka|yang tak pernah kau duga sebelumnya}.", prompt_video: "Sorotan dinamis mengikuti [AKTOR_SAMA] yang sedang berjalan perlahan, langkah kakinya kini terlihat ringan dan penuh semangat, tersenyum ikhlas menatap ke depan.", prompt_audio: "Suara langkah kaki mantap, instrumen melodi piano yang sama ditutup dengan nada ceria." }
                     ]
                 }
             ],
             rezeki: [
                 {
-                    master_concept: "Seseorang khawatir melihat usahanya yang sepi, menenangkan diri, menyedekahkan makanan ke hewan, dan berakhir senyum lepas di malam hari.",
+                    master_concept: "Seseorang khawatir melihat usahanya sepi, menenangkan diri, berbagi kebaikan, dan berakhir senyum lepas menyambut hari baru.",
                     scenes: [
-                        { scene_num: 1, title: "Kekhawatiran Hari Ini", arab: "الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ", latin: "Asy-syaitaanu ya'idukumul-faqr", terjemahan: "Setan menakut-nakuti kamu dengan kemiskinan...", sumber: "QS. Al-Baqarah: 268", makna: "Kecemasan akan hari esok seringkali membunuh syukur hari ini.", voiceover: "{Terkadang, ujian datang dalam bentuk kekhawatiran.|Ada kalanya, beban hidup terasa begitu nyata.|Di saat-saat tertentu, kita dihadapkan pada kebuntuan hati.} {Ketika dihadapkan pada [WORK_PROBLEM],|Saat memikirkan [MONEY_PROBLEM],|Tatkala [WORK_PROBLEM] menguras tenaga,} {rasanya cemas diam-diam menyelinap|seolah jalan masa depan tertutup rapat|langkah kaki ini terasa sangat berat}, {menyisakan sesak di dada.|menguji sejauh mana tawakal kita.|membuat batin ini lelah berkeluh kesah.}", prompt_video: "Sorotan sinematik jarak menengah dari [AKTOR_UTAMA] yang menatap [PROMPT_WORK_EMPTY] di sore hari, ekspresi sedikit khawatir dan merenung, cahaya hangat matahari terbenam namun suasana sekitar tampak sepi.", prompt_audio: "Suara hembusan angin sepi, instrumen gitar akustik utama melankolis bermain pelan." },
-                        { scene_num: 2, title: "Kembali Mengingat Syukur", arab: "لَئِن شَكَرْتُمْ لَأZِيدَنَّكُمْ", latin: "La'in syakartum la'azidannakum", terjemahan: "Sesungguhnya jika kamu bersyukur, pasti Kami akan menambah (nikmat) kepadamu.", sumber: "QS. Ibrahim: 7", makna: "Mengubah fokus dari apa yang belum ada, kepada apa yang masih tersisa.", voiceover: "{Namun kita sering lupa|Tapi kerap kali kita memalingkan wajah|Padahal jika kita mau merenung sejenak}, {rezeki dari-Nya bukanlah sekadar hitungan angka|nikmat Allah tak sebatas materi semata|lembaran uang belumlah segalanya}. {Nafas yang masih berhembus dengan bebas|Kesehatan raga yang masih melekat|Keluarga yang masih setia menemani}, {adalah rezeki yang tak ternilai harganya|adalah karunia terbesar yang patut disyukuri|jauh lebih mahal dari dunia dan isinya}.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang memejamkan mata, memaksakan diri tersenyum lembut, dan membisikkan doa syukur. Cahaya keemasan senja menyoroti wajahnya yang tulus.", prompt_audio: "Suara azan magrib pelan di kejauhan, instrumen gitar akustik yang sama bertransisi lebih hangat." },
-                        { scene_num: 3, title: "Cukup Karena Berbagi", arab: "وَمَا مِن دَآبَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا", latin: "Wa ma min dabbatin fil ardi illa 'alallahi rizquha", terjemahan: "Dan tidak ada suatu binatang melata pun di bumi melainkan Allah-lah yang memberi rezekinya.", sumber: "QS. Hud: 6", makna: "Rezekimu tak akan tertukar, bahkan hewan kecil pun Allah jamin hidupnya.", voiceover: "{Cukupkanlah hatimu hari ini|Belajarlah merasa qana'ah dengan pemberian-Nya|Tenangkan batinmu dan jernihkan pandanganmu}. {Berbagilah meski dalam keadaan sempit|Bersedekahlah walau rezeki sedang seret|Berilah kebaikan pada makhluk Allah yang lain}, {karena di situlah rahasia keberkahan yang sejati|sebab dalam memberi ada ketenangan yang ajaib|karena kepedulian itulah pengetuk pintu langit} {yang akan menenangkan kepanikanmu|yang akan mendatangkan rahmat-Nya}.", prompt_video: "Sorotan sudut lebar di malam hari. [AKTOR_SAMA] sedang membereskan barang-barangnya, namun ia berhenti sejenak untuk menunduk dan memberikan sisa makanan kepada seekor kucing jalanan. Tersenyum damai.", prompt_audio: "Suara meong kucing pelan, instrumen gitar akustik yang sama menjadi sangat menenangkan hati." },
-                        { scene_num: 4, title: "Kepulangan yang Damai", arab: "وَلَسَوْفَ يُعْطِيكَ رَبُwكَ فَتَرْضَىٰ", latin: "Wa lasaufa yu'thiika rabbuka fatardhaa", terjemahan: "Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.", sumber: "QS. Ad-Duha: 5", makna: "Rasa cukup adalah rezeki paling mahal yang diberikan Allah.", voiceover: "{Pulanglah dengan hati yang tenang|Tersenyumlah menyambut indahnya esok hari|Pejamkan mata dengan jiwa yang penuh syukur}. {Sebab hati yang ridha menerima takdir|Karena keikhlasan dan keyakinan total kepada-Nya|Sebab rasa cukup atas apa yang ada} {adalah kunci kebahagiaan yang sesungguhnya|merupakan rezeki yang paling mahal harganya|akan menjamin hari esok yang lebih cerah dan berkah}.", prompt_video: "Sorotan dinamis dari [AKTOR_SAMA] yang berjalan santai pulang menyusuri jalan di bawah cahaya lampu jalan yang hangat. Wajahnya berseri-seri bahagia dan sangat lega, melangkah tanpa beban.", prompt_audio: "Suara jangkrik malam yang damai, instrumen gitar akustik yang sama ditutup dengan syahdu." }
+                        { scene_num: 1, title: "Kekhawatiran Hari Ini", arab: "الشَّيْطَانُ يَعِدُكُمُ الْفَقْرَ", latin: "Asy-syaitaanu ya'idukumul-faqr", terjemahan: "Setan menakut-nakuti kamu dengan kemiskinan...", sumber: "QS. Al-Baqarah: 268", makna: "Kecemasan akan hari esok seringkali membunuh syukur hari ini.", voiceover: "{Terkadang, ujian datang dalam bentuk kekhawatiran.|Ada kalanya, beban hidup terasa begitu nyata.} {Ketika dihadapkan pada [WORK_PROBLEM],|Saat memikirkan [MONEY_PROBLEM],} {rasanya cemas diam-diam menyelinap|seolah jalan masa depan tertutup rapat}, {menyisakan sesak di dada.|menguji sejauh mana tawakal kita.}", prompt_video: "Sorotan sinematik jarak menengah dari [AKTOR_UTAMA] yang menatap [PROMPT_WORK_EMPTY] di sore hari, ekspresi sedikit khawatir and merenung, cahaya hangat matahari terbenam namun suasana sekitar tampak sepi.", prompt_audio: "Suara hembusan angin sepi, instrumen gitar akustik utama melankolis bermain pelan." },
+                        { scene_num: 2, title: "Kembali Mengingat Syukur", arab: "لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ", latin: "La'in syakartum la'azidannakum", terjemahan: "Sesungguhnya jika kamu bersyukur, pasti Kami akan menambah (nikmat) kepadamu.", sumber: "QS. Ibrahim: 7", makna: "Mengubah fokus dari apa yang belum ada, kepada apa yang masih tersisa.", voiceover: "{Namun kita sering lupa|Tapi kerap kali kita memalingkan wajah|Padahal jika kita mau merenung sejenak}, {rezeki dari-Nya bukanlah sekadar hitungan angka|nikmat Allah tak sebatas materi semata|lembaran uang belumlah segalanya}. {Nafas yang masih berhembus dengan bebas|Kesehatan raga yang masih melekat|Keluarga yang masih setia menemani}, {adalah rezeki yang tak ternilai harganya|adalah karunia terbesar yang patut disyukuri|jauh lebih mahal dari dunia dan isinya}.", prompt_video: "Sorotan jarak dekat dari [AKTOR_SAMA] yang memejamkan mata, memaksakan diri tersenyum lembut, dan membisikkan doa syukur. Cahaya keemasan senja menyoroti wajahnya yang tulus.", prompt_audio: "Suara azan magrib pelan di kejauhan, instrumen gitar akustik yang sama bertransisi lebih hangat." },
+                        { scene_num: 3, title: "Cukup Karena Berbagi", arab: "وَمَا مِن دَآبَّةٍ فِي الْأَرْضِ إِلَّا عَلَى اللَّهِ رِزْقُهَا", latin: "Wa ma min dabbatin fil ardi illa 'alallahi rizquha", terjemahan: "Dan tidak ada suatu binatang melata pun di bumi melainkan Allah-lah yang memberi rezekinya.", sumber: "QS. Hud: 6", makna: "Rezekimu tak akan tertukar, bahkan hewan kecil pun Allah jamin hidupnya.", voiceover: "{Cukupkanlah hatimu hari ini|Belajarlah merasa qana'ah dengan pemberian-Nya}. {Berbagilah meski dalam keadaan sempit|Bersedekahlah walau rezeki sedang seret}, {karena di situlah rahasia keberkahan yang sejati|sebab dalam memberi ada ketenangan yang ajaib}.", prompt_video: "Sorotan sudut lebar. [AKTOR_SAMA] berhenti sejenak untuk menunduk dan memberikan makanan kepada seekor hewan/kucing jalanan. Tersenyum damai.", prompt_audio: "Suara alam alami pelan, instrumen gitar akustik yang sama menjadi sangat menenangkan hati." },
+                        { scene_num: 4, title: "Kepulangan yang Damai", arab: "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ", latin: "Wa lasaufa yu'thiika rabbuka fatardhaa", terjemahan: "Dan kelak Tuhanmu pasti memberikan karunia-Nya kepadamu, lalu (hati) kamu menjadi puas.", sumber: "QS. Ad-Duha: 5", makna: "Rasa cukup adalah rezeki paling mahal yang diberikan Allah.", voiceover: "{Pulanglah dengan hati yang tenang|Tersenyumlah menyambut indahnya esok hari}. {Sebab hati yang ridha menerima takdir|Sebab rasa cukup atas apa yang ada} {adalah kunci kebahagiaan yang sesungguhnya|merupakan rezeki yang paling mahal harganya}.", prompt_video: "Sorotan dinamis dari [AKTOR_SAMA] yang berjalan santai, wajahnya berseri-seri bahagia dan sangat lega, melangkah tanpa beban.", prompt_audio: "Suara jangkrik malam yang damai, instrumen gitar akustik yang sama ditutup dengan syahdu." }
                     ]
                 }
             ]
@@ -667,6 +629,7 @@
         wisdomDB.jodoh = wisdomDB.rezeki;
         wisdomDB.tawakal = wisdomDB.sabar;
 
+        // --- SISTEM TOGGLE INPUT MANIK-MANIK EDITOR ---
         function toggleCustomInputs() {
             const selects = ['gen-actor', 'gen-clothing', 'gen-mood', 'gen-location'];
             selects.forEach(id => {
@@ -682,60 +645,219 @@
             });
         }
 
-        // REVISI 1: TAMBAHKAN OPSI CUSTOM PADA FITUR AKTOR GENERATOR
-        function toggleActorPromptCustom() {
-            const select = document.getElementById('actor-prompt-gender');
-            const customInput = document.getElementById('actor-prompt-gender-custom');
-            if (select && customInput) {
-                if (select.value === 'custom') {
-                    customInput.classList.remove('hidden');
-                } else {
-                    customInput.classList.add('hidden');
+        function getVoiceOverSpec(actorType) {
+            const actorLower = actorType.toLowerCase();
+            if (actorLower === 'man') {
+                return "Suara Laki-Laki Dewasa (deep, calm, and wise adult male voiceover)";
+            } else if (actorLower === 'woman') {
+                return "Suara Wanita Dewasa (gentle, warm, and mature adult female voiceover)";
+            } else if (actorLower === 'boy') {
+                return "Suara Anak Laki-Laki Kecil (pure, innocent, and clear little boy voiceover)";
+            } else if (actorLower === 'girl') {
+                return "Suara Gadis Kecil (sweet, pure, and gentle little girl voiceover)";
+            } else {
+                // Evaluasi jika aktor custom mengandung kata anak-anak / gender tertentu
+                if (actorLower.includes('woman') || actorLower.includes('perempuan') || actorLower.includes('ibu') || actorLower.includes('gadis') || actorLower.includes('wanita') || actorLower.includes('muslimah')) {
+                    if (actorLower.includes('anak') || actorLower.includes('little') || actorLower.includes('girl') || actorLower.includes('kecil') || actorLower.includes('bocah')) {
+                        return "Suara Gadis Kecil (sweet, pure, and gentle little girl voiceover)";
+                    }
+                    return "Suara Wanita Dewasa (warm, gentle, and mature adult female voiceover)";
+                } else if (actorLower.includes('boy') || actorLower.includes('anak') || actorLower.includes('kecil') || actorLower.includes('bocah') || actorLower.includes('laki-laki')) {
+                    return "Suara Anak Laki-Laki Kecil (pure, innocent, and clear little boy voiceover)";
+                }
+                return "Suara Laki-Laki Dewasa (deep, calm, and wise adult male voiceover)";
+            }
+        }
+
+        // --- STREAMING_CHUNK: Membuat engine override pakaian dan pencegah kontradiksi ---
+        function applyEditorOverrides(scenes) {
+            let actorType = document.getElementById('gen-actor').value;
+            let clothingType = document.getElementById('gen-clothing').value;
+            let moodType = document.getElementById('gen-mood').value;
+            let locationType = document.getElementById('gen-location').value;
+            let customAction = document.getElementById('gen-custom-action').value;
+
+            if (actorType === 'custom') actorType = document.getElementById('gen-actor-custom').value;
+            if (clothingType === 'custom') clothingType = document.getElementById('gen-clothing-custom').value;
+            if (moodType === 'custom') moodType = document.getElementById('gen-mood-custom').value;
+            if (locationType === 'custom') locationType = document.getElementById('gen-location-custom').value;
+
+            const isChild = (actorType === 'boy' || actorType === 'girl');
+
+            let promptActor = "seorang pria muda muslim";
+            let promptActorSame = "pria muda muslim yang sama";
+            let isCustomActor = false;
+
+            if (actorType === 'woman') {
+                promptActor = "seorang wanita muda muslimah berhijab";
+                promptActorSame = "wanita muda muslimah berhijab yang sama";
+            } else if (actorType === 'boy') {
+                promptActor = "seorang anak laki-laki muslim kecil";
+                promptActorSame = "anak laki-laki muslim kecil yang sama";
+            } else if (actorType === 'girl') {
+                promptActor = "seorang anak perempuan muslimah kecil berhijab";
+                promptActorSame = "anak perempuan muslimah kecil berhijab yang sama";
+            } else if (actorType !== 'man' && actorType && actorType.trim() !== "") {
+                promptActor = `seorang karakter (${actorType})`;
+                promptActorSame = `karakter (${actorType}) yang sama`;
+                isCustomActor = true;
+            }
+
+            const chosenClothing = (clothingType && clothingType.trim() !== "") ? clothingType : "kasual standar";
+            promptActor += ` yang memakai pakaian ${chosenClothing}`;
+            promptActorSame += ` yang memakai pakaian ${chosenClothing}`;
+
+            // Deteksi secara agresif apakah pengguna menginginkan suasana cerah/siang
+            const isSunnyOrDayInput = 
+                (moodType && (moodType.toLowerCase().includes("sunny") || moodType.toLowerCase().includes("pagi") || moodType.toLowerCase().includes("cerah") || moodType.toLowerCase().includes("sunset") || moodType.toLowerCase().includes("warm") || moodType.toLowerCase().includes("siang") || moodType.toLowerCase().includes("bright"))) ||
+                (locationType && (locationType.toLowerCase().includes("mosque") || locationType.toLowerCase().includes("nature") || locationType.toLowerCase().includes("beach") || locationType.toLowerCase().includes("street") || locationType.toLowerCase().includes("taman") || locationType.toLowerCase().includes("pantai") || locationType.toLowerCase().includes("garden"))) ||
+                (customAction && (customAction.toLowerCase().includes("taman") || customAction.toLowerCase().includes("masjid") || customAction.toLowerCase().includes("siang") || customAction.toLowerCase().includes("pagi") || customAction.toLowerCase().includes("cerah") || customAction.toLowerCase().includes("bunga") || customAction.toLowerCase().includes("sun") || customAction.toLowerCase().includes("garden") || customAction.toLowerCase().includes("pantai") || customAction.toLowerCase().includes("indah") || customAction.toLowerCase().includes("terang") || customAction.toLowerCase().includes("outdoor") || customAction.toLowerCase().includes("tidak ada hujan") || customAction.toLowerCase().includes("tanpa hujan")));
+
+            // Deteksi penonaktifan musik (Mute)
+            const isMuteRequested = 
+                (customAction && (customAction.toLowerCase().includes("tanpa musik") || customAction.toLowerCase().includes("no music") || customAction.toLowerCase().includes("hilangkan musik") || customAction.toLowerCase().includes("mute") || customAction.toLowerCase().includes("silent") || customAction.toLowerCase().includes("tanpa instrumen") || customAction.toLowerCase().includes("no soundtrack")));
+
+            return scenes.map((sc) => {
+                let newSc = JSON.parse(JSON.stringify(sc));
+
+                // 1. Bersihkan token & spintax dasar
+                newSc.voiceover = parseSpintax(resolveTokens(newSc.voiceover, isChild));
+                newSc.prompt_video = parseSpintax(resolveTokens(newSc.prompt_video, isChild));
+
+                // 2. Suntikkan Instruksi Khusus, Lokasi & Suasana ke visual prompt
+                if (customAction && customAction.trim() !== "") {
+                    newSc.prompt_video = `[AKTIVITAS UTAMA MANDAT SUTRADARA: ${customAction}] - ${newSc.prompt_video}`;
+                }
+                if (locationType && locationType.trim() !== "") {
+                    newSc.prompt_video = `[LOKASI SEBENARNYA: ${locationType}] - ${newSc.prompt_video}`;
+                }
+                if (moodType && moodType.trim() !== "") {
+                    newSc.prompt_video = `[SUASANA SEBENARNYA: ${moodType}] - ${newSc.prompt_video}`;
+                }
+
+                // 3. OVERRIDER CUACA CERAH ABSOLUT (Sapu semua elemen hujan/gelap yang memicu inkonsistensi)
+                if (isSunnyOrDayInput) {
+                    newSc.prompt_video = newSc.prompt_video
+                        .replace(/hujan lebat di malam hari/gi, "siang hari yang cerah")
+                        .replace(/hujan lebat/gi, "cuaca cerah hangat")
+                        .replace(/raining heavy/gi, "beautiful sunny weather")
+                        .replace(/hujan/gi, "hembusan angin sepoi-sepoi")
+                        .replace(/rain/gi, "breeze")
+                        .replace(/kamar yang gelap/gi, "taman yang indah")
+                        .replace(/dark room/gi, "bright natural room")
+                        .replace(/malam hari/gi, "siang hari yang asri")
+                        .replace(/malam/gi, "siang hari")
+                        .replace(/night/gi, "daytime")
+                        .replace(/moonlight/gi, "sunlight")
+                        .replace(/cahaya bulan/gi, "cahaya matahari");
+
+                    newSc.voiceover = newSc.voiceover
+                        .replace(/hujan seakan tak mau berhenti/gi, "ujian hidup seakan datang bertubi-tubi")
+                        .replace(/Hujan seakan tak mau berhenti/gi, "Ujian hidup seakan datang bertubi-tubi")
+                        .replace(/Hujan seakan/gi, "Ujian seakan")
+                        .replace(/hujan/gi, "kesulitan")
+                        .replace(/Hujan/g, "Kesulitan")
+                        .replace(/malam yang paling gelap/gi, "masa yang paling sulit")
+                        .replace(/di malam hari/gi, "di bawah langit")
+                        .replace(/sepertiga malam/gi, "heningnya kesendirian");
+
+                    newSc.prompt_audio = newSc.prompt_audio
+                        .replace(/hujan lebat/gi, "suara kicau burung pagi hari")
+                        .replace(/suara hujan/gi, "hembusan angin sepoi-sepoi")
+                        .replace(/rain/gi, "wind ambient");
+                }
+
+                // 4. Overrider Mute
+                if (isMuteRequested) {
+                    newSc.prompt_audio = "strictly no music instruments, only natural environmental ambient sound effects ( BGM: natural wind, birds chirping, or waves )";
+                }
+
+                // 5. Aturan off-screen narration kaku (no lip-sync)
+                const silenceInstruction = "bibir aktor benar-benar bungkam dan terkunci rapat, tanpa sinkronisasi batin/bibir, narasi murni suara latar belakang pengisi suara (background voiceover narration)";
+                if (!newSc.prompt_video.includes("bungkam")) {
+                    newSc.prompt_video = `${newSc.prompt_video}, ${silenceInstruction}`;
+                }
+
+                // 6. REVISI MANDAT: PENGUNCI PAKAIAN ABSOLUT DI SEMUA SCENE (TERMASUK SCENE 3)
+                // Memaksa model, detail, dan warna kain agar tidak berubah bentuk atau bergeser di generator AI
+                const clothingLock = `wajib mengenakan pakaian ${chosenClothing} yang sama persis dalam bentuk, potongan, model jahitan, dan warna seperti di Scene 1. Tidak boleh ada perubahan pakaian atau variasi busana di sepanjang adegan.`;
+                newSc.prompt_video = `${newSc.prompt_video}, ${clothingLock}`;
+
+                // Sapu sisa-sisa instruksi pakaian basah/kering bawaan yang merusak bentuk di scene 3
+                newSc.prompt_video = newSc.prompt_video
+                    .replace(/pakaian basah kuyup/gi, `pakaian ${chosenClothing} yang sama persis namun basah`)
+                    .replace(/pakaiannya mengering/gi, `pakaian ${chosenClothing} yang sama persis dalam kondisi kering sepenuhnya`);
+
+                // 7. Integrasi token karakter secara konsisten
+                newSc.prompt_video = newSc.prompt_video
+                    .replace(/\[AKTOR_UTAMA\]/g, promptActor)
+                    .replace(/\[AKTOR_SAMA\]/g, promptActorSame);
+
+                return newSc;
+            });
+        }
+
+        // --- STREAMING_CHUNK: Mengaktifkan pemanggil API ke Gemini ---
+        async function callGemini(systemPrompt, userQuery) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                generationConfig: {
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            master_concept: { type: "STRING" },
+                            scenes: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        scene_num: { type: "INTEGER" },
+                                        title: { type: "STRING" },
+                                        arab: { type: "STRING" },
+                                        latin: { type: "STRING" },
+                                        terjemahan: { type: "STRING" },
+                                        sumber: { type: "STRING" },
+                                        makna: { type: "STRING" },
+                                        voiceover: { type: "STRING" },
+                                        prompt_video: { type: "STRING" },
+                                        prompt_audio: { type: "STRING" }
+                                    },
+                                    required: ["scene_num", "title", "arab", "latin", "terjemahan", "sumber", "makna", "voiceover", "prompt_video", "prompt_audio"]
+                                }
+                            }
+                        },
+                        required: ["master_concept", "scenes"]
+                    }
+                }
+            };
+
+            let delay = 1000;
+            for (let i = 0; i < 5; i++) {
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(payload)
+                    });
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (text) {
+                        return JSON.parse(text);
+                    }
+                } catch (error) {
+                    if (i === 4) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
                 }
             }
         }
 
-        // REVISI 1 & 2: GENERATOR PROMPT AKTOR KUSTOM + SYSTEM PROMPT VOICE OVER BUKAN LIP-SYNC
-        function generateActorPrompt() {
-            const desc = document.getElementById('actor-prompt-input').value;
-            const gender = document.getElementById('actor-prompt-gender').value;
-            const resultBox = document.getElementById('actor-prompt-result');
-            const outputText = document.getElementById('actor-prompt-output');
-            
-            const regions = ["Southeast Asian", "Middle Eastern", "South Asian", "Indonesian", "Malay", "Turkish", "Levantine", "Central Asian", "North African", "Mixed Asian-Arab"];
-            const faceStructures = ["sharp jawline", "soft facial features", "oval face shape", "prominent cheekbones", "distinctive unique facial structure", "symmetrical face", "slightly asymmetrical natural face", "strong facial structure", "gentle facial expression"];
-            const eyeColors = ["dark brown eyes", "light brown eyes", "hazel eyes", "deep black eyes", "amber eyes"];
-            
-            const randomRegion = regions[Math.floor(Math.random() * regions.length)];
-            const randomFace = faceStructures[Math.floor(Math.random() * faceStructures.length)];
-            const randomEyes = eyeColors[Math.floor(Math.random() * eyeColors.length)];
-            const randomSeed = Math.floor(Math.random() * 9000000) + 1000000;
-            
-            let baseSubject = "";
-            if (gender === 'man') baseSubject = `A handsome young muslim man of ${randomRegion} descent`;
-            else if (gender === 'woman') baseSubject = `A beautiful young muslim woman of ${randomRegion} descent wearing an elegant and modest hijab`;
-            else if (gender === 'boy') baseSubject = `A cute little muslim boy of ${randomRegion} descent`;
-            else if (gender === 'girl') baseSubject = `A cute little muslim girl of ${randomRegion} descent wearing a beautiful small hijab`;
-            else if (gender === 'custom') {
-                const customVal = document.getElementById('actor-prompt-gender-custom').value;
-                baseSubject = customVal.trim() !== "" ? customVal : `A unique character of ${randomRegion} descent`;
-            }
-            
-            const detailedDesc = desc.trim() !== "" ? desc + ", " : "";
-            
-            const fullPrompt = `Ultra-realistic portrait photography of ${baseSubject}, ${detailedDesc}${randomFace}, ${randomEyes}, highly detailed face, expressive eyes, 8k resolution, cinematic lighting, photorealistic, shot on 35mm lens, depth of field, sharp focus, natural skin texture, dramatic shadow, --ar 9:16 --seed ${randomSeed}`;
-            
-            outputText.innerText = fullPrompt;
-            resultBox.classList.remove('hidden');
-        }
-
-        function copyActorPrompt() {
-            const text = document.getElementById('actor-prompt-output').innerText;
-            if(text) copyText(text);
-        }
-
-        // --- STORYBOARD GENERATION ---
-        function generateWisdom() {
+        // --- STREAMING_CHUNK: Menyusun generator storyboard utama ---
+        async function generateWisdom() {
             const btn = document.getElementById('btn-generate');
             const container = document.getElementById('gen-scenes-container');
             const theme = document.getElementById('gen-theme').value;
@@ -746,6 +868,19 @@
             let locationType = document.getElementById('gen-location').value;
             let customAction = document.getElementById('gen-custom-action').value;
             
+            // VALIDASI MANDAT: "Instruksi Khusus" WAJIB DIISI
+            if (!customAction || customAction.trim() === "") {
+                Swal.fire({
+                    title: 'Wajib Diisi!',
+                    text: 'Fitur "Instruksi Khusus" saat ini bersifat wajib. Silakan masukkan perintah alur kejadian atau aktivitas global yang Anda inginkan.',
+                    icon: 'warning',
+                    background: '#050b0a',
+                    color: '#e5e7eb',
+                    confirmButtonColor: '#047857'
+                });
+                return;
+            }
+
             if (actorType === 'custom') actorType = document.getElementById('gen-actor-custom').value;
             if (clothingType === 'custom') clothingType = document.getElementById('gen-clothing-custom').value;
             if (moodType === 'custom') moodType = document.getElementById('gen-mood-custom').value;
@@ -760,12 +895,12 @@
                 promptActorSame = "wanita muda muslimah berhijab yang sama";
             }
             else if (actorType === 'boy') {
-                promptActor = "seorang anak laki-laki muslim";
-                promptActorSame = "anak laki-laki muslim yang sama";
+                promptActor = "seorang anak laki-laki muslim kecil";
+                promptActorSame = "anak laki-laki muslim kecil yang sama";
             }
             else if (actorType === 'girl') {
-                promptActor = "seorang anak perempuan muslimah berhijab";
-                promptActorSame = "anak perempuan muslimah berhijab yang sama";
+                promptActor = "seorang anak perempuan muslimah kecil berhijab";
+                promptActorSame = "anak perempuan muslimah kecil berhijab yang sama";
             }
             else if (actorType !== 'man' && actorType.trim() !== "") {
                 promptActor = `seorang karakter (${actorType})`; 
@@ -778,127 +913,181 @@
                 promptActorSame += ` yang memakai pakaian ${clothingType}`;
             }
 
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Menyusun Storyboard...';
-            btn.disabled = true; container.innerHTML = '';
+            // REVISI MANDAT: Membuka Deep Loader 10 Detik
+            btn.disabled = true;
+            document.getElementById('gen-placeholder').classList.add('hidden');
+            document.getElementById('gen-result').classList.add('hidden');
+            
+            const loader = document.getElementById('gen-loader');
+            loader.classList.remove('hidden');
 
-            setTimeout(() => {
+            const steps = [
+                { time: 0, text: "Mengevaluasi variabel karakter & gaya pakaian...", progress: 15 },
+                { time: 2000, text: "Menghubungkan & meresapi Instruksi Khusus: \"" + customAction + "\"...", progress: 35 },
+                { time: 4000, text: "Mencari padanan dalil Al-Qur'an dan menyusun naskah 4 scene...", progress: 55 },
+                { time: 6000, text: "Merancang aturan audio senyap tanpa lip-sync dan transisi cross-fade...", progress: 75 },
+                { time: 8000, text: "Menyempurnakan dialektika naskah puitis bebas kontradiksi...", progress: 95 }
+            ];
+
+            let stepTimeouts = [];
+            steps.forEach(step => {
+                const t = setTimeout(() => {
+                    document.getElementById('loader-status').innerText = step.text;
+                    document.getElementById('loader-progress').style.width = `${step.progress}%`;
+                    document.getElementById('loader-percent').innerText = `${step.progress}%`;
+                }, step.time);
+                stepTimeouts.push(t);
+            });
+
+            // Siapkan instruksi ke Gemini API
+            const systemPrompt = `Anda adalah Sutradara & Ahli Storyboard Cinematic Islami profesional untuk "Nurani AI Studio".
+Tugas Anda adalah meracik naskah dakwah 4 adegan (Scene 1-4) yang saling berkesinambungan secara visual, emosional, dan audio.
+
+Aturan Penting & Wajib:
+1. SIKAP & AKTING KARAKTER:
+   - Bibir aktor harus benar-benar bungkam dan terkunci rapat di semua adegan (NO LIP-SYNC).
+   - Suara narasi hanya berupa pengisi suara latar (OFF-SCREEN NARRATION/VOICEOVER).
+   - Masukkan kalimat berikut di semua prompt visual: "bibir aktor benar-benar bungkam dan terkunci rapat, tanpa sinkronisasi batin/bibir, narasi murni suara latar belakang pengisi suara".
+
+2. TRANSISI CINEMATIC:
+   - Setiap adegan harus tersambung sangat halus dengan efek transisi silang (smooth cinematic cross-fade / seamless match-cut transition 1s).
+   - Masukkan instruksi transisi ini di awal prompt visual adegan 2, 3, dan 4.
+
+3. KONSISTENSI VISUAL (MASTER RULE):
+   - Karakter, pakaian, dan properti harus 100% konsisten dari adegan 1 hingga adegan 4 berdasarkan pilihan pengguna.
+
+4. VOICE OVER (8-10 DETIK):
+   - Teks voiceover harus puitis, menyentuh batin, mendalam, dalam bahasa Indonesia, dan berdurasi pas 8-10 detik jika dibaca lambat (sekitar 15-25 kata).
+   - PENTING: Voiceover harus murni refleksi puitis. JANGAN masukkan elemen instruksi visual (seperti "aktor berjalan", "kamera zoom") ke dalam teks voiceover!
+   - JANGAN gunakan kata kiasan "hujan" atau "malam" jika instruksi khusus pengguna bertema cerah (taman bunga, masjid megah, pantai siang hari). Sesuaikan kiasan dengan lokasi!
+
+5. ATURAN AUDIO BGM:
+   - Jika ada instruksi "tanpa musik", "hilangkan musik", atau "mute/silent", maka semua prompt audio harus berisi efek suara alami murni (BGM: suara angin sepoi-sepoi, deburan ombak, kicau burung) dan TIDAK BOLEH mengandung instrumen musik seperti piano, biola, gitar, atau synthesizer.
+
+6. AYAT AL-QUR'AN:
+   - Pilih ayat Al-Qur'an (Arab, Latin, Terjemahan, Sumber, dan Makna) yang sangat relevan dengan tema dan nuansa emosional adegan tersebut.`;
+
+            const userQuery = `Tema: ${theme}
+Karakter Utama: ${promptActor}
+Gaya Pakaian: ${clothingType || "kasual bawaan"}
+Suasana: ${moodType || "bawaan cerita"}
+Lokasi: ${locationType || "bawaan cerita"}
+Instruksi Khusus (Wajib Diikuti secara absolut untuk merombak total visual & voiceover): ${customAction}
+
+Buatlah storyboard 4 scene dalam format JSON yang valid sesuai dengan skema yang diminta.`;
+
+            let apiData = null;
+            let apiError = null;
+
+            // API fetch promise
+            const apiCallPromise = (async () => {
+                try {
+                    apiData = await callGemini(systemPrompt, userQuery);
+                } catch (e) {
+                    apiError = e;
+                }
+            })();
+
+            // Timer minimal 10 detik
+            const timerPromise = new Promise(resolve => setTimeout(resolve, 10000));
+
+            // Tunggu kedua proses selesai
+            await Promise.all([apiCallPromise, timerPromise]);
+
+            stepTimeouts.forEach(clearTimeout);
+            loader.classList.add('hidden');
+
+            if (apiData) {
+                // Terapkan sistem penyaring konteks dinamis langsung pada API data
+                apiData.scenes = applyEditorOverrides(apiData.scenes);
+                currentGeneratedData = apiData;
+            } else {
+                // FALLBACK CERDAS JIKA API OFF / GAGAL
                 const db = wisdomDB[theme] || wisdomDB.sabar;
                 const randomIndex = Math.floor(Math.random() * db.length);
                 const selected = JSON.parse(JSON.stringify(db[randomIndex]));
                 
-                const isChild = (actorType === 'boy' || actorType === 'girl');
-
-                let actorId = 'Seseorang';
-                if (actorType === 'woman') actorId = 'Seorang muslimah';
-                else if (actorType === 'boy') actorId = 'Seorang anak laki-laki';
-                else if (actorType === 'girl') actorId = 'Seorang anak perempuan';
-                else if (actorType === 'man') actorId = 'Seorang pemuda';
-                else if (isCustomActor) actorId = `Seseorang (${actorType})`;
-
-                selected.master_concept = selected.master_concept.replace(/Seseorang/gi, actorId);
-
-                let environmentPrefix = "";
-                if (locationType && locationType.trim() !== "") environmentPrefix += `[Lokasi: ${locationType}] `;
-                if (moodType && moodType.trim() !== "") environmentPrefix += `[Suasana: ${moodType}] `;
-
-                if (customAction && customAction.trim() !== "") {
-                    environmentPrefix += `[Instruksi Sutradara (Aktivitas): ${customAction}] `;
-                }
-
-                // REVISI 2 & 3: PENYESUAIAN VOICE OVER BUKAN LIP-SYNC DAN TRANSISI HALUS PADA PROMPT TIAP SCENE
-                selected.scenes.forEach((sc, idx) => {
-                    sc.voiceover = parseSpintax(resolveTokens(sc.voiceover, isChild));
-                    sc.prompt_video = parseSpintax(resolveTokens(sc.prompt_video, isChild));
-
-                    // Tambahkan instruksi kaku: bibir aktor tertutup & tanpa lip-sync
-                    const silenceInstruction = "the actor is completely silent, lips are closed, no lip-sync, the narration is purely background voiceover.";
-                    sc.prompt_video = `${sc.prompt_video}, ${silenceInstruction}`;
-
-                    sc.prompt_video = sc.prompt_video
-                        .replace(/\[AKTOR_UTAMA\]/g, promptActor)
-                        .replace(/\[AKTOR_SAMA\]/g, promptActorSame);
-
-                    if (environmentPrefix !== "") {
-                        sc.prompt_video = `${environmentPrefix} - ${sc.prompt_video}`;
-                    }
-                    
-                    sc.prompt_video = sc.prompt_video.replace(/  +/g, ' '); 
-                });
-
+                selected.scenes = applyEditorOverrides(selected.scenes);
                 currentGeneratedData = selected;
-                
-                selected.scenes.forEach((sc, index) => {
-                    const sceneHTML = `
-                    <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group border border-white/5 hover:border-emerald-500/30 transition-all">
-                        <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
-                            <div class="flex items-center gap-3">
-                                <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full tracking-widest shadow-lg shadow-emerald-900/50">SCENE ${sc.scene_num}</span>
-                                <h4 class="font-bold text-white tracking-wide">${sc.title}</h4>
+            }
+
+            renderStoryboard();
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Story';
+        }
+
+        function renderStoryboard() {
+            const container = document.getElementById('gen-scenes-container');
+            container.innerHTML = '';
+            
+            currentGeneratedData.scenes.forEach((sc, index) => {
+                const sceneHTML = `
+                <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group border border-white/5 hover:border-emerald-500/30 transition-all">
+                    <div class="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-emerald-600 text-white text-xs font-bold px-3 py-1 rounded-full tracking-widest shadow-lg shadow-emerald-900/50">SCENE ${sc.scene_num}</span>
+                            <h4 class="font-bold text-white tracking-wide">${sc.title}</h4>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-xs text-gray-500 font-mono hidden md:inline-block">0:08</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <button onclick="copySceneItem(${index}, 'arab')" class="text-gray-500 hover:text-emerald-400 transition-all p-2 rounded-lg bg-white/5 hover:bg-emerald-500/20 flex-shrink-0 mt-1" title="Copy Arab"><i class="fa-regular fa-copy"></i></button>
+                                <p class="font-arabic text-2xl text-gold text-right leading-loose flex-1" dir="rtl">${sc.arab}</p>
                             </div>
-                            <div class="flex items-center gap-3">
-                                <span class="text-xs text-gray-500 font-mono hidden md:inline-block">0:08</span>
+                            <div class="flex items-start justify-between gap-3">
+                                <button onclick="copySceneItem(${index}, 'latin')" class="text-gray-500 hover:text-emerald-400 transition-all p-1.5 rounded-lg bg-white/5 hover:bg-emerald-500/20 flex-shrink-0" title="Copy Latin"><i class="fa-regular fa-copy text-xs"></i></button>
+                                <p class="text-xs text-gray-400 italic text-right flex-1">${sc.latin}</p>
+                            </div>
+                            <div class="flex items-start justify-between gap-3">
+                                <button onclick="copySceneItem(${index}, 'terjemahan')" class="text-gray-500 hover:text-emerald-400 transition-all p-1.5 rounded-lg bg-white/5 hover:bg-emerald-500/20 flex-shrink-0" title="Copy Terjemahan"><i class="fa-regular fa-copy text-xs"></i></button>
+                                <p class="text-sm text-gray-300 font-medium text-right flex-1">"${sc.terjemahan}"</p>
+                            </div>
+                            <div class="bg-black/30 p-3 rounded-xl border border-white/5 mt-4 relative">
+                                <button onclick="copySceneItem(${index}, 'sumber')" class="absolute top-2 right-2 text-gray-500 hover:text-emerald-400 transition-all p-1.5 rounded-md bg-white/5 hover:bg-emerald-500/20" title="Copy Sumber"><i class="fa-regular fa-copy text-xs"></i></button>
+                                <p class="text-xs text-emerald-400 font-bold mb-1 pr-8">${sc.sumber}</p>
+                                <p class="text-xs text-gray-400 pr-8">${sc.makna}</p>
+                            </div>
+                            <div class="flex gap-2 mt-3">
+                                <button onclick="copySceneItem(${index}, 'full')" class="flex-1 text-xs text-emerald-500 hover:text-white border border-emerald-900 hover:border-emerald-500/50 py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 bg-emerald-900/10 hover:bg-emerald-900/30 font-medium" title="Copy Teks Scene Lengkap">
+                                    <i class="fa-regular fa-copy"></i> Copy Lengkap
+                                </button>
+                                <button onclick="sendSingleSceneToOverlay(${index})" class="flex-1 text-xs text-purple-400 hover:text-white border border-purple-900 hover:border-purple-500/50 py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 bg-purple-900/10 hover:bg-purple-900/30 font-medium" title="Kirim hanya scene ini ke Overlay Studio">
+                                    <i class="fa-solid fa-share-from-square"></i> Ke Overlay
+                                </button>
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-3">
-                                <div class="flex items-start justify-between gap-3">
-                                    <button onclick="copySceneItem(${index}, 'arab')" class="text-gray-500 hover:text-emerald-400 transition-all p-2 rounded-lg bg-white/5 hover:bg-emerald-500/20 flex-shrink-0 mt-1" title="Copy Arab"><i class="fa-regular fa-copy"></i></button>
-                                    <p class="font-arabic text-2xl text-gold text-right leading-loose flex-1" dir="rtl">${sc.arab}</p>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-[10px] text-gray-500 font-bold tracking-widest block"><i class="fa-solid fa-microphone-lines text-purple-400"></i> VOICE OVER (KARAOKE)</label>
+                                    <button onclick="copySceneItem(${index}, 'voiceover')" class="text-[10px] text-gray-500 hover:text-purple-400 transition-all px-2 py-1 rounded-md bg-white/5 hover:bg-purple-500/20 flex items-center gap-1" title="Copy Teks Voice Over"><i class="fa-regular fa-copy"></i> Copy VO</button>
                                 </div>
-                                <div class="flex items-start justify-between gap-3">
-                                    <button onclick="copySceneItem(${index}, 'latin')" class="text-gray-500 hover:text-emerald-400 transition-all p-1.5 rounded-lg bg-white/5 hover:bg-emerald-500/20 flex-shrink-0" title="Copy Latin"><i class="fa-regular fa-copy text-xs"></i></button>
-                                    <p class="text-xs text-gray-400 italic text-right flex-1">${sc.latin}</p>
-                                </div>
-                                <div class="flex items-start justify-between gap-3">
-                                    <button onclick="copySceneItem(${index}, 'terjemahan')" class="text-gray-500 hover:text-emerald-400 transition-all p-1.5 rounded-lg bg-white/5 hover:bg-emerald-500/20 flex-shrink-0" title="Copy Terjemahan"><i class="fa-regular fa-copy text-xs"></i></button>
-                                    <p class="text-sm text-gray-300 font-medium text-right flex-1">"${sc.terjemahan}"</p>
-                                </div>
-                                <div class="bg-black/30 p-3 rounded-xl border border-white/5 mt-4 relative">
-                                    <button onclick="copySceneItem(${index}, 'sumber')" class="absolute top-2 right-2 text-gray-500 hover:text-emerald-400 transition-all p-1.5 rounded-md bg-white/5 hover:bg-emerald-500/20" title="Copy Sumber"><i class="fa-regular fa-copy text-xs"></i></button>
-                                    <p class="text-xs text-emerald-400 font-bold mb-1 pr-8">${sc.sumber}</p>
-                                    <p class="text-xs text-gray-400 pr-8">${sc.makna}</p>
-                                </div>
-                                <div class="flex gap-2 mt-3">
-                                    <button onclick="copySceneItem(${index}, 'full')" class="flex-1 text-xs text-emerald-500 hover:text-white border border-emerald-900 hover:border-emerald-500/50 py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 bg-emerald-900/10 hover:bg-emerald-900/30 font-medium" title="Copy Teks Scene Lengkap">
-                                        <i class="fa-regular fa-copy"></i> Copy Lengkap
-                                    </button>
-                                    <button onclick="sendSingleSceneToOverlay(${index})" class="flex-1 text-xs text-purple-400 hover:text-white border border-purple-900 hover:border-purple-500/50 py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 bg-purple-900/10 hover:bg-purple-900/30 font-medium" title="Kirim hanya scene ini ke Overlay Studio">
-                                        <i class="fa-solid fa-share-from-square"></i> Ke Overlay
-                                    </button>
-                                </div>
+                                <p class="text-sm text-white bg-purple-900/20 p-3 rounded-xl border border-purple-500/20 leading-relaxed italic">"${sc.voiceover}"</p>
                             </div>
-
-                            <div class="space-y-4">
-                                <div>
-                                    <div class="flex justify-between items-center mb-1">
-                                        <label class="text-[10px] text-gray-500 font-bold tracking-widest block"><i class="fa-solid fa-microphone-lines text-purple-400"></i> VOICE OVER (KARAOKE)</label>
-                                        <button onclick="copySceneItem(${index}, 'voiceover')" class="text-[10px] text-gray-500 hover:text-purple-400 transition-all px-2 py-1 rounded-md bg-white/5 hover:bg-purple-500/20 flex items-center gap-1" title="Copy Teks Voice Over"><i class="fa-regular fa-copy"></i> Copy VO</button>
-                                    </div>
-                                    <p class="text-sm text-white bg-purple-900/20 p-3 rounded-xl border border-purple-500/20 leading-relaxed italic">"${sc.voiceover}"</p>
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-[10px] text-gray-500 font-bold tracking-widest block"><i class="fa-solid fa-video text-blue-400"></i> VISUAL PROMPT</label>
+                                    <button onclick="copySceneItem(${index}, 'prompt')" class="text-[10px] text-gray-500 hover:text-blue-400 transition-all px-2 py-1 rounded-md bg-white/5 hover:bg-blue-500/20 flex items-center gap-1" title="Copy Prompt Video"><i class="fa-regular fa-copy"></i> Copy Prompt</button>
                                 </div>
-                                <div>
-                                    <div class="flex justify-between items-center mb-1">
-                                        <label class="text-[10px] text-gray-500 font-bold tracking-widest block"><i class="fa-solid fa-video text-blue-400"></i> VISUAL PROMPT</label>
-                                        <button onclick="copySceneItem(${index}, 'prompt')" class="text-[10px] text-gray-500 hover:text-blue-400 transition-all px-2 py-1 rounded-md bg-white/5 hover:bg-blue-500/20 flex items-center gap-1" title="Copy Prompt Video"><i class="fa-regular fa-copy"></i> Copy Prompt</button>
-                                    </div>
-                                    <p class="text-[11px] text-gray-400 leading-relaxed bg-black/20 p-2.5 rounded-xl border border-white/5">${sc.prompt_video}</p>
-                                </div>
-                                <div>
-                                    <label class="text-[10px] text-gray-500 font-bold tracking-widest mb-1 block"><i class="fa-solid fa-music text-orange-400"></i> AUDIO AMBIENCE</label>
-                                    <p class="text-[11px] text-gray-400 leading-relaxed bg-black/20 p-2.5 rounded-xl border border-white/5">${sc.prompt_audio}</p>
-                                </div>
+                                <p class="text-[11px] text-gray-400 leading-relaxed bg-black/20 p-2.5 rounded-xl border border-white/5">${sc.prompt_video}</p>
+                            </div>
+                            <div>
+                                <label class="text-[10px] text-gray-500 font-bold tracking-widest mb-1 block"><i class="fa-solid fa-music text-orange-400"></i> AUDIO AMBIENCE</label>
+                                <p class="text-[11px] text-gray-400 leading-relaxed bg-black/20 p-2.5 rounded-xl border border-white/5">${sc.prompt_audio}</p>
                             </div>
                         </div>
-                    </div>`;
-                    container.innerHTML += sceneHTML;
-                });
+                    </div>
+                </div>`;
+                container.innerHTML += sceneHTML;
+            });
 
-                document.getElementById('gen-placeholder').classList.add('hidden');
-                document.getElementById('gen-result').classList.remove('hidden');
-                btn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Generate Story';
-                btn.disabled = false;
-            }, 800); 
+            document.getElementById('gen-result').classList.remove('hidden');
         }
 
         function autoVideoPrompt() { 
@@ -908,12 +1097,17 @@
             generateCinematicPrompt();
         }
 
-        // --- PROMPT OUTPUT DALAM BAHASA INDONESIA ---
-        // REVISI 2 & 3: TAMBAHKAN SISTEM PENGAWAS VOICE OVER (NO LIP SYNC) DAN CINEMATIC TRANSITION
+        // --- STREAMING_CHUNK: Menyusun naskah prompt video sinematik dalam Bahasa Indonesia ---
         function generateCinematicPrompt() { 
             if(!currentGeneratedData) return;
+            
+            // Lakukan override naskah secara dinamis tepat sebelum di-display
+            currentGeneratedData.scenes = applyEditorOverrides(currentGeneratedData.scenes);
+
             const master = document.getElementById('prompt-base').value;
             const ratio = document.getElementById('prompt-ratio').value;
+            let actorType = document.getElementById('gen-actor').value;
+            if (actorType === 'custom') actorType = document.getElementById('gen-actor-custom').value;
             
             const magicKeywords = "ultra realistis, detail sinematik 8K, pergerakan alami, komposisi film profesional, pencahayaan realistis, suasana sinematik";
             
@@ -923,10 +1117,13 @@
             const masterRule = `[ATURAN KONSISTENSI KARAKTER (MASTER RULE)]:\nKunci wajah, postur, dan pakaian karakter agar 100% konsisten persis seperti di Scene 1 sampai Scene 4 ini. Jangan ubah orangnya, jangan ubah jenis pakaiannya. Rasio aspek ${ratio}.`;
             const audioRule = `[ATURAN AUDIO BGM & TRANSISI (MASTER AUDIO RULE)]:\nGunakan aliran/instrumen Soundtrack BGM yang SAMA persis dari awal Scene 1 hingga Scene 4 agar musiknya nyambung.\nWajib terapkan efek perlahan masuk (FADE-IN 1 detik) di awal setiap scene, dan perlahan mereda/menghilang (FADE-OUT 1 detik) di akhir scene agar transisi antar scene sangat halus/indah.`;
             const lipsRule = `[ATURAN AKTING AKTOR (ACTOR PERFORMANCE RULE)]:\nBibir aktor harus tetap bungkam dan terkunci rapat di semua scene (NO LIP-SYNC). Suara narasi hanya berupa suara pengisi suara latar (OFF-SCREEN NARRATION/VOICEOVER).`;
-            const transitionRule = `[ATURAN TRANSISI VIDEO (CINEMATIC TRANSITION RULE)]:\nTransisi video antar adegan (Scene 1 ke 2, 2 ke 3, 3 ke 4) harus berjalan sangat mulus menggunakan efek transisi silang sinematik (smooth cinematic cross-fade / match-cut transition 1 detik) untuk menghindari potongan gambar yang kasar.`;
+            const transitionRule = `[ATURAN TRANSISI VIDEO (CINEMATIC TRANSITION RULE)]:\nTransisi video antar adegan (Scene 1 ke 2, 2 ke 3, 3 ke 4) harus berjalan sangat mulus menggunakan efek transisi silang sinematik (smooth cinematic cross-fade / match-cut transition 1s) untuk menghindari potongan gambar yang kasar.`;
+
+            // REVISI MANDAT: DETEKSI DAN ATUR SUARA PENGISI SUARA SECARA UTUH
+            const voiceType = getVoiceOverSpec(actorType);
 
             currentGeneratedData.scenes.forEach((sc, index) => {
-                const promptText = `${masterRule}\n${audioRule}\n${lipsRule}\n${transitionRule}\n\n==============\n[ADEGAN ${sc.scene_num} - ${sc.title}]\n==============\n[PROMPT VISUAL]\n${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\n[PROMPT AUDIO (SFX & VOICEOVER)]\n- Suasana BGM (Fade In 1s, Fade Out 1s): ${sc.prompt_audio}\n- Narasi Voiceover (Wajib Dibaca sebagai pengisi suara latar): "${sc.voiceover}"`;
+                const promptText = `${masterRule}\n${audioRule}\n${lipsRule}\n${transitionRule}\n\n==============\n[ADEGAN ${sc.scene_num} - ${sc.title}]\n==============\n[PROMPT VISUAL]\n${sc.prompt_video}, ${magicKeywords}, ${ratio}\n\n[PROMPT AUDIO (SFX & VOICEOVER)]\n- Suasana BGM (Fade In 1s, Fade Out 1s): ${sc.prompt_audio}\n- Pengisi Suara Spesifik (Wajib): ${voiceType}\n- Narasi Voiceover (Wajib Dibaca sebagai pengisi suara latar): "${sc.voiceover}"`;
                 
                 const cardHTML = `
                 <div class="bg-black/50 p-4 rounded-xl border border-white/5 relative fade-in group hover:border-blue-500/30 transition-all">
@@ -947,7 +1144,7 @@
             if(text) copyText(text);
         }
 
-        // --- OVERLAY STUDIO ---
+        // --- STREAMING_CHUNK: Mengatur overlay studio & integrasi canvas ---
         function sendSingleSceneToOverlay(sceneIndex) {
             const scene = currentGeneratedData.scenes[sceneIndex];
             
